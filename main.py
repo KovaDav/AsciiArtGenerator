@@ -1,4 +1,5 @@
 import PIL.Image
+import html
 
 def main():
     path = input("Enter the path to the image : \n")
@@ -98,18 +99,19 @@ def pixel_array_row_creator(pixel_array):
 
 def pixel_array_extender(pixel_array):
 
-    for i in range(0, (len(pixel_array) % 4)):
+    for i in range(0, (4-(len(pixel_array) % 4))):
         pixel_array.append(pixel_array_row_creator(pixel_array))
 
-    if len(pixel_array) % 2 != 0:
+    if len(pixel_array[0]) % 2 != 0:
         for row in pixel_array:
             row.append(0)
 
+    return pixel_array
 
-def binary_array_creator(braille_array):
+def binary_array_creator(pixel_array):
 
     binary_array = []
-    for pixel in braille_array:
+    for pixel in pixel_array:
         if pixel < 128:
             binary_array.append(0)
         elif pixel >= 128:
@@ -117,16 +119,15 @@ def binary_array_creator(braille_array):
 
     return binary_array
 
-
 def braille_character_printer(binary_array):
 
     unicode_array = [1,2,4,40,8,10,20,80]
-    unicode = 2800
+    html_entity = 10240
     for i in range(0, 8):
         if binary_array[i] == 0:
-            unicode += unicode_array[i]
+            html_entity += unicode_array[i]
 
-    return unicode
+    return html_entity
 
 
 def pixel_array_divider(pixel_array):
