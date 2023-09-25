@@ -23,7 +23,6 @@ def main():
         pixels = image.getdata()
         pixel_array = create_pixel_array(image,pixels)
 
-
 ASCII_CHARS = ["@", "#", "%", "?", "*", "+", "!", ";", ":", ",", "`"]
 
 BRAILLE_CHARS = [
@@ -45,26 +44,35 @@ BRAILLE_CHARS = [
   '⣰', '⣱', '⣲', '⣳', '⣴', '⣵', '⣶', '⣷', '⣸', '⣹', '⣺', '⣻', '⣼', '⣽', '⣾', '⣿'
 ]
 
-def resize(image, new_width = 50):
+
+def resize(image, new_width=50):
+
     width, height = image.size
     new_height = new_width * height / width
     return image.resize((int(new_width), int(new_height)))
 
+
 def to_greyscale(image):
     return image.convert("L")
 
+
 def pixel_to_ascii(image):
+
     pixels = image.getdata()
-    ascii_str = "";
+    ascii_str = ""
     for pixel in pixels:
         ascii_str += ASCII_CHARS[pixel//25];
         ascii_str += ASCII_CHARS[pixel//25];
+
     return ascii_str
 
+
 def create_pixel_array(image, pixels):
+
     pixel_array = []
-    row = 0;
-    column = 1;
+    row = 0
+    column = 1
+
     for i in range(0, int(image.height)):
         pixel_array += [],
     print(image.width)
@@ -76,10 +84,12 @@ def create_pixel_array(image, pixels):
             column = 1
         pixel_array[row].append(pixel)
         column += 1
+
     return pixel_array
 
 
 def pixel_array_row_creator(pixel_array):
+
     black_row = []
     for i in range(0, len(pixel_array[0])):
         black_row.append(0)
@@ -88,7 +98,7 @@ def pixel_array_row_creator(pixel_array):
 
 def pixel_array_extender(pixel_array):
 
-    for i in range(0, (len(pixel_array) % 8)):
+    for i in range(0, (len(pixel_array) % 4)):
         pixel_array.append(pixel_array_row_creator(pixel_array))
 
     if len(pixel_array) % 2 != 0:
@@ -96,7 +106,32 @@ def pixel_array_extender(pixel_array):
             row.append(0)
 
 
+def binary_array_creator(braille_array):
 
+    binary_array = []
+    for pixel in braille_array:
+        if pixel < 128:
+            binary_array.append(0)
+        elif pixel >= 128:
+            binary_array.append(1)
+
+    return binary_array
+
+
+def braille_character_printer(binary_array):
+
+    unicode_array = [1,2,4,40,8,10,20,80]
+    unicode = 2800
+    for i in range(0, 8):
+        if binary_array[i] == 0:
+            unicode += unicode_array[i]
+
+    return unicode
+
+
+def pixel_array_divider(pixel_array):
+
+    binary_array_container = []
 
 
 
