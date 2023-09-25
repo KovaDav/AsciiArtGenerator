@@ -21,22 +21,7 @@ def main():
     else:
         image = to_greyscale(image)
         pixels = image.getdata()
-        array = []
-        row = 0;
-
-        for i in range(0, int(image.height)):
-            array += [""]
-
-        array[0][0] += "asd"
-        print(array)
-        return
-
-        for pixel in pixels:
-            for i in range(1, image.width*image.height):
-                if(i % image.width == 0):
-                    row += 1
-                array[row] += str(pixel)
-        print(array)
+        pixel_array = create_pixel_array(image,pixels)
 
 
 ASCII_CHARS = ["@", "#", "%", "?", "*", "+", "!", ";", ":", ",", "`"]
@@ -75,6 +60,24 @@ def pixel_to_ascii(image):
         ascii_str += ASCII_CHARS[pixel//25];
         ascii_str += ASCII_CHARS[pixel//25];
     return ascii_str
+
+def create_pixel_array(image, pixels):
+    pixel_array = []
+    row = 0;
+    column = 1;
+    for i in range(0, int(image.height)):
+        pixel_array += [],
+    print(image.width)
+    print(pixel_array)
+
+    for pixel in pixels:
+        if column % (image.width + 1) == 0:
+            row += 1
+            column = 1
+        pixel_array[row].append(pixel)
+        column += 1
+    return pixel_array
+
 
 
 main()
