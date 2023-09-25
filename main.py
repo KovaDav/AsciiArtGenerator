@@ -4,13 +4,19 @@ def main():
     path = input("Enter the path to the image : \n")
     try:
         image = PIL.Image.open(path)
-        image = resize(image)
-        image = to_greyscale(image)
-        pixels = image.getdata()
 
     except:
         print(path, "Unable to find image ");
 
+    image = resize(image)
+    image = to_greyscale(image)
+    ascii_string = pixel_to_ascii(image)
+    ascii_img = ""
+
+    for i in range(0, len(ascii_string), image.width):
+        ascii_img += ascii_string[i:i+image.width] + "\n"
+
+    print(ascii_img)
 
 
 ASCII_CHARS = ["@", "#", "$", "%", "?", "*", "+", ";", ":", ",", "."]
@@ -22,5 +28,13 @@ def resize(image, new_width = 100):
 
 def to_greyscale(image):
     return image.convert("L")
+
+def pixel_to_ascii(image):
+    pixels = image.getdata()
+    ascii_str = "";
+    for pixel in pixels:
+        ascii_str += ASCII_CHARS[pixel//25];
+    return ascii_str
+
 
 main()
