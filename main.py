@@ -79,5 +79,25 @@ def create_pixel_array(image, pixels):
     return pixel_array
 
 
+def pixel_array_row_creator(pixel_array):
+    black_row = []
+    for i in range(0, len(pixel_array[0])):
+        black_row.append(0)
+    return black_row
+
+
+def pixel_array_extender(pixel_array):
+
+    for i in range(0, (len(pixel_array) % 8)):
+        pixel_array.append(pixel_array_row_creator(pixel_array))
+
+    if len(pixel_array) % 2 != 0:
+        for row in pixel_array:
+            row.append(0)
+
+
+
+
+
 
 main()
