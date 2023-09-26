@@ -24,7 +24,7 @@ def main():
         pixels = image.getdata()
         pixel_array = create_pixel_array(image,pixels)
 
-ASCII_CHARS = ["@", "#", "%", "?", "*", "+", "!", ";", ":", ",", "`"]
+ASCII_CHARS = ["@", "#", "$", "%", "?", "*", "+", ";", ":", ",", "."]
 
 BRAILLE_CHARS = [
   '⠀', '⠁', '⠂', '⠃', '⠄', '⠅', '⠆', '⠇', '⠈', '⠉', '⠊', '⠋', '⠌', '⠍', '⠎', '⠏',
@@ -62,8 +62,8 @@ def pixel_to_ascii(image):
     pixels = image.getdata()
     ascii_str = ""
     for pixel in pixels:
-        ascii_str += ASCII_CHARS[pixel//25];
-        ascii_str += ASCII_CHARS[pixel//25];
+        ascii_str += ASCII_CHARS[(pixel//25)];
+        ascii_str += ASCII_CHARS[(pixel//25)];
 
     return ascii_str
 
@@ -121,7 +121,7 @@ def binary_array_creator(pixel_array):
 
 def braille_character_printer(binary_array):
 
-    unicode_array = [1,2,4,40,8,10,20,80]
+    unicode_array = [1,8,2,10,4,20,40,80]
     html_entity = 10240
     for i in range(0, 8):
         if binary_array[i] == 0:
@@ -133,7 +133,15 @@ def braille_character_printer(binary_array):
 def pixel_array_divider(pixel_array):
 
     binary_array_container = []
-
-
+    for r in range(0, len(pixel_array), 4):
+        for c in range(0, len(pixel_array[0]), 2):
+            counter = 0
+            row = r
+            while counter != 3:
+                binary_array_container.append(pixel_array[row][c])
+                binary_array_container.append(pixel_array[row][c+1])
+                row += 1
+                counter += 1
+    return binary_array_container
 
 main()
