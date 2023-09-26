@@ -135,12 +135,12 @@ def binary_array_creator(pixel_array):
 
 def braille_character_printer(binary_array):
 
-    unicode_array = [1,8,2,10,4,20,40,80]
+    html_entity_array = [1,8,2,16,4,32,64,128]
     html_entity = 10240
     print(binary_array)
     for i in range(0, 8):
         if binary_array[0][i] == 0:
-            html_entity += unicode_array[i]
+            html_entity += html_entity_array[i]
 
     return html.unescape("&#"+str(html_entity))
 
