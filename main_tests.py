@@ -16,5 +16,12 @@ class TestMain(unittest.TestCase):
     def test_pixel_array_extender(self):
         pixel_array = [[1,1,1,1,1], [1,1,1,1,1], [1,1,1,1,1]]
         self.assertEqual(main.pixel_array_extender(pixel_array), [[1,1,1,1,1,0], [1,1,1,1,1,0], [1,1,1,1,1,0], [0,0,0,0,0,0]])
+
+    def test_pixel_array_divider(self):
+        pixel_array = [[1,1,0,1,1,0], [1,0,1,0,1,0], [0,1,0,1,0,0], [0,0,0,0,0,0]]
+        self.assertEqual(main.pixel_array_divider(pixel_array), [1,1,1,0,0,1,0,0,0,1,1,0,0,1,0,0,1,0,1,0,0,0,0,0])
+
+
+
 if __name__ == '__main__':
     unittest.main()
