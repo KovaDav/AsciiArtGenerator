@@ -20,45 +20,26 @@ def main():
             ascii_img += ascii_string[i:i+image.width*2] + "\n"
         print(ascii_img)
     else:
-        ##image = resize(image)
+        image = resize(image)
         image = to_greyscale(image)
         pixels = image.getdata()
         pixel_array = create_pixel_array(image,pixels)
         extended_pixel_array = pixel_array_extender(pixel_array)
-        print(len(extended_pixel_array[0]))
-        print(len(extended_pixel_array))
         binary_array = binary_array_creator(extended_pixel_array)
         binary_array_container = pixel_array_divider(binary_array)
-        braille_string = braille_string_creator(binary_array_container, len(pixel_array))
-        print(braille_string)
+        braille_string = braille_string_creator(binary_array_container, len(extended_pixel_array[0]))
 
+        print(braille_string)
+        print(len(braille_string))
 
 ASCII_CHARS = ["@", "#", "$", "%", "?", "*", "+", ";", ":", ",", "."]
 
-BRAILLE_CHARS = [
-  '⠀', '⠁', '⠂', '⠃', '⠄', '⠅', '⠆', '⠇', '⠈', '⠉', '⠊', '⠋', '⠌', '⠍', '⠎', '⠏',
-  '⠐', '⠑', '⠒', '⠓', '⠔', '⠕', '⠖', '⠗', '⠘', '⠙', '⠚', '⠛', '⠜', '⠝', '⠞', '⠟',
-  '⠠', '⠡', '⠢', '⠣', '⠤', '⠥', '⠦', '⠧', '⠨', '⠩', '⠪', '⠫', '⠬', '⠭', '⠮', '⠯',
-  '⠰', '⠱', '⠲', '⠳', '⠴', '⠵', '⠶', '⠷', '⠸', '⠹', '⠺', '⠻', '⠼', '⠽', '⠾', '⠿',
-  '⡀', '⡁', '⡂', '⡃', '⡄', '⡅', '⡆', '⡇', '⡈', '⡉', '⡊', '⡋', '⡌', '⡍', '⡎', '⡏',
-  '⡐', '⡑', '⡒', '⡓', '⡔', '⡕', '⡖', '⡗', '⡘', '⡙', '⡚', '⡛', '⡜', '⡝', '⡞', '⡟',
-  '⡠', '⡡', '⡢', '⡣', '⡤', '⡥', '⡦', '⡧', '⡨', '⡩', '⡪', '⡫', '⡬', '⡭', '⡮', '⡯',
-  '⡰', '⡱', '⡲', '⡳', '⡴', '⡵', '⡶', '⡷', '⡸', '⡹', '⡺', '⡻', '⡼', '⡽', '⡾', '⡿',
-  '⢀', '⢁', '⢂', '⢃', '⢄', '⢅', '⢆', '⢇', '⢈', '⢉', '⢊', '⢋', '⢌', '⢍', '⢎', '⢏',
-  '⢐', '⢑', '⢒', '⢓', '⢔', '⢕', '⢖', '⢗', '⢘', '⢙', '⢚', '⢛', '⢜', '⢝', '⢞', '⢟',
-  '⢠', '⢡', '⢢', '⢣', '⢤', '⢥', '⢦', '⢧', '⢨', '⢩', '⢪', '⢫', '⢬', '⢭', '⢮', '⢯',
-  '⢰', '⢱', '⢲', '⢳', '⢴', '⢵', '⢶', '⢷', '⢸', '⢹', '⢺', '⢻', '⢼', '⢽', '⢾', '⢿',
-  '⣀', '⣁', '⣂', '⣃', '⣄', '⣅', '⣆', '⣇', '⣈', '⣉', '⣊', '⣋', '⣌', '⣍', '⣎', '⣏',
-  '⣐', '⣑', '⣒', '⣓', '⣔', '⣕', '⣖', '⣗', '⣘', '⣙', '⣚', '⣛', '⣜', '⣝', '⣞', '⣟',
-  '⣠', '⣡', '⣢', '⣣', '⣤', '⣥', '⣦', '⣧', '⣨', '⣩', '⣪', '⣫', '⣬', '⣭', '⣮', '⣯',
-  '⣰', '⣱', '⣲', '⣳', '⣴', '⣵', '⣶', '⣷', '⣸', '⣹', '⣺', '⣻', '⣼', '⣽', '⣾', '⣿'
-]
 
-
-def resize(image, new_width=50):
+def resize(image, new_width=100):
 
     width, height = image.size
     new_height = new_width * height / width
+    print(new_height)
     return image.resize((int(new_width), int(new_height)))
 
 
@@ -81,18 +62,17 @@ def create_pixel_array(image, pixels):
 
     pixel_array = []
     row = 0
-    column = 1
+    column = 0
 
     for i in range(0, int(image.height)):
         pixel_array += [],
 
     for pixel in pixels:
-        if column % (image.width + 1) == 0:
+        if column == image.width:
             row += 1
-            column = 1
+            column = 0
         pixel_array[row].append(pixel)
         column += 1
-
     return pixel_array
 
 
@@ -141,6 +121,8 @@ def braille_character_printer(binary_array):
     for i in range(0, 8):
         if binary_array[0][i] == 0:
             html_entity += html_entity_array[i]
+    # if html_entity == 10240:
+    #     return "\u2800"
 
     return html.unescape("&#"+str(html_entity))
 
@@ -149,7 +131,7 @@ def pixel_array_divider(pixel_array):
 
     binary_array_container = []
     for r in range(0, len(pixel_array), 4):
-        for c in range(0, len(pixel_array[0]), 2):
+        for c in range(0, len(pixel_array[r]), 2):
             counter = 0
             row = r
             while counter != 4:
@@ -164,12 +146,18 @@ def braille_string_creator(binary_array_container, width):
     braille_string = ""
     counter = 0
     for i in range(0, len(binary_array_container), 8):
-        counter += 1
-        if counter == 100:
+        if counter == (width/2):
             braille_string += "\n"
             counter = 0
         braille_string += braille_character_printer([binary_array_container[i:i + 8]])
+        counter += 1
     print(len(braille_string))
     return braille_string
 
+
 main()
+asd = "⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⡀⠉⢉⣷⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿"
+asd2 = "⣷⣤⣤⣔⣶⣄⠀⠀⢀⡀⠀⠀⠀⠀⠀⠀⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⢀⣹⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⣄⣤⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠"
+print(len(asd))
+print(len(asd2))
+print(html.unescape("&#10240") == "⠀")
