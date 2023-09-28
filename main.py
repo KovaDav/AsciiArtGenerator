@@ -10,8 +10,10 @@ def main():
         print(path, "Unable to find image ");
         return
 
+    width = int(input("What should be the image width?"))
+
     if(input("Braille or Ascii?") == "a"):
-        image = resize(image)
+        image = resize(image,width)
         image = to_greyscale(image)
         ascii_string = pixel_to_ascii(image)
         ascii_img = ""
@@ -19,8 +21,9 @@ def main():
         for i in range(0, len(ascii_string), image.width*2):
             ascii_img += ascii_string[i:i+image.width*2] + "\n"
         print(ascii_img)
+        print("Use monospaceTypewriter font for it.")
     else:
-        image = resize(image)
+        image = resize(image,width)
         image = to_greyscale(image)
         pixels = image.getdata()
         pixel_array = create_pixel_array(image,pixels)
@@ -30,16 +33,15 @@ def main():
         braille_string = braille_string_creator(binary_array_container, len(extended_pixel_array[0]))
 
         print(braille_string)
-        print(len(braille_string))
+        print("Use BlistaBraille font for it.")
 
 ASCII_CHARS = ["@", "#", "$", "%", "?", "*", "+", ";", ":", ",", "."]
 
 
-def resize(image, new_width=100):
+def resize(image, new_width):
 
     width, height = image.size
     new_height = new_width * height / width
-    print(new_height)
     return image.resize((int(new_width), int(new_height)))
 
 
@@ -80,7 +82,7 @@ def pixel_array_row_creator(pixel_array):
 
     black_row = []
     for i in range(0, len(pixel_array[0])):
-        black_row.append(0)
+        black_row.append(1)
     return black_row
 
 
@@ -91,7 +93,7 @@ def pixel_array_extender(pixel_array):
 
     if len(pixel_array[0]) % 2 != 0:
         for row in pixel_array:
-            row.append(0)
+            row.append(1)
 
     return pixel_array
 
@@ -117,12 +119,9 @@ def braille_character_printer(binary_array):
 
     html_entity_array = [1,8,2,16,4,32,64,128]
     html_entity = 10240
-    print(binary_array)
     for i in range(0, 8):
         if binary_array[0][i] == 0:
             html_entity += html_entity_array[i]
-    # if html_entity == 10240:
-    #     return "\u2800"
 
     return html.unescape("&#"+str(html_entity))
 
@@ -151,13 +150,9 @@ def braille_string_creator(binary_array_container, width):
             counter = 0
         braille_string += braille_character_printer([binary_array_container[i:i + 8]])
         counter += 1
-    print(len(braille_string))
     return braille_string
 
 
+
 main()
-asd = "⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⡀⠉⢉⣷⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿"
-asd2 = "⣷⣤⣤⣔⣶⣄⠀⠀⢀⡀⠀⠀⠀⠀⠀⠀⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⢀⣹⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⣄⣤⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠"
-print(len(asd))
-print(len(asd2))
-print(html.unescape("&#10240") == "⠀")
+
