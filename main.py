@@ -1,6 +1,7 @@
 import PIL.Image
 import html
 
+
 def main():
     path = input("Enter the path to the image : \n")
     try:
@@ -12,7 +13,7 @@ def main():
 
     width = int(input("What should be the image width?"))
 
-    if(input("Braille or Ascii?") == "a"):
+    if input("Braille or Ascii?") == "a":
         image = resize(image,width)
         image = to_greyscale(image)
         ascii_string = pixel_to_ascii(image)
@@ -34,6 +35,7 @@ def main():
 
         print(braille_string)
         print("Use BlistaBraille font for it.")
+
 
 ASCII_CHARS = ["@", "#", "$", "%", "?", "*", "+", ";", ":", ",", "."]
 
@@ -80,10 +82,10 @@ def create_pixel_array(image, pixels):
 
 def pixel_array_row_creator(pixel_array):
 
-    black_row = []
+    white_row = []
     for i in range(0, len(pixel_array[0])):
-        black_row.append(1)
-    return black_row
+        white_row.append(255)
+    return white_row
 
 
 def pixel_array_extender(pixel_array):
@@ -93,7 +95,7 @@ def pixel_array_extender(pixel_array):
 
     if len(pixel_array[0]) % 2 != 0:
         for row in pixel_array:
-            row.append(1)
+            row.append(255)
 
     return pixel_array
 
@@ -117,7 +119,7 @@ def binary_array_creator(pixel_array):
 
 def braille_character_printer(binary_array):
 
-    html_entity_array = [1,8,2,16,4,32,64,128]
+    html_entity_array = [1, 8, 2, 16, 4, 32, 64, 128]
     html_entity = 10240
     for i in range(0, 8):
         if binary_array[0][i] == 0:
@@ -151,7 +153,6 @@ def braille_string_creator(binary_array_container, width):
         braille_string += braille_character_printer([binary_array_container[i:i + 8]])
         counter += 1
     return braille_string
-
 
 
 main()
