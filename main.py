@@ -6,9 +6,8 @@ def main():
     path = input("Enter the path to the image : \n")
     try:
         image = PIL.Image.open(path)
-
     except:
-        print(path, "Unable to find image ");
+        print(path, "Unable to find image ")
         return
 
     width = int(input("What should be the image width?"))
@@ -27,7 +26,7 @@ def main():
         image = resize(image,width)
         image = to_greyscale(image)
         pixels = image.getdata()
-        pixel_array = create_pixel_array(image,pixels)
+        pixel_array = create_pixel_array(image, pixels)
         extended_pixel_array = pixel_array_extender(pixel_array)
         binary_array = binary_array_creator(extended_pixel_array)
         binary_array_container = pixel_array_divider(binary_array)
