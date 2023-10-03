@@ -1,38 +1,57 @@
-// Importing modules
-import React, { useState, useEffect } from "react";
-import "./App.css";
- 
-function App() {
-    // usestate for setting a javascript
-    // object for storing and using data
-    const [data, setdata] = useState({
-        message: ""
-    });
- 
-    // Using useEffect for single rendering
-    useEffect(() => {
-        // Using fetch to fetch the api from
-        // flask server it will be redirected to proxy
-        fetch("/data").then((res) =>
-            res.json().then((data) => {
-                // Setting a data from api
-                setdata({
-                    message: data.message,
-                });
-            })
-        );
-    }, []);
- 
-    return (
-        <div className="App">
-            <header className="App-header">
-                <h1>React and flask</h1>
-                {/* Calling a data from setdata for showing */}
-                <p>{data.message}</p>
+import React, {useState} from 'react';
 
-            </header>
-        </div>
-    );
+
+function App(){
+	const [selectedFile, setSelectedFile] = useState();
+	const [isSelected, setIsSelected] = useState(false);
+
+	const changeHandler = (event) => {
+		setSelectedFile(event.target.files[0]);
+		setIsSelected(true);
+	};
+
+	const handleSubmission = () => {
+		const formData = new FormData();
+
+		formData.append('File', selectedFile);
+
+		fetch(
+			`https://freeimage.host/api/1/upload?key=${process.env.REACT_APP_API_KEY}`,
+			{
+				method: 'POST',
+				body: formData,
+			}
+		)
+			.then((response) => response.json())
+			.then((result) => {
+				console.log('Success:', result);
+			})
+			.catch((error) => {
+				console.error('Error:', error);
+			});
+	};
+
+
+	return(
+   <div>
+			<input type="file" name="file" onChange={changeHandler} />
+			{isSelected ? (
+				<div>
+					<p>Filename: {selectedFile.name}</p>
+					<p>Filetype: {selectedFile.type}</p>
+					<p>Size in bytes: {selectedFile.size}</p>
+					<p>
+						lastModifiedDate:{' '}
+						{selectedFile.lastModifiedDate.toLocaleDateString()}
+					</p>
+				</div>
+			) : (
+				<p>Select a file to show details</p>
+			)}
+			<div>
+				<button onClick={handleSubmission}>Submit</button>
+			</div>
+		</div>
+	)
 }
- 
 export default App;
