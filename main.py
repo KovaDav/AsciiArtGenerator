@@ -1,6 +1,15 @@
 import PIL.Image
 import html
+from flask import Flask
+import datetime
 
+app = Flask(__name__)
+
+
+@app.route('/data')
+def get_time():
+    # Returning an api for showing in  reactjs
+    return {"message": "hello from backend"}
 
 def main():
     path = input("Enter the path to the image : \n")
@@ -20,6 +29,8 @@ def main():
 
         for i in range(0, len(ascii_string), image.width*2):
             ascii_img += ascii_string[i:i+image.width*2] + "\n"
+
+
         print(ascii_img)
         print("Use monospaceTypewriter font for it.")
     else:
@@ -154,5 +165,6 @@ def braille_string_creator(binary_array_container, width):
     return braille_string
 
 
-main()
+if __name__ == '__main__':
+    app.run(debug=True)
 
