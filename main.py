@@ -15,7 +15,6 @@ def get_time():
 
 @app.post('/picture')
 def get_picture():
-    print(request.files)
     image = PIL.Image.open(request.files['File'])
     image = resize(image, 50)
     image = to_greyscale(image)
@@ -67,7 +66,6 @@ ASCII_CHARS = ["@", "#", "$", "%", "?", "*", "+", ";", ":", ",", "."]
 
 
 def resize(image, new_width):
-    print(image.width)
     width, height = image.size
     new_height = new_width * height / width
     return image.resize((int(new_width), int(new_height)))

@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
-
+import './App.css'
 
 function App(){
 	const [selectedFile, setSelectedFile] = useState();
 	const [isSelected, setIsSelected] = useState(false);
-
+	const [result , setResult] = useState("")
 	const changeHandler = (event) => {
 		setSelectedFile(event.target.files[0]);
 		setIsSelected(true);
@@ -25,11 +25,16 @@ function App(){
 			.then((response) => response.json())
 			.then((result) => {
 				console.log('Success:', result);
+				setResult(result.image)
 			})
 			.catch((error) => {
 				console.error('Error:', error);
 			});
 	};
+
+	const lineBreaker = () => {
+		return result.split('\n').map(str => <p>{str}</p>);
+	}
 
 
 	return(
@@ -51,7 +56,11 @@ function App(){
 			<div>
 				<button onClick={handleSubmission}>Submit</button>
 			</div>
-		</div>
+	  		 <div className="AsciiString">
+		   {lineBreaker()}
+	   </div>
+   </div>
+
 	)
 }
 export default App;
