@@ -1,15 +1,31 @@
 import PIL.Image
 import html
-from flask import Flask
-import datetime
+import requests
+from flask import Flask, request
+from flask_cors import CORS
+import json
 
 app = Flask(__name__)
-
+CORS(app)
 
 @app.route('/data')
 def get_time():
-    # Returning an api for showing in  reactjs
     return {"message": "hello from backend"}
+
+
+@app.post('/picture')
+def get_picture():
+    print(request.files)
+    image = PIL.Image.open(request.files['File'])
+    image = resize(image, 50)
+    image = to_greyscale(image)
+    ascii_string = pixel_to_ascii(image)
+    ascii_img = ""
+
+    for i in range(0, len(ascii_string), image.width * 2):
+        ascii_img += ascii_string[i:i + image.width * 2] + "\n"
+    response = {"image": ascii_img}
+    return json.dumps(response)
 
 def main():
     path = input("Enter the path to the image : \n")
@@ -51,7 +67,7 @@ ASCII_CHARS = ["@", "#", "$", "%", "?", "*", "+", ";", ":", ",", "."]
 
 
 def resize(image, new_width):
-
+    print(image.width)
     width, height = image.size
     new_height = new_width * height / width
     return image.resize((int(new_width), int(new_height)))

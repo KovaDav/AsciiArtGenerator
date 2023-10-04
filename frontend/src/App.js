@@ -16,7 +16,7 @@ function App(){
 		formData.append('File', selectedFile);
 
 		fetch(
-			`https://freeimage.host/api/1/upload?key=${process.env.REACT_APP_API_KEY}`,
+			`http://localhost:5000/picture`,
 			{
 				method: 'POST',
 				body: formData,
