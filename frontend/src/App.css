@@ -6,3 +6,9 @@
     font-weight: 500;
     line-height: 0;
 }
+
+.BrailleString{
+    font-family: "Blista Braille",monospace;
+
+    line-height: 0;
+}

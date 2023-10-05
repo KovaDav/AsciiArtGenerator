@@ -6,7 +6,8 @@ function App(){
 	const [isSelected, setIsSelected] = useState(false);
 	const [result , setResult] = useState("")
 	const [width , setWidth] = useState(0)
-	const [counter , setCounter] = useState(0)
+	const [isBrailleSelected , setIsBrailleSelected] = useState(false)
+
 	const changeHandler = (event) => {
 		setSelectedFile(event.target.files[0]);
 		setIsSelected(true);
@@ -19,7 +20,7 @@ function App(){
 		data.append('Width', width)
 		console.log(formData)
 		fetch(
-			`http://localhost:5000/braille?width=${width}`,
+			`http://localhost:5000/${isBrailleSelected? "braille" : "ascii"}?width=${width}`,
 			{
 				method: 'POST',
 				body: formData
@@ -36,7 +37,7 @@ function App(){
 	};
 
 	const lineBreaker = () => {
-		return result.split('\n').map(str => <p key={counter}>{str}</p>);
+		return result.split('\n').map(str => <p>{str}</p>);
 	}
 
 
@@ -59,8 +60,8 @@ function App(){
 			)}
 	   <div>
 		   <p>Do you want to use Ascii characters or Braille characters?</p>
-		   <button>Braille</button>
-		   <button>Ascii</button>
+		   <button onClick={e => setIsBrailleSelected(true)}>Braille</button>
+		   <button onClick={e => setIsBrailleSelected(false)}>Ascii</button>
 		   <p>What do you want the width of the picture to be? (default 50)</p>
 		   <input type={"number"} defaultValue={50} onChange={e => setWidth((e.target.value))}/>
 	   </div>
@@ -68,8 +69,11 @@ function App(){
 				<button onClick={handleSubmission}>Submit</button>
 			</div>
 	  		 <div className="AsciiString">
-			{lineBreaker()}
-	   </div>
+				 {isBrailleSelected? null :lineBreaker()}
+	   		</div>
+	   		<div className={"BrailleString"}>
+				{isBrailleSelected ? lineBreaker() : null}
+			</div>
    </div>
 
 	)
