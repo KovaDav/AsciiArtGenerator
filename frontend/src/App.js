@@ -16,7 +16,7 @@ function App(){
 		formData.append('File', selectedFile);
 
 		fetch(
-			`http://localhost:5000/picture`,
+			`http://localhost:5000/braille`,
 			{
 				method: 'POST',
 				body: formData,
@@ -33,6 +33,7 @@ function App(){
 	};
 
 	const lineBreaker = () => {
+		let counter = 0
 		return result.split('\n').map(str => <p>{str}</p>);
 	}
 
@@ -50,9 +51,17 @@ function App(){
 						{selectedFile.lastModifiedDate.toLocaleDateString()}
 					</p>
 				</div>
+
 			) : (
 				<p>Select a file to show details</p>
 			)}
+	   <div>
+		   <p>Do you want to use Ascii characters or Braille characters?</p>
+		   <button>Braille</button>
+		   <button>Ascii</button>
+		   <p>What do you want the width of the picture to be? (default 50)</p>
+		   <input defaultValue={50}/>
+	   </div>
 			<div>
 				<button onClick={handleSubmission}>Submit</button>
 			</div>

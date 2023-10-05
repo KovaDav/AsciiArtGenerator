@@ -1,6 +1,5 @@
 import PIL.Image
 import html
-import requests
 from flask import Flask, request
 from flask_cors import CORS
 import json
@@ -8,13 +7,24 @@ import json
 app = Flask(__name__)
 CORS(app)
 
-@app.route('/data')
-def get_time():
-    return {"message": "hello from backend"}
+
+@app.post('/braille')
+def get_braille():
+    image = PIL.Image.open(request.files['File'])
+    image = resize(image, 50)
+    image = to_greyscale(image)
+    pixels = image.getdata()
+    pixel_array = create_pixel_array(image, pixels)
+    extended_pixel_array = pixel_array_extender(pixel_array)
+    binary_array = binary_array_creator(extended_pixel_array)
+    binary_array_container = pixel_array_divider(binary_array)
+    braille_string = braille_string_creator(binary_array_container, len(extended_pixel_array[0]))
+    response = {"image": braille_string}
+    return json.dumps(response)
 
 
-@app.post('/picture')
-def get_picture():
+@app.post('/ascii')
+def get_ascii():
     image = PIL.Image.open(request.files['File'])
     image = resize(image, 50)
     image = to_greyscale(image)
