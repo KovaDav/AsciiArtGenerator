@@ -6,7 +6,7 @@ function App(){
 	const [isSelected, setIsSelected] = useState(false);
 	const [ascii , setAscii] = useState("")
 	const [braille , setBraille] = useState("")
-	const [width , setWidth] = useState(0)
+	const [width , setWidth] = useState(50)
 	const [isBrailleSelected , setIsBrailleSelected] = useState(false)
 	const [isAsciiSelected, setIsAsciiSelected] = useState(false)
 	const changeHandler = (event) => {
@@ -65,7 +65,7 @@ function App(){
 		   <button onClick={e => setIsBrailleSelected(prevState => !prevState)}>Braille</button>
 		   <button onClick={e => setIsAsciiSelected(prevState => !prevState)}>Ascii</button>
 		   <p>What do you want the width of the picture to be? (default 50)</p>
-		   <input type={"number"} defaultValue={50} onChange={e => setWidth((e.target.value))}/>
+		   <input type={"number"} defaultValue={width} onChange={e => setWidth((e.target.value))}/>
 	   </div>
 			<div>
 				<button onClick={handleSubmission}>Submit</button>
