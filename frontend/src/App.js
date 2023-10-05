@@ -5,6 +5,8 @@ function App(){
 	const [selectedFile, setSelectedFile] = useState();
 	const [isSelected, setIsSelected] = useState(false);
 	const [result , setResult] = useState("")
+	const [width , setWidth] = useState(0)
+	const [counter , setCounter] = useState(0)
 	const changeHandler = (event) => {
 		setSelectedFile(event.target.files[0]);
 		setIsSelected(true);
@@ -12,14 +14,15 @@ function App(){
 
 	const handleSubmission = () => {
 		const formData = new FormData();
-
+		const data = new FormData()
 		formData.append('File', selectedFile);
-
+		data.append('Width', width)
+		console.log(formData)
 		fetch(
-			`http://localhost:5000/braille`,
+			`http://localhost:5000/braille?width=${width}`,
 			{
 				method: 'POST',
-				body: formData,
+				body: formData
 			}
 		)
 			.then((response) => response.json())
@@ -33,8 +36,7 @@ function App(){
 	};
 
 	const lineBreaker = () => {
-		let counter = 0
-		return result.split('\n').map(str => <p>{str}</p>);
+		return result.split('\n').map(str => <p key={counter}>{str}</p>);
 	}
 
 
@@ -60,13 +62,13 @@ function App(){
 		   <button>Braille</button>
 		   <button>Ascii</button>
 		   <p>What do you want the width of the picture to be? (default 50)</p>
-		   <input defaultValue={50}/>
+		   <input type={"number"} defaultValue={50} onChange={e => setWidth((e.target.value))}/>
 	   </div>
 			<div>
 				<button onClick={handleSubmission}>Submit</button>
 			</div>
 	  		 <div className="AsciiString">
-		   {lineBreaker()}
+			{lineBreaker()}
 	   </div>
    </div>
 

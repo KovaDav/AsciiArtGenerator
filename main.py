@@ -11,7 +11,7 @@ CORS(app)
 @app.post('/braille')
 def get_braille():
     image = PIL.Image.open(request.files['File'])
-    image = resize(image, 50)
+    image = resize(image, int(request.args['width']))
     image = to_greyscale(image)
     pixels = image.getdata()
     pixel_array = create_pixel_array(image, pixels)
@@ -25,8 +25,9 @@ def get_braille():
 
 @app.post('/ascii')
 def get_ascii():
+    print(request.files)
     image = PIL.Image.open(request.files['File'])
-    image = resize(image, 50)
+    image = resize(image, int(request.args['width']))
     image = to_greyscale(image)
     ascii_string = pixel_to_ascii(image)
     ascii_img = ""
