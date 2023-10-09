@@ -16,10 +16,7 @@ function App(){
 
 	const handleSubmission = () => {
 		const formData = new FormData();
-		const data = new FormData()
 		formData.append('File', selectedFile);
-		data.append('Width', width)
-		console.log(formData)
 		fetch(
 			`http://localhost:5000/string?width=${width}`,
 			{
@@ -44,7 +41,10 @@ function App(){
 
 
 	return(
-   <div>
+   <div className={"Background"}>
+	   <div className={"Blur"}>
+	   <h1 className={"Header"}>ASCII ART GENERATOR</h1>
+	   <div className={"Filter"}>
 			<input type="file" name="file" onChange={changeHandler} />
 			{isSelected ? (
 				<div>
@@ -76,6 +76,8 @@ function App(){
 	   {isBrailleSelected &&<div className={"BrailleString"}>
 				{lineBreaker(braille)}
 			</div>}
+		   </div>
+	   </div>
    </div>
 
 	)

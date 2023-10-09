@@ -1,3 +1,18 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.Blur{
+    backdrop-filter: blur(0.5rem);
+    height: 100%;
+    width: 100%;
+    display: grid;
+    grid-template-rows: auto;
+    justify-content: center;
+}
+
 .AsciiString{
     font-family: "Lucida Sans Typewriter", "Lucida Console", monaco, "Bitstream Vera Sans Mono", monospace;
     font-size: 15px;
@@ -13,3 +28,26 @@
     font-size: 15px;
     line-height: 0;
 }
+
+.Header{
+    color: aliceblue;
+    font-size: 50px;
+    height: 17vh;
+    width: 50vh;
+}
+
+.Background{
+    background-image: url('../background.jpg');
+}
+
+.Filter{
+    height: 90vh;
+    width: 170vh;
+    background-color: #c0c9d0;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    opacity: 85%;
+    border-radius: 0.5rem;
+}
+
