@@ -64,7 +64,7 @@
 
 .Filter{
     height: 100%;
-    min-height: 100vh;
+    min-height: 70vh;
     width: 170vh;
     background-color: hsl(245, 39%, 97%);
     display: flex;
