@@ -3,7 +3,6 @@ import './App.css'
 
 function App(){
 	const [selectedFile, setSelectedFile] = useState();
-	const [isSelected, setIsSelected] = useState(false);
 	const [ascii , setAscii] = useState("")
 	const [braille , setBraille] = useState("")
 	const [width , setWidth] = useState(50)
@@ -11,7 +10,6 @@ function App(){
 	const [isAsciiSelected, setIsAsciiSelected] = useState(false)
 	const changeHandler = (event) => {
 		setSelectedFile(event.target.files[0]);
-		setIsSelected(true);
 	};
 
 	const handleSubmission = () => {
@@ -47,21 +45,6 @@ function App(){
 	   <div className={"Filter"}>
 		   <div className={"UploadToSubmit"}>
 			<input type="file" name="file" onChange={changeHandler} />
-			{isSelected ? (
-				<div>
-					<p>Filename: {selectedFile.name}</p>
-					<p>Filetype: {selectedFile.type}</p>
-					<p>Size in bytes: {selectedFile.size}</p>
-					<p>
-						lastModifiedDate:{' '}
-						{selectedFile.lastModifiedDate.toLocaleDateString()}
-					</p>
-				</div>
-
-			) : (
-				<p>Select a file to show details</p>
-			)}
-
 	   <div className={"OptionsDiv"}>
 		   <p>Do you want to use Ascii characters or Braille characters?</p>
 		   <div className={"ButtonContainer"}>
