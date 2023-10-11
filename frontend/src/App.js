@@ -36,7 +36,7 @@ function App(){
 	};
 
 	const lineBreaker = (string) => {
-		return string.split('\n').map(str => <p>{str}</p>);
+		return string.split('\n').map(str => <p className={"StringParagraph"}>{str}</p>);
 	}
 
 
@@ -45,6 +45,7 @@ function App(){
 	   <div className={"Blur"}>
 	   <h1 className={"Header"}>ASCII ART GENERATOR</h1>
 	   <div className={"Filter"}>
+		   <div className={"UploadToSubmit"}>
 			<input type="file" name="file" onChange={changeHandler} />
 			{isSelected ? (
 				<div>
@@ -60,23 +61,29 @@ function App(){
 			) : (
 				<p>Select a file to show details</p>
 			)}
-	   <div>
+
+	   <div className={"OptionsDiv"}>
 		   <p>Do you want to use Ascii characters or Braille characters?</p>
+		   <div className={"ButtonContainer"}>
 		   <button onClick={e => setIsBrailleSelected(prevState => !prevState)}>Braille</button>
 		   <button onClick={e => setIsAsciiSelected(prevState => !prevState)}>Ascii</button>
+		   </div>
 		   <p>What do you want the width of the picture to be? (default 50)</p>
 		   <input type={"number"} defaultValue={width} onChange={e => setWidth((e.target.value))}/>
 	   </div>
 			<div>
-				<button onClick={handleSubmission}>Submit</button>
-			</div>
+				<button className={"SubmitButton"} onClick={handleSubmission}>Submit</button>
+		</div>
+		</div>
+		   <div className={"StringContainer"}>
 	   {isAsciiSelected &&<div className="AsciiString">
 		   {lineBreaker(ascii)}
 	   		</div>}
 	   {isBrailleSelected &&<div className={"BrailleString"}>
 				{lineBreaker(braille)}
 			</div>}
-		   </div>
+		</div>
+			</div>
 	   </div>
    </div>
 
