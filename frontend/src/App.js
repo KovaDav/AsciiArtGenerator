@@ -32,7 +32,6 @@ function App(){
 				console.error('Error:', error);
 			});
 	};
-
 	const lineBreaker = (string) => {
 		return string.split('\n').map(str => <p className={"StringParagraph"}>{str}</p>);
 	}
