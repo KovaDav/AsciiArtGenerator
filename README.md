@@ -38,4 +38,4 @@ How to start the application:
 
 Picture of the website:
 
-        ![alt text](image.png)
+        ![image](image.png)
