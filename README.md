@@ -38,4 +38,4 @@ How to start the application:
 
 Picture of the website:
 
-        ![image](image.png)
+        ![website](website.png)
