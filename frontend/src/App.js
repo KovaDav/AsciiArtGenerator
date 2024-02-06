@@ -16,12 +16,12 @@ function App(){
 		const formData = new FormData();
 		formData.append('File', selectedFile);
 		fetch(
-			`http://localhost:5000/string?width=${width}`,
+			//`http://localhost:5000/string?width=${width}`
+			`https://KovaDav.eu.pythonanywhere.com/string?width=${width}`,
 			{
 				method: 'POST',
-				body: formData
-			}
-		)
+				body: formData,
+			})
 			.then((response) => response.json())
 			.then((result) => {
 				console.log(result)

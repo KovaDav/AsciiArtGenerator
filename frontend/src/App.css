@@ -26,9 +26,9 @@
 }
 
 .BrailleString{
-    font-family: "Blista Braille", monospace;
+    font: normal 10px/1em monospace;
     height: 100%;
-    width: 100%;
+    width: 0.5em;
     font-weight: 1000;
     font-size: 12px;
     line-height: 0;
