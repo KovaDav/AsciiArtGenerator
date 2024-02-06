@@ -22,21 +22,24 @@
     font-weight: 500;
     line-height: 0;
     height: 100%;
-    width: 100%;
+    width: auto;
+    margin: 10px
 }
 
 .BrailleString{
     font: normal 10px/1em monospace;
     height: 100%;
-    width: 0.5em;
+    width: auto;
     font-weight: 1000;
     font-size: 12px;
     line-height: 0;
+    margin: 10px
 }
 
 .StringParagraph{
     line-height: normal;
     height: 100%;
+    width: auto;
 }
 
 .StringContainer{

@@ -13,6 +13,11 @@ function App(){
 	};
 
 	const handleSubmission = () => {
+
+		if(isAsciiSelected === false && isBrailleSelected === false){
+			setIsAsciiSelected(true);
+		}
+
 		const formData = new FormData();
 		formData.append('File', selectedFile);
 		fetch(
