@@ -1,3 +1,7 @@
+This site is now deployed at:
+
+``` https://ascii-art-generator-eight.vercel.app/  ```
+
 About this project:
     I created this project primarily to get familiar with python synatx. It's an ascii art generator, you need to select an image file and input the number of characters your ascii string's width should be and then it returns your image as a string created by either braille characters or ascii characters ("@", "#", "$", "%", "?", "*", "+", ";", ":", ",", ".").
 
