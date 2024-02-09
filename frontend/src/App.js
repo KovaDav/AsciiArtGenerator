@@ -40,7 +40,7 @@ function App(){
 			});
 	};
 	const lineBreaker = (string) => {
-		return string.split('\n').map(str => <p className={"StringParagraph"}>{str}</p>);
+		return string.split('').map(str => str === '\n'? <div className='break'></div>:<span className={"StringParagraph"}>{str}</span>);
 	}
 
 
@@ -66,7 +66,7 @@ function App(){
 		</div>
 		   <div className={"StringContainer"}>
 	   {isAsciiSelected &&<div className="AsciiString">
-		   {lineBreaker(ascii)}
+		   		{lineBreaker(ascii)}
 	   		</div>}
 	   {isBrailleSelected &&<div className={"BrailleString"}>
 				{lineBreaker(braille)}

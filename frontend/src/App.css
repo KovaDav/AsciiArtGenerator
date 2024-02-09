@@ -27,19 +27,27 @@
 }
 
 .BrailleString{
-    font: normal 10px/1em monospace;
+    font-family: "Unicode BMP Fallback", monospace;
     height: 100%;
-    width: auto;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
     font-weight: 1000;
     font-size: 12px;
     line-height: 0;
     margin: 10px
 }
 
+.break {
+  height: 0;
+  width: 100%;
+  overflow: hidden;
+}
+
 .StringParagraph{
     line-height: normal;
+    width: 9px;
     height: 100%;
-    width: auto;
 }
 
 .StringContainer{
