@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import './App.css'
+import { Analytics } from '@vercel/analytics/react';
 
 function App(){
 	const [selectedFile, setSelectedFile] = useState();
@@ -22,7 +23,8 @@ function App(){
 		formData.append('File', selectedFile);
 		fetch(
 			//`http://localhost:5000/string?width=${width}`
-			`https://KovaDav.eu.pythonanywhere.com/string?width=${width}`,
+			`https://KovaDav.eu.pythonanywhere.com/string?width=${width}`
+			,
 			{
 				method: 'POST',
 				body: formData,
@@ -72,6 +74,7 @@ function App(){
 		</div>
 			</div>
 	   </div>
+	   <Analytics />
    </div>
 
 	)
