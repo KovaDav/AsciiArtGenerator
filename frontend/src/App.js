@@ -25,7 +25,7 @@ function App(){
 		formData.append('File', selectedFile);
 		fetch(
 			//`http://localhost:5000/string?width=${width}&brightness=${brightness}`
-			`https://KovaDav.eu.pythonanywhere.com/string?width=${width}`
+			`https://KovaDav.eu.pythonanywhere.com/string?width=${width}&brightness=${brightness}`
 			,
 			{
 				method: 'POST',
