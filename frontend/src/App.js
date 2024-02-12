@@ -46,10 +46,6 @@ function App(){
 		return string.split('').map(str => str === '\n'? <div className='break'></div>:<span className={"StringParagraph"}>{str}</span>);
 	}
 
-	const changeBrightness = (brightness) => {
-		setBrightness(brightness)
-		handleSubmission()
-	}
 
 
 	return(
@@ -68,7 +64,7 @@ function App(){
 		   <p>What do you want the width of the picture to be? (default 50)</p>
 		   <input type={"number"} defaultValue={width} onChange={e => setWidth((e.target.value))}/>
 		   <p>Image brightness for Braille</p>
-		   <input type={"range"} min={"1"} max={"254"} id={"Slider"} onChange={e => changeBrightness(e.target.value)}></input>
+		   <input type={"range"} min={"1"} max={"254"} id={"Slider"} onChange={e => setBrightness(e.target.value)} onMouseUp={handleSubmission}></input>
 	   </div>
 			<div>
 				<button className={"SubmitButton"} onClick={handleSubmission}>Submit</button>
