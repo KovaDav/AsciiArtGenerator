@@ -59,6 +59,7 @@ function App(){
 		   </div>
 		   <p>What do you want the width of the picture to be? (default 50)</p>
 		   <input type={"number"} defaultValue={width} onChange={e => setWidth((e.target.value))}/>
+		   <input type={"range"} min={"0"} max={"254"} id={"slider"}></input>
 	   </div>
 			<div>
 				<button className={"SubmitButton"} onClick={handleSubmission}>Submit</button>
