@@ -72,7 +72,7 @@ def main():
         pixels = image.getdata()
         pixel_array = create_pixel_array(image, pixels)
         extended_pixel_array = pixel_array_extender(pixel_array)
-        binary_array = binary_array_creator(extended_pixel_array)
+        binary_array = binary_array_creator(extended_pixel_array,int(request.args['brightness']))
         binary_array_container = pixel_array_divider(binary_array)
         braille_string = braille_string_creator(binary_array_container, len(extended_pixel_array[0]))
 
@@ -142,7 +142,7 @@ def pixel_array_extender(pixel_array):
     return pixel_array
 
 
-def binary_array_creator(pixel_array):
+def binary_array_creator(pixel_array, brightness):
 
     binary_array = []
 
@@ -151,9 +151,9 @@ def binary_array_creator(pixel_array):
 
     for i in range(0, len(pixel_array)):
         for pixel in pixel_array[i]:
-            if int(pixel) < 128:
+            if int(pixel) < brightness:
                 binary_array[i].append(0)
-            elif int(pixel) >= 128:
+            elif int(pixel) >= brightness:
                 binary_array[i].append(1)
 
     return binary_array

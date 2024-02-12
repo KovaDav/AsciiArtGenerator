@@ -22,8 +22,8 @@ function App(){
 		const formData = new FormData();
 		formData.append('File', selectedFile);
 		fetch(
-			//`http://localhost:5000/string?width=${width}`
-			`https://KovaDav.eu.pythonanywhere.com/string?width=${width}`
+			`http://localhost:5000/string?width=${width}`
+			//`https://KovaDav.eu.pythonanywhere.com/string?width=${width}`
 			,
 			{
 				method: 'POST',
@@ -60,7 +60,7 @@ function App(){
 		   <p>What do you want the width of the picture to be? (default 50)</p>
 		   <input type={"number"} defaultValue={width} onChange={e => setWidth((e.target.value))}/>
 		   <p>Image brightness</p>
-		   <input type={"range"} min={"0"} max={"254"} id={"slider"}></input>
+		   <input type={"range"} min={"1"} max={"254"} id={"Slider"}></input>
 	   </div>
 			<div>
 				<button className={"SubmitButton"} onClick={handleSubmission}>Submit</button>
