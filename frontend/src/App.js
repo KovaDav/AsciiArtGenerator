@@ -7,7 +7,7 @@ function App(){
 	const [ascii , setAscii] = useState("")
 	const [braille , setBraille] = useState("")
 	const [width , setWidth] = useState(50)
-	const [brightness, setBrightness] = useState(50)
+	const [brightness, setBrightness] = useState(128)
 	const [isBrailleSelected , setIsBrailleSelected] = useState(false)
 	const [isAsciiSelected, setIsAsciiSelected] = useState(false)
 
@@ -64,7 +64,7 @@ function App(){
 		   <p>What do you want the width of the picture to be? (default 50)</p>
 		   <input type={"number"} defaultValue={width} onChange={e => setWidth((e.target.value))}/>
 		   <p>Image brightness for Braille</p>
-		   <input type={"range"} min={"1"} max={"254"} id={"Slider"} onChange={e => setBrightness(e.target.value)} onMouseUp={handleSubmission}></input>
+		   <input type={"range"} min={"1"} max={"254"} defaultValue={brightness} id={"Slider"} onChange={e => setBrightness(e.target.value)} onMouseUp={handleSubmission}></input>
 	   </div>
 			<div>
 				<button className={"SubmitButton"} onClick={handleSubmission}>Submit</button>
