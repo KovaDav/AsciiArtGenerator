@@ -7,8 +7,10 @@ function App(){
 	const [ascii , setAscii] = useState("")
 	const [braille , setBraille] = useState("")
 	const [width , setWidth] = useState(50)
+	const [brightness, setBrightness] = useState(50)
 	const [isBrailleSelected , setIsBrailleSelected] = useState(false)
 	const [isAsciiSelected, setIsAsciiSelected] = useState(false)
+
 	const changeHandler = (event) => {
 		setSelectedFile(event.target.files[0]);
 	};
@@ -22,7 +24,7 @@ function App(){
 		const formData = new FormData();
 		formData.append('File', selectedFile);
 		fetch(
-			`http://localhost:5000/string?width=${width}`
+			`http://localhost:5000/string?width=${width}&brightness=${brightness}`
 			//`https://KovaDav.eu.pythonanywhere.com/string?width=${width}`
 			,
 			{
@@ -39,8 +41,14 @@ function App(){
 				console.error('Error:', error);
 			});
 	};
+
 	const lineBreaker = (string) => {
 		return string.split('').map(str => str === '\n'? <div className='break'></div>:<span className={"StringParagraph"}>{str}</span>);
+	}
+
+	const changeBrightness = (brightness) => {
+		setBrightness(brightness)
+		handleSubmission()
 	}
 
 
@@ -60,7 +68,7 @@ function App(){
 		   <p>What do you want the width of the picture to be? (default 50)</p>
 		   <input type={"number"} defaultValue={width} onChange={e => setWidth((e.target.value))}/>
 		   <p>Image brightness</p>
-		   <input type={"range"} min={"1"} max={"254"} id={"Slider"}></input>
+		   <input type={"range"} min={"1"} max={"254"} id={"Slider"} onChange={e => changeBrightness(e.target.value)}></input>
 	   </div>
 			<div>
 				<button className={"SubmitButton"} onClick={handleSubmission}>Submit</button>

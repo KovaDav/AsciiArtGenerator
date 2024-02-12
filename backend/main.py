@@ -17,7 +17,7 @@ def get_braille():
     pixels = image.getdata()
     pixel_array = create_pixel_array(image, pixels)
     extended_pixel_array = pixel_array_extender(pixel_array)
-    binary_array = binary_array_creator(extended_pixel_array)
+    binary_array = binary_array_creator(extended_pixel_array, int(request.args['brightness']))
     binary_array_container = pixel_array_divider(binary_array)
     braille_string = braille_string_creator(binary_array_container, len(extended_pixel_array[0]))
 
