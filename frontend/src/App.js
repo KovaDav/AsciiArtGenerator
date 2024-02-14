@@ -78,6 +78,7 @@ function App(){
 		   <input type={"number"} defaultValue={width} onChange={e => setWidth((e.target.value))}/>
 		   <p>Image brightness for Braille</p>
 		   <input type={"range"} min={"1"} max={"254"} defaultValue={brightness} id={"Slider"} onChange={e => setBrightness(e.target.value)} onMouseUp={handleSubmission}></input>
+		   <p>Invert image colors</p>
 		   <Switch onClick={e => setInverted(!inverted)}/>
 
 	   </div>
