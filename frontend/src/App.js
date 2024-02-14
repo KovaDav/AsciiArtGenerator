@@ -8,6 +8,7 @@ function App(){
 	const [braille , setBraille] = useState("")
 	const [width , setWidth] = useState(50)
 	const [brightness, setBrightness] = useState(128)
+	const [inverted, setInverted] = useState(false)
 	const [isBrailleSelected , setIsBrailleSelected] = useState(false)
 	const [isAsciiSelected, setIsAsciiSelected] = useState(false)
 
@@ -24,8 +25,8 @@ function App(){
 		const formData = new FormData();
 		formData.append('File', selectedFile);
 		fetch(
-			//`http://localhost:5000/string?width=${width}&brightness=${brightness}`
-			`https://KovaDav.eu.pythonanywhere.com/string?width=${width}&brightness=${brightness}`
+			`http://localhost:5000/string?width=${width}&brightness=${brightness}&inverted=${inverted}`
+			//`https://KovaDav.eu.pythonanywhere.com/string?width=${width}&brightness=${brightness}&inverted=${inverted}`
 			,
 			{
 				method: 'POST',
