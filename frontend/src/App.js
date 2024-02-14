@@ -1,22 +1,25 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './App.css'
 import { Analytics } from '@vercel/analytics/react';
+import Switch from '@mui/material/Switch';
 
 function App(){
-	const [selectedFile, setSelectedFile] = useState();
+	const [selectedFile, setSelectedFile] = useState(false);
 	const [ascii , setAscii] = useState("")
 	const [braille , setBraille] = useState("")
 	const [width , setWidth] = useState(50)
 	const [brightness, setBrightness] = useState(128)
+	const [inverted, setInverted] = useState(false)
 	const [isBrailleSelected , setIsBrailleSelected] = useState(false)
 	const [isAsciiSelected, setIsAsciiSelected] = useState(false)
 
 	const changeHandler = (event) => {
 		setSelectedFile(event.target.files[0]);
 	};
-
+	
+		
 	const handleSubmission = () => {
-
+		
 		if(isAsciiSelected === false && isBrailleSelected === false){
 			setIsAsciiSelected(true);
 		}
@@ -24,14 +27,15 @@ function App(){
 		const formData = new FormData();
 		formData.append('File', selectedFile);
 		fetch(
-			//`http://localhost:5000/string?width=${width}&brightness=${brightness}`
-			`https://KovaDav.eu.pythonanywhere.com/string?width=${width}&brightness=${brightness}`
+			//`http://localhost:5000/string?width=${width}&brightness=${brightness}&inverted=${inverted}`
+			`https://KovaDav.eu.pythonanywhere.com/string?width=${width}&brightness=${brightness}&inverted=${inverted}`
 			,
 			{
 				method: 'POST',
 				body: formData,
 			})
-			.then((response) => response.json())
+			.then((response) => response.json()
+			)
 			.then((result) => {
 				console.log(result)
 				setBraille(result.braille)
@@ -42,7 +46,16 @@ function App(){
 			});
 	};
 
-	const lineBreaker = (string) => {
+
+  useEffect(() => {
+    if(selectedFile === false){
+		return
+	}
+      handleSubmission()
+    
+  }, [inverted]);
+
+	const spanCreator = (string) => {
 		return string.split('').map(str => str === '\n'? <div className='break'></div>:<span className={"StringParagraph"}>{str}</span>);
 	}
 
@@ -65,6 +78,9 @@ function App(){
 		   <input type={"number"} defaultValue={width} onChange={e => setWidth((e.target.value))}/>
 		   <p>Image brightness for Braille</p>
 		   <input type={"range"} min={"1"} max={"254"} defaultValue={brightness} id={"Slider"} onChange={e => setBrightness(e.target.value)} onMouseUp={handleSubmission}></input>
+		   <p>Invert image colors</p>
+		   <Switch onClick={e => setInverted(!inverted)}/>
+
 	   </div>
 			<div>
 				<button className={"SubmitButton"} onClick={handleSubmission}>Submit</button>
@@ -72,10 +88,10 @@ function App(){
 		</div>
 		   <div className={"StringContainer"}>
 	   {isAsciiSelected &&<div className="AsciiString">
-		   		{lineBreaker(ascii)}
+		   		{spanCreator(ascii)}
 	   		</div>}
 	   {isBrailleSelected &&<div className={"BrailleString"}>
-				{lineBreaker(braille)}
+				{spanCreator(braille)}
 			</div>}
 		</div>
 			</div>

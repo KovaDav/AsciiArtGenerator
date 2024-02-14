@@ -1,3 +1,4 @@
+import copy
 import PIL.Image
 import html
 from flask import Flask, request
@@ -14,19 +15,22 @@ def get_braille():
     image = PIL.Image.open(request.files['File'])
     image = resize(image, int(request.args['width']))
     image = to_greyscale(image)
+    ascii_string = pixel_to_ascii(image, image.width)
     pixels = image.getdata()
     pixel_array = create_pixel_array(image, pixels)
-    extended_pixel_array = pixel_array_extender(pixel_array)
+    extended_pixel_array = pixel_array_extender(pixel_array,request.args['inverted'])
     binary_array = binary_array_creator(extended_pixel_array, int(request.args['brightness']))
+
+    if request.args['inverted'] == 'true':
+        binary_array = color_inverter(binary_array)
+        ascii_string = inverted_pixel_to_ascii(image, image.width)
+
+
     binary_array_container = pixel_array_divider(binary_array)
     braille_string = braille_string_creator(binary_array_container, len(extended_pixel_array[0]))
 
-    ascii_string = pixel_to_ascii(image)
-    ascii_img = ""
 
-    for i in range(0, len(ascii_string), image.width * 2):
-        ascii_img += ascii_string[i:i + image.width * 2] + "\n"
-    response = {"ascii": ascii_img,
+    response = {"ascii": ascii_string,
                 "braille": braille_string}
     return json.dumps(response)
 
@@ -44,41 +48,6 @@ def get_ascii():
     response = {"image": ascii_img}
     return json.dumps(response)
 
-def main():
-    path = input("Enter the path to the image : \n")
-    try:
-        image = PIL.Image.open(path)
-    except:
-        print(path, "Unable to find image ")
-        return
-
-    width = int(input("What should be the image width?"))
-
-    if input("Braille or Ascii?") == "a":
-        image = resize(image,width)
-        image = to_greyscale(image)
-        ascii_string = pixel_to_ascii(image)
-        ascii_img = ""
-
-        for i in range(0, len(ascii_string), image.width*2):
-            ascii_img += ascii_string[i:i+image.width*2] + "\n"
-
-
-        print(ascii_img)
-        print("Use monospaceTypewriter font for it.")
-    else:
-        image = resize(image,width)
-        image = to_greyscale(image)
-        pixels = image.getdata()
-        pixel_array = create_pixel_array(image, pixels)
-        extended_pixel_array = pixel_array_extender(pixel_array)
-        binary_array = binary_array_creator(extended_pixel_array,int(request.args['brightness']))
-        binary_array_container = pixel_array_divider(binary_array)
-        braille_string = braille_string_creator(binary_array_container, len(extended_pixel_array[0]))
-
-        print(braille_string)
-        print("Use BlistaBraille font for it.")
-
 
 ASCII_CHARS = ["@", "#", "$", "%", "?", "*", "+", ";", ":", ",", "."]
 
@@ -93,7 +62,7 @@ def to_greyscale(image):
     return image.convert("L")
 
 
-def pixel_to_ascii(image):
+def pixel_to_ascii(image, width):
 
     pixels = image.getdata()
     ascii_str = ""
@@ -101,8 +70,27 @@ def pixel_to_ascii(image):
         ascii_str += ASCII_CHARS[(pixel//25)];
         ascii_str += ASCII_CHARS[(pixel//25)];
 
-    return ascii_str
+    ascii_img = ""
 
+    for i in range(0, len(ascii_str), width * 2):
+        ascii_img += ascii_str[i:i + width * 2] + "\n"
+
+    return ascii_img
+
+def inverted_pixel_to_ascii(image, width):
+
+    pixels = image.getdata()
+    ascii_str = ""
+    for pixel in pixels:
+        ascii_str += ASCII_CHARS[10-(pixel//25)];
+        ascii_str += ASCII_CHARS[10-(pixel//25)];
+
+    ascii_img = ""
+
+    for i in range(0, len(ascii_str), width * 2):
+        ascii_img += ascii_str[i:i + width * 2] + "\n"
+
+    return ascii_img
 
 def create_pixel_array(image, pixels):
 
@@ -122,22 +110,30 @@ def create_pixel_array(image, pixels):
     return pixel_array
 
 
-def pixel_array_row_creator(pixel_array):
+def pixel_array_row_creator(pixel_array, pixel_value):
 
     white_row = []
     for i in range(0, len(pixel_array[0])):
-        white_row.append(255)
+        white_row.append(pixel_value)
     return white_row
 
 
-def pixel_array_extender(pixel_array):
+def pixel_array_extender(pixel_array, inverted):
+    print(inverted == 'true')
+
+    if inverted == 'true':
+        print("asd")
+        pixel_value = 0
+    else:
+        print("asd2")
+        pixel_value = 255
 
     for i in range(0, (4-(len(pixel_array) % 4))):
-        pixel_array.append(pixel_array_row_creator(pixel_array))
+        pixel_array.append(pixel_array_row_creator(pixel_array,pixel_value))
 
     if len(pixel_array[0]) % 2 != 0:
         for row in pixel_array:
-            row.append(255)
+            row.append(pixel_value)
 
     return pixel_array
 
@@ -196,6 +192,20 @@ def braille_string_creator(binary_array_container, width):
         counter += 1
     return braille_string
 
+def color_inverter(binary_array):
+    
+    inverted_binary_array = []
+
+    for i in range(0, len(binary_array)):
+        inverted_binary_array.append([])
+
+    for i in range(0, len(binary_array)):
+        for pixel in binary_array[i]:
+            if pixel == 1 :
+                inverted_binary_array[i].append(0)
+            elif pixel == 0:
+                inverted_binary_array[i].append(1)
+    return  inverted_binary_array
 
 if __name__ == '__main__':
     app.run(debug=True)
