@@ -19,15 +19,17 @@ def get_braille():
     extended_pixel_array = pixel_array_extender(pixel_array)
     binary_array = binary_array_creator(extended_pixel_array, int(request.args['brightness']))
     inverted_binary_array = color_inverter(binary_array)
+
+
+
     binary_array_container = pixel_array_divider(binary_array)
     braille_string = braille_string_creator(binary_array_container, len(extended_pixel_array[0]))
 
-    ascii_string = pixel_to_ascii(image)
-    ascii_img = ""
+    ascii_string = pixel_to_ascii(image, image.width)
 
-    for i in range(0, len(ascii_string), image.width * 2):
-        ascii_img += ascii_string[i:i + image.width * 2] + "\n"
-    response = {"ascii": ascii_img,
+
+    response = {"ascii": ascii_string,
+                "asd": inverted_pixel_to_ascii(image, image.width),
                 "braille": braille_string,
                 "asd1": binary_array,
                 "asd2": inverted_binary_array}
@@ -61,7 +63,7 @@ def to_greyscale(image):
     return image.convert("L")
 
 
-def pixel_to_ascii(image):
+def pixel_to_ascii(image, width):
 
     pixels = image.getdata()
     ascii_str = ""
@@ -69,8 +71,27 @@ def pixel_to_ascii(image):
         ascii_str += ASCII_CHARS[(pixel//25)];
         ascii_str += ASCII_CHARS[(pixel//25)];
 
-    return ascii_str
+    ascii_img = ""
 
+    for i in range(0, len(ascii_str), width * 2):
+        ascii_img += ascii_str[i:i + width * 2] + "\n"
+
+    return ascii_img
+
+def inverted_pixel_to_ascii(image, width):
+
+    pixels = image.getdata()
+    ascii_str = ""
+    for pixel in pixels:
+        ascii_str += ASCII_CHARS[10-(pixel//25)];
+        ascii_str += ASCII_CHARS[10-(pixel//25)];
+
+    ascii_img = ""
+
+    for i in range(0, len(ascii_str), width * 2):
+        ascii_img += ascii_str[i:i + width * 2] + "\n"
+
+    return ascii_img
 
 def create_pixel_array(image, pixels):
 
