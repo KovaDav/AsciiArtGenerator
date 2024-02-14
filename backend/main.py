@@ -1,3 +1,4 @@
+import copy
 import PIL.Image
 import html
 from flask import Flask, request
@@ -17,10 +18,10 @@ def get_braille():
     ascii_string = pixel_to_ascii(image, image.width)
     pixels = image.getdata()
     pixel_array = create_pixel_array(image, pixels)
-    extended_pixel_array = pixel_array_extender(pixel_array)
+    extended_pixel_array = pixel_array_extender(pixel_array,request.args['inverted'])
     binary_array = binary_array_creator(extended_pixel_array, int(request.args['brightness']))
 
-    if request.args['inverted'] == True:
+    if request.args['inverted'] == 'true':
         binary_array = color_inverter(binary_array)
         ascii_string = inverted_pixel_to_ascii(image, image.width)
 
@@ -109,22 +110,30 @@ def create_pixel_array(image, pixels):
     return pixel_array
 
 
-def pixel_array_row_creator(pixel_array):
+def pixel_array_row_creator(pixel_array, pixel_value):
 
     white_row = []
     for i in range(0, len(pixel_array[0])):
-        white_row.append(255)
+        white_row.append(pixel_value)
     return white_row
 
 
-def pixel_array_extender(pixel_array):
+def pixel_array_extender(pixel_array, inverted):
+    print(inverted == 'true')
+
+    if inverted == 'true':
+        print("asd")
+        pixel_value = 0
+    else:
+        print("asd2")
+        pixel_value = 255
 
     for i in range(0, (4-(len(pixel_array) % 4))):
-        pixel_array.append(pixel_array_row_creator(pixel_array))
+        pixel_array.append(pixel_array_row_creator(pixel_array,pixel_value))
 
     if len(pixel_array[0]) % 2 != 0:
         for row in pixel_array:
-            row.append(255)
+            row.append(pixel_value)
 
     return pixel_array
 
@@ -184,16 +193,18 @@ def braille_string_creator(binary_array_container, width):
     return braille_string
 
 def color_inverter(binary_array):
+    
     inverted_binary_array = []
+
     for i in range(0, len(binary_array)):
         inverted_binary_array.append([])
 
-    for r in range(0, len(binary_array)):
-        for c in binary_array[r]:
-            if binary_array[r][c] == 1 :
-                inverted_binary_array[r].append(0)
-            else:
-                inverted_binary_array[r].append(1)
+    for i in range(0, len(binary_array)):
+        for pixel in binary_array[i]:
+            if pixel == 1 :
+                inverted_binary_array[i].append(0)
+            elif pixel == 0:
+                inverted_binary_array[i].append(1)
     return  inverted_binary_array
 
 if __name__ == '__main__':

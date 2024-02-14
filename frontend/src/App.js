@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import './App.css'
 import { Analytics } from '@vercel/analytics/react';
+import Switch from '@mui/material/Switch';
 
 function App(){
 	const [selectedFile, setSelectedFile] = useState();
@@ -66,6 +67,8 @@ function App(){
 		   <input type={"number"} defaultValue={width} onChange={e => setWidth((e.target.value))}/>
 		   <p>Image brightness for Braille</p>
 		   <input type={"range"} min={"1"} max={"254"} defaultValue={brightness} id={"Slider"} onChange={e => setBrightness(e.target.value)} onMouseUp={handleSubmission}></input>
+		   <Switch onClick={()=>{inverted === true ? setInverted(false): setInverted(true); handleSubmission()}}/>
+
 	   </div>
 			<div>
 				<button className={"SubmitButton"} onClick={handleSubmission}>Submit</button>
