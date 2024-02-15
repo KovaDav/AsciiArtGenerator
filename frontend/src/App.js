@@ -12,7 +12,7 @@ function App(){
 	const [inverted, setInverted] = useState(false)
 	const [isBrailleSelected , setIsBrailleSelected] = useState(false)
 	const [isAsciiSelected, setIsAsciiSelected] = useState(false)
-	const [stringType, setStringtype] = useState('braille')
+	const [stringType, setStringtype] = useState('')
 	const changeHandler = (event) => {
 		setSelectedFile(event.target.files[0]);
 	};
@@ -33,9 +33,12 @@ function App(){
 			.then((response) => response.json()
 			)
 			.then((result) => {
+				console.log(stringType)
 				stringType === 'braille' ?
 				setBraille(result.braille):
-				setAscii(result.ascii)
+				stringType === 'ascii' ?
+				setAscii(result.ascii) :
+				console.log('')	
 			})
 			.catch((error) => {
 				console.error('Error:', error);
@@ -52,6 +55,7 @@ function App(){
   }, [inverted]);
 
 	const spanCreator = (string) => {
+		console.log(string)
 		return string.split('').map(str => str === '\n'? <div className='break'></div>:<span className={"StringParagraph"}>{str}</span>);
 	}
 

@@ -40,7 +40,7 @@ def get_ascii():
     if request.args['inverted'] == 'true':
         ascii_string = inverted_pixel_to_ascii(image, image.width)
     
-    response = {"image": ascii_string}
+    response = {"ascii": ascii_string}
     return json.dumps(response)
 
 
