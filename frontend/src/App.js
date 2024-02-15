@@ -12,22 +12,18 @@ function App(){
 	const [inverted, setInverted] = useState(false)
 	const [isBrailleSelected , setIsBrailleSelected] = useState(false)
 	const [isAsciiSelected, setIsAsciiSelected] = useState(false)
-
+	const [stringType, setStringtype] = useState('braille')
 	const changeHandler = (event) => {
 		setSelectedFile(event.target.files[0]);
 	};
 	
 		
 	const handleSubmission = () => {
-		
-		if(isAsciiSelected === false && isBrailleSelected === false){
-			setIsAsciiSelected(true);
-		}
 
 		const formData = new FormData();
 		formData.append('File', selectedFile);
 		fetch(
-			`http://localhost:5000/string?width=${width}&brightness=${brightness}&inverted=${inverted}`
+			`http://localhost:5000/${stringType}?width=${width}&brightness=${brightness}&inverted=${inverted}`
 			//`https://KovaDav.eu.pythonanywhere.com/string?width=${width}&brightness=${brightness}&inverted=${inverted}`
 			,
 			{
@@ -37,8 +33,8 @@ function App(){
 			.then((response) => response.json()
 			)
 			.then((result) => {
-				console.log(result)
-				setBraille(result.braille)
+				stringType === 'braille' ?
+				setBraille(result.braille):
 				setAscii(result.ascii)
 			})
 			.catch((error) => {
@@ -71,8 +67,8 @@ function App(){
 	   <div className={"OptionsDiv"}>
 		   <p>Do you want to use Ascii characters or Braille characters?</p>
 		   <div className={"ButtonContainer"}>
-		   <button onClick={e => setIsBrailleSelected(prevState => !prevState)}>Braille</button>
-		   <button onClick={e => setIsAsciiSelected(prevState => !prevState)}>Ascii</button>
+		   <button onClick={e => {setStringtype('braille'); setIsBrailleSelected(!isBrailleSelected)}}>Braille</button>
+		   <button onClick={e => {setStringtype('ascii'); setIsAsciiSelected(!isAsciiSelected)}}>Ascii</button>
 		   </div>
 		   <p>What do you want the width of the picture to be? (default 50)</p>
 		   <input type={"number"} defaultValue={width} onChange={e => setWidth((e.target.value))}/>
