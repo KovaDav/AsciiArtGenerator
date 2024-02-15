@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import './App.css'
-import { Analytics } from '@vercel/analytics/react';
 import Switch from '@mui/material/Switch';
 
 function App(){
@@ -12,19 +11,19 @@ function App(){
 	const [inverted, setInverted] = useState(false)
 	const [isBrailleSelected , setIsBrailleSelected] = useState(false)
 	const [isAsciiSelected, setIsAsciiSelected] = useState(false)
-	const [stringType, setStringtype] = useState('')
 	const changeHandler = (event) => {
 		setSelectedFile(event.target.files[0]);
 	};
 	
 		
-	const handleSubmission = () => {
+	const handleSubmissionAscii = () => {
+		if(isAsciiSelected === true){
 
 		const formData = new FormData();
 		formData.append('File', selectedFile);
 		fetch(
-			`http://localhost:5000/${stringType}?width=${width}&brightness=${brightness}&inverted=${inverted}`
-			//`https://KovaDav.eu.pythonanywhere.com/string?width=${width}&brightness=${brightness}&inverted=${inverted}`
+			`http://localhost:5000/ascii?width=${width}&inverted=${inverted}`
+			//`https://KovaDav.eu.pythonanywhere.com/ascii?width=${width}&inverted=${inverted}`
 			,
 			{
 				method: 'POST',
@@ -33,16 +32,36 @@ function App(){
 			.then((response) => response.json()
 			)
 			.then((result) => {
-				console.log(stringType)
-				stringType === 'braille' ?
-				setBraille(result.braille):
-				stringType === 'ascii' ?
-				setAscii(result.ascii) :
-				console.log('')	
+				setAscii(result.ascii) 	
 			})
 			.catch((error) => {
 				console.error('Error:', error);
 			});
+		}
+	};
+
+	const handleSubmissionBraille = () => {
+		if(isBrailleSelected === true){
+			
+		const formData = new FormData();
+		formData.append('File', selectedFile);
+		fetch(
+			`http://localhost:5000/braille?width=${width}&brightness=${brightness}&inverted=${inverted}`
+			//`https://KovaDav.eu.pythonanywhere.com/braille?width=${width}&brightness=${brightness}&inverted=${inverted}`
+			,
+			{
+				method: 'POST',
+				body: formData,
+			})
+			.then((response) => response.json()
+			)
+			.then((result) => {	
+				setBraille(result.braille)
+			})
+			.catch((error) => {
+				console.error('Error:', error);
+			});
+		}
 	};
 
 
@@ -50,16 +69,14 @@ function App(){
     if(selectedFile === false){
 		return
 	}
-      handleSubmission()
+      handleSubmissionAscii()
+	  handleSubmissionBraille()
     
-  }, [inverted]);
+  }, [inverted, isAsciiSelected, isBrailleSelected]);
 
 	const spanCreator = (string) => {
-		console.log(string)
 		return string.split('').map(str => str === '\n'? <div className='break'></div>:<span className={"StringParagraph"}>{str}</span>);
 	}
-
-
 
 	return(
    <div className={"Background"}>
@@ -71,19 +88,20 @@ function App(){
 	   <div className={"OptionsDiv"}>
 		   <p>Do you want to use Ascii characters or Braille characters?</p>
 		   <div className={"ButtonContainer"}>
-		   <button onClick={e => {setStringtype('braille'); setIsBrailleSelected(!isBrailleSelected)}}>Braille</button>
-		   <button onClick={e => {setStringtype('ascii'); setIsAsciiSelected(!isAsciiSelected)}}>Ascii</button>
+		   <button onClick={() => setIsBrailleSelected(!isBrailleSelected)}>Braille</button>
+		   <button onClick={() => setIsAsciiSelected(!isAsciiSelected)}>Ascii</button>
 		   </div>
 		   <p>What do you want the width of the picture to be? (default 50)</p>
 		   <input type={"number"} defaultValue={width} onChange={e => setWidth((e.target.value))}/>
 		   <p>Image brightness for Braille</p>
-		   <input type={"range"} min={"1"} max={"254"} defaultValue={brightness} id={"Slider"} onChange={e => setBrightness(e.target.value)} onMouseUp={handleSubmission}></input>
+		   <input type={"range"} min={"1"} max={"254"} defaultValue={brightness} id={"Slider"} onChange={e => setBrightness(e.target.value)}
+		    onMouseUp={() => {handleSubmissionAscii();handleSubmissionBraille()}}></input>
 		   <p>Invert image colors</p>
 		   <Switch onClick={e => setInverted(!inverted)}/>
 
 	   </div>
 			<div>
-				<button className={"SubmitButton"} onClick={handleSubmission}>Submit</button>
+				<button className={"SubmitButton"} onClick={() => {handleSubmissionAscii();handleSubmissionBraille()}}>Submit</button>
 		</div>
 		</div>
 		   <div className={"StringContainer"}>
@@ -96,7 +114,6 @@ function App(){
 		</div>
 			</div>
 	   </div>
-	   <Analytics />
    </div>
 
 	)
