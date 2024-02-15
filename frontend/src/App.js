@@ -27,8 +27,8 @@ function App(){
 		const formData = new FormData();
 		formData.append('File', selectedFile);
 		fetch(
-			//`http://localhost:5000/string?width=${width}&brightness=${brightness}&inverted=${inverted}`
-			`https://KovaDav.eu.pythonanywhere.com/string?width=${width}&brightness=${brightness}&inverted=${inverted}`
+			`http://localhost:5000/string?width=${width}&brightness=${brightness}&inverted=${inverted}`
+			//`https://KovaDav.eu.pythonanywhere.com/string?width=${width}&brightness=${brightness}&inverted=${inverted}`
 			,
 			{
 				method: 'POST',

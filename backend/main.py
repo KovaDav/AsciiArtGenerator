@@ -10,12 +10,12 @@ app = Flask(__name__)
 CORS(app)
 
 
-@app.post('/string')
+@app.post('/braille')
 def get_braille():
     image = PIL.Image.open(request.files['File'])
     image = resize(image, int(request.args['width']))
     image = to_greyscale(image)
-    ascii_string = pixel_to_ascii(image, image.width)
+    
     pixels = image.getdata()
     pixel_array = create_pixel_array(image, pixels)
     extended_pixel_array = pixel_array_extender(pixel_array,request.args['inverted'])
@@ -23,29 +23,24 @@ def get_braille():
 
     if request.args['inverted'] == 'true':
         binary_array = color_inverter(binary_array)
-        ascii_string = inverted_pixel_to_ascii(image, image.width)
-
 
     binary_array_container = pixel_array_divider(binary_array)
     braille_string = braille_string_creator(binary_array_container, len(extended_pixel_array[0]))
 
-
-    response = {"ascii": ascii_string,
-                "braille": braille_string}
+    response = {"braille": braille_string}
     return json.dumps(response)
 
-
+@app.post('/ascii')
 def get_ascii():
-    print(request.files)
     image = PIL.Image.open(request.files['File'])
     image = resize(image, int(request.args['width']))
     image = to_greyscale(image)
-    ascii_string = pixel_to_ascii(image)
-    ascii_img = ""
-
-    for i in range(0, len(ascii_string), image.width * 2):
-        ascii_img += ascii_string[i:i + image.width * 2] + "\n"
-    response = {"image": ascii_img}
+    ascii_string = pixel_to_ascii(image, image.width)
+    
+    if request.args['inverted'] == 'true':
+        ascii_string = inverted_pixel_to_ascii(image, image.width)
+    
+    response = {"image": ascii_string}
     return json.dumps(response)
 
 
