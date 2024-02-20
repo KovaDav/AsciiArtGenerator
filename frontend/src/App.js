@@ -25,8 +25,8 @@ function App(){
 		const formData = new FormData();
 		formData.append('File', selectedFile);
 		fetch(
-			`http://localhost:5000/ascii?width=${width}&inverted=${inverted}`
-			//`https://KovaDav.eu.pythonanywhere.com/ascii?width=${width}&inverted=${inverted}`
+			//`http://localhost:5000/ascii?width=${width}&inverted=${inverted}`
+			`https://KovaDav.eu.pythonanywhere.com/ascii?width=${width}&inverted=${inverted}`
 			,
 			{
 				method: 'POST',
@@ -49,8 +49,8 @@ function App(){
 		const formData = new FormData();
 		formData.append('File', selectedFile);
 		fetch(
-			`http://localhost:5000/braille?width=${width}&brightness=${brailleBrightness}&inverted=${inverted}`
-			//`https://KovaDav.eu.pythonanywhere.com/braille?width=${width}&brightness=${brightness}&inverted=${inverted}`
+			//`http://localhost:5000/braille?width=${width}&brightness=${brailleBrightness}&inverted=${inverted}`
+			`https://KovaDav.eu.pythonanywhere.com/braille?width=${width}&brightness=${brailleBrightness}&inverted=${inverted}`
 			,
 			{
 				method: 'POST',
@@ -73,8 +73,8 @@ function App(){
 		const formData = new FormData();
 		formData.append('File', selectedFile);
 		fetch(
-			`http://localhost:5000/atkinson?width=${width}&brightness=${atkinsonBrightness}&inverted=${inverted}`
-			//`https://KovaDav.eu.pythonanywhere.com/atkinson?width=${width}&brightness=${brightness}&inverted=${inverted}`
+			//`http://localhost:5000/atkinson?width=${width}&brightness=${atkinsonBrightness}&inverted=${inverted}`
+			`https://KovaDav.eu.pythonanywhere.com/atkinson?width=${width}&brightness=${atkinsonBrightness}&inverted=${inverted}`
 			,
 			{
 				method: 'POST',
