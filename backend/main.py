@@ -19,6 +19,26 @@ def get_braille():
     pixels = image.getdata()
     pixel_array = create_pixel_array(image, pixels)
     extended_pixel_array = pixel_array_extender(pixel_array,request.args['inverted'])
+    binary_array = binary_array_creator(extended_pixel_array, int(request.args['brightness']))
+
+    if request.args['inverted'] == 'true':
+        binary_array = color_inverter(binary_array)
+
+    binary_array_container = pixel_array_divider(binary_array)
+    braille_string = braille_string_creator(binary_array_container, len(extended_pixel_array[0]))
+
+    response = {"braille": braille_string}
+    return json.dumps(response)
+
+@app.post('/atkinson')
+def get_atkinson():
+    image = PIL.Image.open(request.files['File'])
+    image = resize(image, int(request.args['width']))
+    image = to_greyscale(image)
+    
+    pixels = image.getdata()
+    pixel_array = create_pixel_array(image, pixels)
+    extended_pixel_array = pixel_array_extender(pixel_array,request.args['inverted'])
     binary_array = atkinson_binary_array_creator(extended_pixel_array, int(request.args['brightness']))
 
     if request.args['inverted'] == 'true':
