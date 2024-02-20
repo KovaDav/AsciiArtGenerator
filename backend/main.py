@@ -56,7 +56,6 @@ def resize(image, new_width):
 def to_greyscale(image):
     return image.convert("L")
 
-
 def pixel_to_ascii(image, width):
 
     pixels = image.getdata()
