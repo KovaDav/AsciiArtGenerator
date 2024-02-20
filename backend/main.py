@@ -19,7 +19,7 @@ def get_braille():
     pixels = image.getdata()
     pixel_array = create_pixel_array(image, pixels)
     extended_pixel_array = pixel_array_extender(pixel_array,request.args['inverted'])
-    binary_array = binary_array_creator(extended_pixel_array, int(request.args['brightness']))
+    binary_array = atkinson_binary_array_creator(extended_pixel_array, int(request.args['brightness']))
 
     if request.args['inverted'] == 'true':
         binary_array = color_inverter(binary_array)
@@ -147,6 +147,52 @@ def binary_array_creator(pixel_array, brightness):
                 binary_array[i].append(1)
 
     return binary_array
+
+def atkinson_binary_array_creator(pixel_array, brightness):
+
+    binary_array = []
+
+    for i in range(0, len(pixel_array)):
+        binary_array.append([])
+
+    for y in range(0, len(pixel_array)):
+        for x in range(0,  len(pixel_array[y])):
+            if int(pixel_array[y][x]) < brightness:
+                binary_array[y].append(0)
+
+                if len(pixel_array[y])-1 >= [x+1]:
+                    pixel_array[y][x+1] += (1/8)*pixel_array[y][x]
+
+                if len(pixel_array)-1 >= [y+1]:
+                    pixel_array[y+1][x-1] += (1/8)*pixel_array[y][x] 
+                    pixel_array[y+1][x] += (1/8)*pixel_array[y][x]
+                    pixel_array[y+1][x+1] += (1/8)*pixel_array[y][x]
+
+                if len(pixel_array)-1 >= [y+2]:
+                    pixel_array[y+2][x] += (1/8)*pixel_array[y][x]
+
+                if len(pixel_array[y])-1 >= [x+2]:
+                    pixel_array[y][x+2] += (1/8)*pixel_array[y][x]
+
+            elif int(pixel_array[y][x]) >= brightness:
+                binary_array[y].append(1)
+
+                if len(pixel_array[y])-1 >= [x+1]:
+                    pixel_array[y][x+1] += (1/8)*(255-pixel_array[y][x])
+
+                if len(pixel_array)-1 >= [y+1]:    
+                    pixel_array[y+1][x-1] += (1/8)*(255-pixel_array[y][x])
+                    pixel_array[y+1][x] += (1/8)*(255-pixel_array[y][x])
+                    pixel_array[y+1][x+1] += (1/8)*(255-pixel_array[y][x])
+
+                if len(pixel_array)-1 >= [y+2]:    
+                    pixel_array[y+2][x] += (1/8)*(255-pixel_array[y][x])
+
+                if len(pixel_array[y])-1 >= [x+2]:
+                    pixel_array[y][x+2] += (1/8)*(255-pixel_array[y][x])
+
+    return binary_array
+
 
 
 def braille_character_printer(binary_array):
