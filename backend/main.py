@@ -160,35 +160,37 @@ def atkinson_binary_array_creator(pixel_array, brightness):
             if int(pixel_array[y][x]) < brightness:
                 binary_array[y].append(0)
 
-                if len(pixel_array[y])-1 >= [x+1]:
+                if len(pixel_array[y])-1 >= x+1:
                     pixel_array[y][x+1] += (1/8)*pixel_array[y][x]
 
-                if len(pixel_array)-1 >= [y+1]:
-                    pixel_array[y+1][x-1] += (1/8)*pixel_array[y][x] 
+                if len(pixel_array)-1 >= y+1:
                     pixel_array[y+1][x] += (1/8)*pixel_array[y][x]
-                    pixel_array[y+1][x+1] += (1/8)*pixel_array[y][x]
+                    pixel_array[y+1][x-1] += (1/8)*pixel_array[y][x] 
+                    if len(pixel_array[y])-1 >= x+1:
+                        pixel_array[y+1][x+1] += (1/8)*pixel_array[y][x]
 
-                if len(pixel_array)-1 >= [y+2]:
+                if len(pixel_array)-1 >= y+2:
                     pixel_array[y+2][x] += (1/8)*pixel_array[y][x]
 
-                if len(pixel_array[y])-1 >= [x+2]:
+                if len(pixel_array[y])-1 >= x+2:
                     pixel_array[y][x+2] += (1/8)*pixel_array[y][x]
 
             elif int(pixel_array[y][x]) >= brightness:
                 binary_array[y].append(1)
 
-                if len(pixel_array[y])-1 >= [x+1]:
+                if len(pixel_array[y])-1 >= x+1:
                     pixel_array[y][x+1] += (1/8)*(255-pixel_array[y][x])
 
-                if len(pixel_array)-1 >= [y+1]:    
+                if len(pixel_array)-1 >= y+1:    
                     pixel_array[y+1][x-1] += (1/8)*(255-pixel_array[y][x])
                     pixel_array[y+1][x] += (1/8)*(255-pixel_array[y][x])
-                    pixel_array[y+1][x+1] += (1/8)*(255-pixel_array[y][x])
+                    if len(pixel_array[y])-1 >= x+1:
+                        pixel_array[y+1][x+1] += (1/8)*(255-pixel_array[y][x])
 
-                if len(pixel_array)-1 >= [y+2]:    
+                if len(pixel_array)-1 >= y+2:    
                     pixel_array[y+2][x] += (1/8)*(255-pixel_array[y][x])
 
-                if len(pixel_array[y])-1 >= [x+2]:
+                if len(pixel_array[y])-1 >= x+2:
                     pixel_array[y][x+2] += (1/8)*(255-pixel_array[y][x])
 
     return binary_array
