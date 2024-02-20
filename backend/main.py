@@ -47,7 +47,7 @@ def get_atkinson():
     binary_array_container = pixel_array_divider(binary_array)
     braille_string = braille_string_creator(binary_array_container, len(extended_pixel_array[0]))
 
-    response = {"braille": braille_string}
+    response = {"atkinson": braille_string}
     return json.dumps(response)
 
 @app.post('/ascii')
