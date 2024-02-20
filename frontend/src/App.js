@@ -6,6 +6,7 @@ function App(){
 	const [selectedFile, setSelectedFile] = useState(false);
 	const [ascii , setAscii] = useState("")
 	const [braille , setBraille] = useState("")
+	const [atkinson , setAtkinson] = useState("")
 	const [width , setWidth] = useState(50)
 	const [brightness, setBrightness] = useState(128)
 	const [inverted, setInverted] = useState(false)
@@ -65,6 +66,30 @@ function App(){
 		}
 	};
 
+	const handleSubmissionAtkinson = () => {
+		if(isAtkinsonSelected === true){
+			
+		const formData = new FormData();
+		formData.append('File', selectedFile);
+		fetch(
+			`http://localhost:5000/atkinson?width=${width}&brightness=${brightness}&inverted=${inverted}`
+			//`https://KovaDav.eu.pythonanywhere.com/atkinson?width=${width}&brightness=${brightness}&inverted=${inverted}`
+			,
+			{
+				method: 'POST',
+				body: formData,
+			})
+			.then((response) => response.json()
+			)
+			.then((result) => {	
+				setAtkinson(result.atkinson)
+			})
+			.catch((error) => {
+				console.error('Error:', error);
+			});
+		}
+	};
+
 
   useEffect(() => {
     if(selectedFile === false){
@@ -72,8 +97,9 @@ function App(){
 	}
       handleSubmissionAscii()
 	  handleSubmissionBraille()
+	  handleSubmissionAtkinson()
     
-  }, [inverted, isAsciiSelected, isBrailleSelected]);
+  }, [inverted, isAsciiSelected, isBrailleSelected, isAtkinsonSelected]);
 
 	const spanCreator = (string) => {
 		return string.split('').map(str => str === '\n'? <div className='break'></div>:<span className={"StringParagraph"}>{str}</span>);
@@ -107,12 +133,15 @@ function App(){
 		</div>
 		</div>
 		   <div className={"StringContainer"}>
-	   {isAsciiSelected &&<div className="AsciiString">
+	   	{isAsciiSelected &&<div className="AsciiString">
 		   		{spanCreator(ascii)}
 	   		</div>}
-	   {isBrailleSelected &&<div className={"BrailleString"}>
+	   	{isBrailleSelected &&<div className={"BrailleString"}>
 				{spanCreator(braille)}
 			</div>}
+		{isBrailleSelected &&<div className={"BrailleString"}>
+				{spanCreator(atkinson)}
+			</div>}	
 		</div>
 			</div>
 	   </div>
