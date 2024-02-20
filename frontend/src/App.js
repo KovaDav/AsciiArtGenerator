@@ -129,7 +129,7 @@ function App(){
 
 	   </div>
 			<div>
-				<button className={"SubmitButton"} onClick={() => {handleSubmissionAscii();handleSubmissionBraille()}}>Submit</button>
+				<button className={"SubmitButton"} onClick={() => {handleSubmissionAscii();handleSubmissionBraille();handleSubmissionAtkinson()}}>Submit</button>
 		</div>
 		</div>
 		   <div className={"StringContainer"}>
