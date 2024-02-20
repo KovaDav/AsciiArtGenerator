@@ -6,10 +6,13 @@ function App(){
 	const [selectedFile, setSelectedFile] = useState(false);
 	const [ascii , setAscii] = useState("")
 	const [braille , setBraille] = useState("")
+	const [atkinson , setAtkinson] = useState("")
 	const [width , setWidth] = useState(50)
-	const [brightness, setBrightness] = useState(128)
+	const [brailleBrightness, setBrailleBrightness] = useState(128)
+	const [atkinsonBrightness, setAtkinsonBrightness] = useState(128)
 	const [inverted, setInverted] = useState(false)
 	const [isBrailleSelected , setIsBrailleSelected] = useState(false)
+	const [isAtkinsonSelected , setIsAtkinsonSelected] = useState(false)
 	const [isAsciiSelected, setIsAsciiSelected] = useState(false)
 	const changeHandler = (event) => {
 		setSelectedFile(event.target.files[0]);
@@ -22,8 +25,8 @@ function App(){
 		const formData = new FormData();
 		formData.append('File', selectedFile);
 		fetch(
-			//`http://localhost:5000/ascii?width=${width}&inverted=${inverted}`
-			`https://KovaDav.eu.pythonanywhere.com/ascii?width=${width}&inverted=${inverted}`
+			`http://localhost:5000/ascii?width=${width}&inverted=${inverted}`
+			//`https://KovaDav.eu.pythonanywhere.com/ascii?width=${width}&inverted=${inverted}`
 			,
 			{
 				method: 'POST',
@@ -46,8 +49,8 @@ function App(){
 		const formData = new FormData();
 		formData.append('File', selectedFile);
 		fetch(
-			//`http://localhost:5000/braille?width=${width}&brightness=${brightness}&inverted=${inverted}`
-			`https://KovaDav.eu.pythonanywhere.com/braille?width=${width}&brightness=${brightness}&inverted=${inverted}`
+			`http://localhost:5000/braille?width=${width}&brightness=${brailleBrightness}&inverted=${inverted}`
+			//`https://KovaDav.eu.pythonanywhere.com/braille?width=${width}&brightness=${brightness}&inverted=${inverted}`
 			,
 			{
 				method: 'POST',
@@ -64,6 +67,30 @@ function App(){
 		}
 	};
 
+	const handleSubmissionAtkinson = () => {
+		if(isAtkinsonSelected === true){
+			
+		const formData = new FormData();
+		formData.append('File', selectedFile);
+		fetch(
+			`http://localhost:5000/atkinson?width=${width}&brightness=${atkinsonBrightness}&inverted=${inverted}`
+			//`https://KovaDav.eu.pythonanywhere.com/atkinson?width=${width}&brightness=${brightness}&inverted=${inverted}`
+			,
+			{
+				method: 'POST',
+				body: formData,
+			})
+			.then((response) => response.json()
+			)
+			.then((result) => {	
+				setAtkinson(result.atkinson)
+			})
+			.catch((error) => {
+				console.error('Error:', error);
+			});
+		}
+	};
+
 
   useEffect(() => {
     if(selectedFile === false){
@@ -71,8 +98,9 @@ function App(){
 	}
       handleSubmissionAscii()
 	  handleSubmissionBraille()
+	  handleSubmissionAtkinson()
     
-  }, [inverted, isAsciiSelected, isBrailleSelected]);
+  }, [inverted, isAsciiSelected, isBrailleSelected, isAtkinsonSelected]);
 
 	const spanCreator = (string) => {
 		return string.split('').map(str => str === '\n'? <div className='break'></div>:<span className={"StringParagraph"}>{str}</span>);
@@ -89,28 +117,35 @@ function App(){
 		   <p>Do you want to use Ascii characters or Braille characters?</p>
 		   <div className={"ButtonContainer"}>
 		   <button onClick={() => setIsBrailleSelected(!isBrailleSelected)}>Braille</button>
+		   <button onClick={() => setIsAtkinsonSelected(!isAtkinsonSelected)}>Atkinson-Braille</button>
 		   <button onClick={() => setIsAsciiSelected(!isAsciiSelected)}>Ascii</button>
 		   </div>
 		   <p>What do you want the width of the picture to be? (default 50)</p>
 		   <input type={"number"} defaultValue={width} onChange={e => setWidth((e.target.value))}/>
 		   <p>Image brightness for Braille</p>
-		   <input type={"range"} min={"1"} max={"254"} defaultValue={brightness} id={"Slider"} onChange={e => setBrightness(e.target.value)}
-		    onMouseUp={() => {handleSubmissionAscii();handleSubmissionBraille()}}></input>
+		   <input type={"range"} min={"1"} max={"254"} defaultValue={brailleBrightness} id={"Slider"} onChange={e => setBrailleBrightness(e.target.value)}
+		    onMouseUp={() => {handleSubmissionBraille()}}></input>
+			<p>Image brightness for Atkinson-Braille</p>
+			<input type={"range"} min={"1"} max={"254"} defaultValue={atkinsonBrightness} id={"Slider"} onChange={e => setAtkinsonBrightness(e.target.value)}
+		    onMouseUp={() => {handleSubmissionAtkinson()}}></input>
 		   <p>Invert image colors</p>
 		   <Switch onClick={e => setInverted(!inverted)}/>
 
 	   </div>
 			<div>
-				<button className={"SubmitButton"} onClick={() => {handleSubmissionAscii();handleSubmissionBraille()}}>Submit</button>
+				<button className={"SubmitButton"} onClick={() => {handleSubmissionAscii();handleSubmissionBraille();handleSubmissionAtkinson()}}>Submit</button>
 		</div>
 		</div>
 		   <div className={"StringContainer"}>
-	   {isAsciiSelected &&<div className="AsciiString">
+	   	{isAsciiSelected &&<div className="AsciiString">
 		   		{spanCreator(ascii)}
 	   		</div>}
-	   {isBrailleSelected &&<div className={"BrailleString"}>
+	   	{isBrailleSelected &&<div className={"BrailleString"}>
 				{spanCreator(braille)}
 			</div>}
+		{isAtkinsonSelected &&<div className={"BrailleString"}>
+				{spanCreator(atkinson)}
+			</div>}	
 		</div>
 			</div>
 	   </div>
