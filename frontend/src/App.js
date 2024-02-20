@@ -10,6 +10,7 @@ function App(){
 	const [brightness, setBrightness] = useState(128)
 	const [inverted, setInverted] = useState(false)
 	const [isBrailleSelected , setIsBrailleSelected] = useState(false)
+	const [isAtkinsonSelected , setIsAtkinsonSelected] = useState(false)
 	const [isAsciiSelected, setIsAsciiSelected] = useState(false)
 	const changeHandler = (event) => {
 		setSelectedFile(event.target.files[0]);
@@ -89,6 +90,7 @@ function App(){
 		   <p>Do you want to use Ascii characters or Braille characters?</p>
 		   <div className={"ButtonContainer"}>
 		   <button onClick={() => setIsBrailleSelected(!isBrailleSelected)}>Braille</button>
+		   <button onClick={() => setIsAtkinsonSelected(!isAtkinsonSelected)}>Atkinson-Braille</button>
 		   <button onClick={() => setIsAsciiSelected(!isAsciiSelected)}>Ascii</button>
 		   </div>
 		   <p>What do you want the width of the picture to be? (default 50)</p>
