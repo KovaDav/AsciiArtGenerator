@@ -8,7 +8,8 @@ function App(){
 	const [braille , setBraille] = useState("")
 	const [atkinson , setAtkinson] = useState("")
 	const [width , setWidth] = useState(50)
-	const [brightness, setBrightness] = useState(128)
+	const [brailleBrightness, setBrailleBrightness] = useState(128)
+	const [atkinsonBrightness, setAtkinsonBrightness] = useState(128)
 	const [inverted, setInverted] = useState(false)
 	const [isBrailleSelected , setIsBrailleSelected] = useState(false)
 	const [isAtkinsonSelected , setIsAtkinsonSelected] = useState(false)
@@ -48,7 +49,7 @@ function App(){
 		const formData = new FormData();
 		formData.append('File', selectedFile);
 		fetch(
-			`http://localhost:5000/braille?width=${width}&brightness=${brightness}&inverted=${inverted}`
+			`http://localhost:5000/braille?width=${width}&brightness=${brailleBrightness}&inverted=${inverted}`
 			//`https://KovaDav.eu.pythonanywhere.com/braille?width=${width}&brightness=${brightness}&inverted=${inverted}`
 			,
 			{
@@ -72,7 +73,7 @@ function App(){
 		const formData = new FormData();
 		formData.append('File', selectedFile);
 		fetch(
-			`http://localhost:5000/atkinson?width=${width}&brightness=${brightness}&inverted=${inverted}`
+			`http://localhost:5000/atkinson?width=${width}&brightness=${atkinsonBrightness}&inverted=${inverted}`
 			//`https://KovaDav.eu.pythonanywhere.com/atkinson?width=${width}&brightness=${brightness}&inverted=${inverted}`
 			,
 			{
@@ -122,8 +123,11 @@ function App(){
 		   <p>What do you want the width of the picture to be? (default 50)</p>
 		   <input type={"number"} defaultValue={width} onChange={e => setWidth((e.target.value))}/>
 		   <p>Image brightness for Braille</p>
-		   <input type={"range"} min={"1"} max={"254"} defaultValue={brightness} id={"Slider"} onChange={e => setBrightness(e.target.value)}
-		    onMouseUp={() => {handleSubmissionAscii();handleSubmissionBraille();handleSubmissionAtkinson()}}></input>
+		   <input type={"range"} min={"1"} max={"254"} defaultValue={brailleBrightness} id={"Slider"} onChange={e => setBrailleBrightness(e.target.value)}
+		    onMouseUp={() => {handleSubmissionBraille()}}></input>
+			<p>Image brightness for Atkinson-Braille</p>
+			<input type={"range"} min={"1"} max={"254"} defaultValue={atkinsonBrightness} id={"Slider"} onChange={e => setAtkinsonBrightness(e.target.value)}
+		    onMouseUp={() => {handleSubmissionAtkinson()}}></input>
 		   <p>Invert image colors</p>
 		   <Switch onClick={e => setInverted(!inverted)}/>
 
