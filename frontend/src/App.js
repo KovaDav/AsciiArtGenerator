@@ -123,7 +123,7 @@ function App(){
 		   <input type={"number"} defaultValue={width} onChange={e => setWidth((e.target.value))}/>
 		   <p>Image brightness for Braille</p>
 		   <input type={"range"} min={"1"} max={"254"} defaultValue={brightness} id={"Slider"} onChange={e => setBrightness(e.target.value)}
-		    onMouseUp={() => {handleSubmissionAscii();handleSubmissionBraille()}}></input>
+		    onMouseUp={() => {handleSubmissionAscii();handleSubmissionBraille();handleSubmissionAtkinson()}}></input>
 		   <p>Invert image colors</p>
 		   <Switch onClick={e => setInverted(!inverted)}/>
 
@@ -139,7 +139,7 @@ function App(){
 	   	{isBrailleSelected &&<div className={"BrailleString"}>
 				{spanCreator(braille)}
 			</div>}
-		{isBrailleSelected &&<div className={"BrailleString"}>
+		{isAtkinsonSelected &&<div className={"BrailleString"}>
 				{spanCreator(atkinson)}
 			</div>}	
 		</div>
