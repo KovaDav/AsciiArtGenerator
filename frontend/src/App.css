@@ -27,10 +27,9 @@
 }
 
 .BrailleString{
-    font-family: "Unicode BMP Fallback", monospace;
+    font: normal 1em monospace; 
     height: 100%;
-    display: flex;
-    flex-wrap: wrap;
+    display: block;
     width: auto;
     font-weight: 1000;
     font-size: 12px;
@@ -45,9 +44,12 @@
 }
 
 .StringSpan{
-    line-height: normal;
-    width: 9px;
-    height: 100%;
+    display: inline-block;
+    font-size: 1.2em;
+    margin-right: -4px;
+    margin-bottom: 1.5px;
+    width: 1em;
+    height: 1em;
 }
 
 .StringContainer{
@@ -155,7 +157,8 @@ button:disabled:active{
 }
 
 #Slider{
-    width: 350px;
+    width: 80%;
+    max-width: 20rem;
 }
 
 .description{
@@ -164,5 +167,6 @@ button:disabled:active{
   margin: 1rem;
   font-size: 1rem;
 }
+
 
 

@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import './App.css'
 import Switch from '@mui/material/Switch';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import { IconButton } from '@mui/material';
 
 function App(){
 	const [selectedFile, setSelectedFile] = useState(false);
@@ -113,7 +115,7 @@ function App(){
 	   <div className={"Filter"}>
 		   <div className={"UploadToSubmit"}>
 			<div className='OptionsDiv'>
-			<input type="file" name="file" onChange={changeHandler} />
+			<input className='description' type="file" name="file" onChange={changeHandler} />
 			<p className='description'>Invert image colors</p>
 		   <Switch onClick={e => setInverted(!inverted)}/>
 		   </div>
@@ -126,10 +128,6 @@ function App(){
 		   </div>
 		   <p className='description'>What do you want the width of the picture to be? (default 50)</p>
 		   <input type={"number"} defaultValue={width} onChange={e => setWidth((e.target.value))}/>
-		   
-			
-		   
-
 	   </div>
 			<div>
 				<button className={"SubmitButton"} onClick={() => {handleSubmissionAscii();handleSubmissionBraille();handleSubmissionAtkinson()}}>Submit</button>
@@ -137,6 +135,8 @@ function App(){
 		</div>
 		   <div className={"StringContainer"}>
 	   	{isAsciiSelected &&<div className="AsciiString">
+		   <IconButton onClick={() => navigator.clipboard.writeText(ascii)}><ContentCopyIcon /></IconButton>
+		   <div className='break'/>
 		   		{spanCreator(ascii)}
 	   		</div>}
 	   	{isBrailleSelected &&<div className={"BrailleString"}>
@@ -144,6 +144,7 @@ function App(){
 		   <div className='break'/>
 		   <input type={"range"} min={"1"} max={"254"} defaultValue={brailleBrightness} id={"Slider"} onChange={e => setBrailleBrightness(e.target.value)}
 		    onMouseUp={() => {handleSubmissionBraille()}}></input>
+			<IconButton onClick={() => navigator.clipboard.writeText(braille)}><ContentCopyIcon /></IconButton>
 			<div className='break'/>
 				{spanCreator(braille)}
 			</div>}
@@ -152,6 +153,7 @@ function App(){
 		<div className='break'/>
 			<input type={"range"} min={"1"} max={"254"} defaultValue={atkinsonBrightness} id={"Slider"} onChange={e => setAtkinsonBrightness(e.target.value)}
 		    onMouseUp={() => {handleSubmissionAtkinson()}}></input>
+			<IconButton onClick={() => navigator.clipboard.writeText(atkinson)}><ContentCopyIcon /></IconButton>
 			<div className='break'/>
 				{spanCreator(atkinson)}
 			</div>}	
