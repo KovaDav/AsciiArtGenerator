@@ -103,7 +103,7 @@ function App(){
   }, [inverted, isAsciiSelected, isBrailleSelected, isAtkinsonSelected]);
 
 	const spanCreator = (string) => {
-		return string.split('').map(str => str === '\n'? <div className='break'></div>:<span className={"StringParagraph"}>{str}</span>);
+		return string.split('').map(str => str === '\n'? <div className='break'></div>:<span className={"StringSpan"}>{str}</span>);
 	}
 
 	return(
@@ -112,24 +112,23 @@ function App(){
 	   <h1 className={"Header"}>ASCII ART GENERATOR</h1>
 	   <div className={"Filter"}>
 		   <div className={"UploadToSubmit"}>
+			<div className='OptionsDiv'>
 			<input type="file" name="file" onChange={changeHandler} />
+			<p className='description'>Invert image colors</p>
+		   <Switch onClick={e => setInverted(!inverted)}/>
+		   </div>
 	   <div className={"OptionsDiv"}>
-		   <p>Do you want to use Ascii characters or Braille characters?</p>
+		   <p className='description'>Do you want to use Ascii characters or Braille characters?</p>
 		   <div className={"ButtonContainer"}>
 		   <button onClick={() => setIsBrailleSelected(!isBrailleSelected)}>Braille</button>
 		   <button onClick={() => setIsAtkinsonSelected(!isAtkinsonSelected)}>Atkinson-Braille</button>
 		   <button onClick={() => setIsAsciiSelected(!isAsciiSelected)}>Ascii</button>
 		   </div>
-		   <p>What do you want the width of the picture to be? (default 50)</p>
+		   <p className='description'>What do you want the width of the picture to be? (default 50)</p>
 		   <input type={"number"} defaultValue={width} onChange={e => setWidth((e.target.value))}/>
-		   <p>Image brightness for Braille</p>
-		   <input type={"range"} min={"1"} max={"254"} defaultValue={brailleBrightness} id={"Slider"} onChange={e => setBrailleBrightness(e.target.value)}
-		    onMouseUp={() => {handleSubmissionBraille()}}></input>
-			<p>Image brightness for Atkinson-Braille</p>
-			<input type={"range"} min={"1"} max={"254"} defaultValue={atkinsonBrightness} id={"Slider"} onChange={e => setAtkinsonBrightness(e.target.value)}
-		    onMouseUp={() => {handleSubmissionAtkinson()}}></input>
-		   <p>Invert image colors</p>
-		   <Switch onClick={e => setInverted(!inverted)}/>
+		   
+			
+		   
 
 	   </div>
 			<div>
@@ -141,9 +140,19 @@ function App(){
 		   		{spanCreator(ascii)}
 	   		</div>}
 	   	{isBrailleSelected &&<div className={"BrailleString"}>
+		   <p className='description'>Image brightness for Braille</p>
+		   <div className='break'/>
+		   <input type={"range"} min={"1"} max={"254"} defaultValue={brailleBrightness} id={"Slider"} onChange={e => setBrailleBrightness(e.target.value)}
+		    onMouseUp={() => {handleSubmissionBraille()}}></input>
+			<div className='break'/>
 				{spanCreator(braille)}
 			</div>}
 		{isAtkinsonSelected &&<div className={"BrailleString"}>
+		<p className='description'>Image brightness for Atkinson-Braille</p>
+		<div className='break'/>
+			<input type={"range"} min={"1"} max={"254"} defaultValue={atkinsonBrightness} id={"Slider"} onChange={e => setAtkinsonBrightness(e.target.value)}
+		    onMouseUp={() => {handleSubmissionAtkinson()}}></input>
+			<div className='break'/>
 				{spanCreator(atkinson)}
 			</div>}	
 		</div>

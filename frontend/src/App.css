@@ -31,7 +31,7 @@
     height: 100%;
     display: flex;
     flex-wrap: wrap;
-    width: 100%;
+    width: auto;
     font-weight: 1000;
     font-size: 12px;
     line-height: 0;
@@ -44,7 +44,7 @@
   overflow: hidden;
 }
 
-.StringParagraph{
+.StringSpan{
     line-height: normal;
     width: 9px;
     height: 100%;
@@ -55,8 +55,8 @@
     flex-direction: row;
     align-items: start;
     padding: 10px;
-    height: 100%;
-    width: 100%;
+    height: auto;
+    width: auto;
 }
 
 .Header{
@@ -158,5 +158,11 @@ button:disabled:active{
     width: 350px;
 }
 
+.description{
+  font-family: "Unicode BMP Fallback", monospace;
+  font-weight: 1000;
+  margin: 1rem;
+  font-size: 1rem;
+}
 
 
