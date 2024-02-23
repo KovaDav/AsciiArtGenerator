@@ -3,6 +3,7 @@ import './App.css'
 import Switch from '@mui/material/Switch';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import { IconButton } from '@mui/material';
+import { jsPDF } from 'jspdf';
 
 function App(){
 	const [selectedFile, setSelectedFile] = useState(false);
