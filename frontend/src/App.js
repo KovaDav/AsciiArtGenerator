@@ -4,11 +4,12 @@ import Switch from '@mui/material/Switch';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import { IconButton } from '@mui/material';
 import { jsPDF } from 'jspdf';
+import { font } from './BlistaBraille-normal';
 
 function App(){
 	const [selectedFile, setSelectedFile] = useState(false);
 	const [ascii , setAscii] = useState("")
-	const [braille , setBraille] = useState("")
+	const [braille , setBraille] = useState("asd")
 	const [atkinson , setAtkinson] = useState("")
 	const [width , setWidth] = useState(50)
 	const [brailleBrightness, setBrailleBrightness] = useState(128)
@@ -96,12 +97,17 @@ function App(){
 
 const handlePDF = () =>{
 	const doc = new jsPDF({
-		orientation: "landscape",
-		unit: "in",
-		format: [4, 2]
+		orientation: "l",
+		unit: "mm",
+		format: "a4",
 	  });
-	  doc.setLineHeightFactor(0)
-	  doc.text(braille,0,0)
+	  
+	  doc.setLineHeightFactor(1)
+	  doc.addFileToVFS("BlistaBraille.ttf", font)
+	  doc.addFont("BlistaBraille-normal.ttf", "BlistaBraille", "normal")
+	  doc.setFont('BlistaBraille')
+	  doc.setFontSize(10)
+	  doc.text(ascii,1,1)
 	  doc.save('ascii.pdf')
 	}
 
