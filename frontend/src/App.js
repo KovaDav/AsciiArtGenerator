@@ -94,6 +94,16 @@ function App(){
 		}
 	};
 
+const handlePDF = () =>{
+	const doc = new jsPDF({
+		orientation: "landscape",
+		unit: "in",
+		format: [4, 2]
+	  });
+	  doc.setLineHeightFactor(0)
+	  doc.text(braille,0,0)
+	  doc.save('ascii.pdf')
+	}
 
   useEffect(() => {
     if(selectedFile === false){
@@ -126,6 +136,7 @@ function App(){
 		   <button onClick={() => setIsBrailleSelected(!isBrailleSelected)}>Braille</button>
 		   <button onClick={() => setIsAtkinsonSelected(!isAtkinsonSelected)}>Atkinson-Braille</button>
 		   <button onClick={() => setIsAsciiSelected(!isAsciiSelected)}>Ascii</button>
+		   <button onClick={() => handlePDF()}>pdf</button>
 		   </div>
 		   <p className='description'>What do you want the width of the picture to be? (default 50)</p>
 		   <input type={"number"} defaultValue={width} onChange={e => setWidth((e.target.value))}/>
