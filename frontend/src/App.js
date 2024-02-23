@@ -2,12 +2,16 @@ import React, {useEffect, useState} from 'react';
 import './App.css'
 import Switch from '@mui/material/Switch';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import { IconButton } from '@mui/material';
+import { jsPDF } from 'jspdf';
+import { font } from './BlistaBraille-normal';
+import { font2 } from './MonospaceTypewriter-normal';
 
 function App(){
 	const [selectedFile, setSelectedFile] = useState(false);
 	const [ascii , setAscii] = useState("")
-	const [braille , setBraille] = useState("")
+	const [braille , setBraille] = useState("asd")
 	const [atkinson , setAtkinson] = useState("")
 	const [width , setWidth] = useState(50)
 	const [brailleBrightness, setBrailleBrightness] = useState(128)
@@ -93,6 +97,28 @@ function App(){
 		}
 	};
 
+const handlePDF = (type, text) =>{
+	const doc = new jsPDF({
+		orientation: "l",
+		unit: "mm",
+		format: "a4",
+	  });
+
+	  if(type === 'braille'){
+	  doc.addFileToVFS("BlistaBraille.ttf", font)
+	  doc.addFont("BlistaBraille-normal.ttf", "BlistaBraille", "normal")
+	  doc.setFont('BlistaBraille')
+	  }else{
+	  doc.addFileToVFS("MonospaceTypewriter.ttf", font2)
+	  doc.addFont("MonospaceTypewriter-normal.ttf", "MonospaceTypewriter", "normal")
+	  doc.setFont('MonospaceTypewriter')
+	  }
+
+	  doc.setLineHeightFactor(1)
+	  doc.setFontSize(10)
+	  doc.text(text,1,1)
+	  doc.save('ascii.pdf')
+	}
 
   useEffect(() => {
     if(selectedFile === false){
@@ -136,6 +162,7 @@ function App(){
 		   <div className={"StringContainer"}>
 	   	{isAsciiSelected &&<div className="AsciiString">
 		   <IconButton onClick={() => navigator.clipboard.writeText(ascii)}><ContentCopyIcon /></IconButton>
+		   <IconButton onClick={() => handlePDF('ascii',ascii)}><PictureAsPdfIcon /></IconButton>
 		   <div className='break'/>
 		   		{spanCreator(ascii)}
 	   		</div>}
@@ -145,6 +172,7 @@ function App(){
 		   <input type={"range"} min={"1"} max={"254"} defaultValue={brailleBrightness} id={"Slider"} onChange={e => setBrailleBrightness(e.target.value)}
 		    onMouseUp={() => {handleSubmissionBraille()}}></input>
 			<IconButton onClick={() => navigator.clipboard.writeText(braille)}><ContentCopyIcon /></IconButton>
+			<IconButton onClick={() => handlePDF('braille',braille)}><PictureAsPdfIcon /></IconButton>
 			<div className='break'/>
 				{spanCreator(braille)}
 			</div>}
@@ -154,6 +182,7 @@ function App(){
 			<input type={"range"} min={"1"} max={"254"} defaultValue={atkinsonBrightness} id={"Slider"} onChange={e => setAtkinsonBrightness(e.target.value)}
 		    onMouseUp={() => {handleSubmissionAtkinson()}}></input>
 			<IconButton onClick={() => navigator.clipboard.writeText(atkinson)}><ContentCopyIcon /></IconButton>
+			<IconButton onClick={() => handlePDF('braille',atkinson)}><PictureAsPdfIcon /></IconButton>
 			<div className='break'/>
 				{spanCreator(atkinson)}
 			</div>}	
