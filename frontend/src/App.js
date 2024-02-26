@@ -11,12 +11,14 @@ import { font2 } from './MonospaceTypewriter-normal';
 function App(){
 	const [selectedFile, setSelectedFile] = useState(false);
 	const [ascii , setAscii] = useState("")
-	const [braille , setBraille] = useState("asd")
+	const [braille , setBraille] = useState("")
 	const [atkinson , setAtkinson] = useState("")
 	const [width , setWidth] = useState(50)
 	const [brailleBrightness, setBrailleBrightness] = useState(128)
 	const [atkinsonBrightness, setAtkinsonBrightness] = useState(128)
-	const [inverted, setInverted] = useState(false)
+	const [asciiInverted, setAsciiInverted] = useState(false)
+	const [brailleInverted, setBrailleInverted] = useState(false)
+	const [atkinsonInverted, setAtkinsonInverted] = useState(false)
 	const [isBrailleSelected , setIsBrailleSelected] = useState(false)
 	const [isAtkinsonSelected , setIsAtkinsonSelected] = useState(false)
 	const [isAsciiSelected, setIsAsciiSelected] = useState(false)
@@ -32,7 +34,7 @@ function App(){
 		formData.append('File', selectedFile);
 		fetch(
 			//`http://localhost:5000/ascii?width=${width}&inverted=${inverted}`
-			`https://KovaDav.eu.pythonanywhere.com/ascii?width=${width}&inverted=${inverted}`
+			`https://KovaDav.eu.pythonanywhere.com/ascii?width=${width}&inverted=${asciiInverted}`
 			,
 			{
 				method: 'POST',
@@ -56,7 +58,7 @@ function App(){
 		formData.append('File', selectedFile);
 		fetch(
 			//`http://localhost:5000/braille?width=${width}&brightness=${brailleBrightness}&inverted=${inverted}`
-			`https://KovaDav.eu.pythonanywhere.com/braille?width=${width}&brightness=${brailleBrightness}&inverted=${inverted}`
+			`https://KovaDav.eu.pythonanywhere.com/braille?width=${width}&brightness=${brailleBrightness}&inverted=${brailleInverted}`
 			,
 			{
 				method: 'POST',
@@ -80,7 +82,7 @@ function App(){
 		formData.append('File', selectedFile);
 		fetch(
 			//`http://localhost:5000/atkinson?width=${width}&brightness=${atkinsonBrightness}&inverted=${inverted}`
-			`https://KovaDav.eu.pythonanywhere.com/atkinson?width=${width}&brightness=${atkinsonBrightness}&inverted=${inverted}`
+			`https://KovaDav.eu.pythonanywhere.com/atkinson?width=${width}&brightness=${atkinsonBrightness}&inverted=${atkinsonInverted}`
 			,
 			{
 				method: 'POST',
@@ -128,7 +130,7 @@ const handlePDF = (type, text) =>{
 	  handleSubmissionBraille()
 	  handleSubmissionAtkinson()
     
-  }, [inverted, isAsciiSelected, isBrailleSelected, isAtkinsonSelected]);
+  }, [asciiInverted, brailleInverted, atkinsonInverted,isAsciiSelected, isBrailleSelected, isAtkinsonSelected]);
 
 	const spanCreator = (string) => {
 		return string.split('').map(str => str === '\n'? <div className='break'></div>:<span className={"StringSpan"}>{str}</span>);
@@ -143,7 +145,7 @@ const handlePDF = (type, text) =>{
 			<div className='OptionsDiv'>
 			<input className='description' type="file" name="file" onChange={changeHandler} />
 			<p className='description'>Invert image colors</p>
-		   <Switch onClick={e => setInverted(!inverted)}/>
+		   
 		   </div>
 	   <div className={"OptionsDiv"}>
 		   <p className='description'>Do you want to use Ascii characters or Braille characters?</p>
@@ -167,7 +169,7 @@ const handlePDF = (type, text) =>{
 		   		{spanCreator(ascii)}
 	   		</div>}
 	   	{isBrailleSelected &&<div className={"BrailleString"}>
-		   <p className='description'>Image brightness for Braille</p>
+		   <p className='description'>Image brightness</p>
 		   <div className='break'/>
 		   <input type={"range"} min={"1"} max={"254"} defaultValue={brailleBrightness} id={"Slider"} onChange={e => setBrailleBrightness(e.target.value)}
 		    onMouseUp={() => {handleSubmissionBraille()}}></input>
@@ -177,14 +179,22 @@ const handlePDF = (type, text) =>{
 				{spanCreator(braille)}
 			</div>}
 		{isAtkinsonSelected &&<div className={"BrailleString"}>
-		<p className='description'>Image brightness for Atkinson-Braille</p>
+		<p className='description'>Image brightness</p>
 		<div className='break'/>
 			<input type={"range"} min={"1"} max={"254"} defaultValue={atkinsonBrightness} id={"Slider"} onChange={e => setAtkinsonBrightness(e.target.value)}
 		    onMouseUp={() => {handleSubmissionAtkinson()}}></input>
-			<IconButton onClick={() => navigator.clipboard.writeText(atkinson)}><ContentCopyIcon /></IconButton>
-			<IconButton onClick={() => handlePDF('braille',atkinson)}><PictureAsPdfIcon /></IconButton>
+			<div className='threeButtonsContainer'>
+				<IconButton onClick={() => navigator.clipboard.writeText(atkinson)}><ContentCopyIcon /></IconButton>
+				<IconButton onClick={() => handlePDF('braille',atkinson)}><PictureAsPdfIcon /></IconButton>
+			<div className='inverterContainer'>
+				<label for='atkinsonInverter'>color inverter</label>
+				<Switch id='atkinsonInverter' onClick={e => setAtkinsonInverted(!atkinsonInverted)}/>
+			</div>
+			</div>
 			<div className='break'/>
+				<div className='stringWrapper' style={{backgroundColor : '', padding: '7px'}}>
 				{spanCreator(atkinson)}
+				</div>
 			</div>}	
 		</div>
 			</div>

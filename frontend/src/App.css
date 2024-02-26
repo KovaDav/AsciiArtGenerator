@@ -169,4 +169,13 @@ button:disabled:active{
 }
 
 
+.inverterContainer{
+  display: flex;
+  flex-direction: column;
+}
 
+.threeButtonsContainer{
+  display: flex;
+  flex-direction: row;
+  margin-top: 7px;
+}
