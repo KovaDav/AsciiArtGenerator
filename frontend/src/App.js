@@ -163,8 +163,14 @@ const handlePDF = (type, text) =>{
 		</div>
 		   <div className={"StringContainer"}>
 	   	{isAsciiSelected &&<div className="AsciiString">
-		   <IconButton onClick={() => navigator.clipboard.writeText(ascii)}><ContentCopyIcon /></IconButton>
-		   <IconButton onClick={() => handlePDF('ascii',ascii)}><PictureAsPdfIcon /></IconButton>
+		   <div className='threeButtonsContainer'>
+		   		<IconButton onClick={() => navigator.clipboard.writeText(ascii)}><ContentCopyIcon /></IconButton>
+		   		<IconButton onClick={() => handlePDF('ascii',ascii)}><PictureAsPdfIcon /></IconButton>
+		   <div className='inverterContainer'>
+					<label for='atkinsonInverter'>color inverter</label>
+					<Switch id='atkinsonInverter' onClick={e => setBrailleInverted(!brailleInverted)}/>
+				</div>
+			</div>
 		   <div className='break'/>
 		   		{spanCreator(ascii)}
 	   		</div>}
@@ -173,8 +179,14 @@ const handlePDF = (type, text) =>{
 		   <div className='break'/>
 		   <input type={"range"} min={"1"} max={"254"} defaultValue={brailleBrightness} id={"Slider"} onChange={e => setBrailleBrightness(e.target.value)}
 		    onMouseUp={() => {handleSubmissionBraille()}}></input>
-			<IconButton onClick={() => navigator.clipboard.writeText(braille)}><ContentCopyIcon /></IconButton>
-			<IconButton onClick={() => handlePDF('braille',braille)}><PictureAsPdfIcon /></IconButton>
+			<div className='threeButtonsContainer'>
+					<IconButton onClick={() => navigator.clipboard.writeText(braille)}><ContentCopyIcon /></IconButton>
+					<IconButton onClick={() => handlePDF('braille',braille)}><PictureAsPdfIcon /></IconButton>
+				<div className='inverterContainer'>
+					<label for='atkinsonInverter'>color inverter</label>
+					<Switch id='atkinsonInverter' onClick={e => setBrailleInverted(!brailleInverted)}/>
+				</div>
+			</div>
 			<div className='break'/>
 				{spanCreator(braille)}
 			</div>}
