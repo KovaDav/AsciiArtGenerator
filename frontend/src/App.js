@@ -167,12 +167,14 @@ const handlePDF = (type, text) =>{
 		   		<IconButton onClick={() => navigator.clipboard.writeText(ascii)}><ContentCopyIcon /></IconButton>
 		   		<IconButton onClick={() => handlePDF('ascii',ascii)}><PictureAsPdfIcon /></IconButton>
 		   <div className='inverterContainer'>
-					<label for='atkinsonInverter'>color inverter</label>
-					<Switch id='atkinsonInverter' onClick={e => setBrailleInverted(!brailleInverted)}/>
+					<label for='asciiInverter'>Color inverter</label>
+					<Switch id='asciiInverter' onClick={e => setAsciiInverted(!asciiInverted)}/>
 				</div>
 			</div>
 		   <div className='break'/>
+		   <div className={asciiInverted ? 'stringWrapperInverted' : 'stringWrapper'} >
 		   		{spanCreator(ascii)}
+			</div>
 	   		</div>}
 	   	{isBrailleSelected &&<div className={"BrailleString"}>
 		   <p className='description'>Image brightness</p>
@@ -183,12 +185,14 @@ const handlePDF = (type, text) =>{
 					<IconButton onClick={() => navigator.clipboard.writeText(braille)}><ContentCopyIcon /></IconButton>
 					<IconButton onClick={() => handlePDF('braille',braille)}><PictureAsPdfIcon /></IconButton>
 				<div className='inverterContainer'>
-					<label for='atkinsonInverter'>color inverter</label>
-					<Switch id='atkinsonInverter' onClick={e => setBrailleInverted(!brailleInverted)}/>
+					<label for='brailleInverter'>Color inverter</label>
+					<Switch id='brailleInverter' onClick={e => setBrailleInverted(!brailleInverted)}/>
 				</div>
 			</div>
 			<div className='break'/>
+			<div className={brailleInverted ? 'stringWrapperInverted' : 'stringWrapper'} >
 				{spanCreator(braille)}
+			</div>
 			</div>}
 		{isAtkinsonSelected &&<div className={"BrailleString"}>
 		<p className='description'>Image brightness</p>
@@ -199,12 +203,12 @@ const handlePDF = (type, text) =>{
 				<IconButton onClick={() => navigator.clipboard.writeText(atkinson)}><ContentCopyIcon /></IconButton>
 				<IconButton onClick={() => handlePDF('braille',atkinson)}><PictureAsPdfIcon /></IconButton>
 			<div className='inverterContainer'>
-				<label for='atkinsonInverter'>color inverter</label>
+				<label for='atkinsonInverter'>Color inverter</label>
 				<Switch id='atkinsonInverter' onClick={e => setAtkinsonInverted(!atkinsonInverted)}/>
 			</div>
 			</div>
 			<div className='break'/>
-				<div className='stringWrapper' style={{backgroundColor : '', padding: '7px'}}>
+				<div className={atkinsonInverted ? 'stringWrapperInverted' : 'stringWrapper'} >
 				{spanCreator(atkinson)}
 				</div>
 			</div>}	

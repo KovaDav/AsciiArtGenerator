@@ -179,3 +179,13 @@ button:disabled:active{
   flex-direction: row;
   margin-top: 7px;
 }
+
+.stringWrapper{
+  padding: 7px;
+}
+
+.stringWrapperInverted{
+  padding-top: 7px;
+  background-color: hsl(245, 39%, 5%);
+  color: hsl(245, 39%, 97%);
+}
