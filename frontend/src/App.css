@@ -189,3 +189,13 @@ button:disabled:active{
   background-color: hsl(245, 39%, 5%);
   color: hsl(245, 39%, 97%);
 }
+
+.pdfForm{
+  width: 30rem;
+  height: 40rem;
+  z-index: 1;
+  position: fixed;
+  justify-self: center;
+  align-self: center;
+  background-color: #349b34;
+}

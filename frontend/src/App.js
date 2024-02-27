@@ -7,7 +7,7 @@ import { IconButton } from '@mui/material';
 import { jsPDF } from 'jspdf';
 import { font } from './BlistaBraille-normal';
 import { font2 } from './MonospaceTypewriter-normal';
-import { pdfForm} from './components/pdfForm'
+import  PdfForm from './components/pdfForm'
 
 
 function App(){
@@ -143,6 +143,7 @@ const handlePDF = (type, text) =>{
 	   <div className={"Blur"}>
 	   <h1 className={"Header"}>ASCII ART GENERATOR</h1>
 	   <div className={"Filter"}>
+	   <PdfForm />
 		   <div className={"UploadToSubmit"}>
 			<div className='OptionsDiv'>
 			<input className='description' type="file" name="file" onChange={changeHandler} />
@@ -174,7 +175,9 @@ const handlePDF = (type, text) =>{
 				</div>
 			</div>
 		   <div className='break'/>
+		
 		   <div className={asciiInverted ? 'stringWrapperInverted' : 'stringWrapper'} >
+				
 		   		{spanCreator(ascii)}
 			</div>
 	   		</div>}
