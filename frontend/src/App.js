@@ -7,6 +7,8 @@ import { IconButton } from '@mui/material';
 import { jsPDF } from 'jspdf';
 import { font } from './BlistaBraille-normal';
 import { font2 } from './MonospaceTypewriter-normal';
+import { pdfForm} from './components/pdfForm'
+
 
 function App(){
 	const [selectedFile, setSelectedFile] = useState(false);
