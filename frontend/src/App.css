@@ -190,7 +190,7 @@ button:disabled:active{
   color: hsl(245, 39%, 97%);
 }
 
-.pdfForm{
+.PdfForm{
   width: 30rem;
   height: 40rem;
   margin: 0.5rem;
@@ -215,7 +215,7 @@ button:disabled:active{
   width: 20rem;
 }
 
-#paperSizeContainer{
+#paperSizeContainer, #paperOrientationContainer{
   display: flex;
   justify-content: space-around;
   
@@ -230,4 +230,9 @@ button:disabled:active{
 
 .PdfCheckbox, .PdfCheckboxLabel{
   width: 1rem;
+}
+
+.PdfOrientationIcon{
+  width: 2rem;
+  height: 2rem;
 }
