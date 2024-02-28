@@ -214,3 +214,20 @@ button:disabled:active{
 .PdfSlider{
   width: 20rem;
 }
+
+#paperSizeContainer{
+  display: flex;
+  justify-content: space-around;
+  
+}
+
+.PdfCheckboxLabelContainer{
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  height: 3rem;
+}
+
+.PdfCheckbox, .PdfCheckboxLabel{
+  width: 1rem;
+}
