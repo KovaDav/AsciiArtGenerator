@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Horizontal from '../icons/horizontal.png';
 import Vertical from '../icons/vertical.png';
 
-function PdfForm() {
+function PdfForm({pdfString}) {
     return(
         <div className='PdfForm'>
             <h2>PDF downloader options</h2>
@@ -39,11 +39,19 @@ function PdfForm() {
                 <img src={Horizontal} alt="Horizontal" className='PdfOrientationIcon'></img>
                 <input className='PdfCheckbox' id='A2Checkbox' type='checkbox'></input>
                 </section>
-            </div>    
-            <label for = 'PdfHorizontalSlider'>X starting coordinate</label>
-            <input type={"range"} min={"1"} max={"50"} id={"PdfHorizontalSlider"} className={"PdfSlider"}></input>
-            <label for = 'PdfVerticalSlider' className='PdfVerticalSliderDesc'>Y starting coordinate</label>
-            <input type={"range"} min={"1"} max={"50"} id={"PdfVerticalSlider"} className={"PdfSlider"}></input>
+            </div>
+            <h4>PDF preview</h4>
+            <div id='pdfCoordinateContainer'>
+                <input type={"range"} min={"1"} max={"50"} id={"PdfHorizontalSlider"} className={"PdfSlider"}></input>
+                <section id='pdfPreviewContainer'>
+                    <input type={"range"} min={"1"} max={"50"} id={"PdfVerticalSlider"} className={"PdfSlider"}></input>
+                    <iframe id='PdfPreview' title='pdf' src={pdfString} allow='fullscreen'/>
+                </section>
+            </div> 
+            <div id='pdfButtonContainer'>
+                <button className='BackgroundGreen'>Save</button>  
+                <button className='BackgroundRed'>Cancel</button>
+            </div>
         </div>
     )
 }

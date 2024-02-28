@@ -24,6 +24,8 @@ function App(){
 	const [isBrailleSelected , setIsBrailleSelected] = useState(false)
 	const [isAtkinsonSelected , setIsAtkinsonSelected] = useState(false)
 	const [isAsciiSelected, setIsAsciiSelected] = useState(false)
+	const [pdfString, setPdfString] = useState("")
+
 	const changeHandler = (event) => {
 		setSelectedFile(event.target.files[0]);
 	};
@@ -121,7 +123,8 @@ const handlePDF = (type, text) =>{
 	  doc.setLineHeightFactor(1)
 	  doc.setFontSize(10)
 	  doc.text(text,1,1)
-	  doc.save('ascii.pdf')
+	  setPdfString(doc.output('datauri'))
+	  //doc.save('ascii.pdf')
 	}
 
   useEffect(() => {
@@ -142,13 +145,11 @@ const handlePDF = (type, text) =>{
    <div className={"Background"}>
 	   <div className={"Blur"}>
 	   <h1 className={"Header"}>ASCII ART GENERATOR</h1>
+	   <PdfForm pdfString={pdfString}/>
 	   <div className={"Filter"}>
-	   <PdfForm />
 		   <div className={"UploadToSubmit"}>
 			<div className='OptionsDiv'>
-			<input className='description' type="file" name="file" onChange={changeHandler} />
-			<p className='description'>Invert image colors</p>
-		   
+			<input className='description' type="file" name="file" onChange={changeHandler} />   
 		   </div>
 	   <div className={"OptionsDiv"}>
 		   <p className='description'>Do you want to use Ascii characters or Braille characters?</p>
