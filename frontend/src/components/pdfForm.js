@@ -23,7 +23,8 @@ const handlePdf = () => {
         unit: "mm",
         format: paperSize,
       });
-      console.log(paperSize)
+
+      console.log(doc.getStringUnitWidth(braille[0]))
       if(pdfType === 'braille'){
         doc.addFileToVFS("BlistaBraille.ttf", font)
         doc.addFont("BlistaBraille-normal.ttf", "BlistaBraille", "normal")
@@ -93,9 +94,9 @@ const handlePdf = () => {
             </div>
             <h4>PDF preview</h4>
             <div id='pdfCoordinateContainer'>
-                <input type={"range"} min={"1"} max={"50"} id={"PdfHorizontalSlider"} className={"PdfSlider"}></input>
+                <input type={"range"} min={"1"} max={"50"} id={"PdfHorizontalSlider"} className={"PdfSlider"} onChange={e => setPaperCoordinateX(e.target.value)}></input>
                 <section id='pdfPreviewContainer'>
-                    <input type={"range"} min={"1"} max={"50"} id={"PdfVerticalSlider"} className={"PdfSlider"}></input>
+                    <input type={"range"} min={"1"} max={"350"} id={"PdfVerticalSlider"} className={"PdfSlider"} onChange={e => setPaperCoordinateY(e.target.value)}></input>
                     <iframe id='PdfPreview' title='pdf' src={pdfString} allow='fullscreen'/>
                 </section>
             </div> 

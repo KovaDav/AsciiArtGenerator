@@ -212,7 +212,7 @@ button:disabled:active{
 }
 
 #PdfVerticalSlider{
-  transform: rotate(-90deg);
+  transform: rotate(-270deg);
   margin-top: 7rem;
 }
 
