@@ -1,8 +1,50 @@
 import React, { useState, useEffect } from 'react';
 import Horizontal from '../icons/horizontal.png';
 import Vertical from '../icons/vertical.png';
+import { jsPDF } from 'jspdf';
+import { font } from '../BlistaBraille-normal';
+import { font2 } from '../MonospaceTypewriter-normal';
 
-function PdfForm({pdfString}) {
+
+function PdfForm({pdfString, setPdfString, pdfType, ascii, braille, atkinson}) {
+
+useEffect(() => {
+    const doc = new jsPDF({
+        orientation: "l",
+        unit: "mm",
+        format: "a4",
+      });
+      console.log(pdfType)
+      if(pdfType === 'braille'){
+        doc.addFileToVFS("BlistaBraille.ttf", font)
+        doc.addFont("BlistaBraille-normal.ttf", "BlistaBraille", "normal")
+        doc.setFont('BlistaBraille')
+        doc.setLineHeightFactor(1)
+        doc.setFontSize(10)
+        doc.text(braille,1,1)
+      }else if(pdfType === "atkinson"){
+        doc.addFileToVFS("BlistaBraille.ttf", font)
+        doc.addFont("BlistaBraille-normal.ttf", "BlistaBraille", "normal")
+        doc.setFont('BlistaBraille')
+        doc.setLineHeightFactor(1)
+        doc.setFontSize(10)
+        doc.text(atkinson,1,1)
+      }else{
+        doc.addFileToVFS("MonospaceTypewriter.ttf", font2)
+        doc.addFont("MonospaceTypewriter-normal.ttf", "MonospaceTypewriter", "normal")
+        doc.setFont('MonospaceTypewriter')
+        doc.setLineHeightFactor(1)
+        doc.setFontSize(10)
+        doc.text(ascii,1,1)
+      }
+
+      
+      setPdfString(doc.output('datauri'))
+      //doc.save('ascii.pdf')
+},[])
+
+
+
     return(
         <div className='PdfForm'>
             <h2>PDF downloader options</h2>
