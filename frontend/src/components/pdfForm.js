@@ -6,7 +6,7 @@ import { font } from '../BlistaBraille-normal';
 import { font2 } from '../MonospaceTypewriter-normal';
 
 
-function PdfForm({pdfString, setPdfString, pdfType, ascii, braille, atkinson}) {
+function PdfForm({pdfString, setPdfString, pdfType, ascii, braille, atkinson, pdfClicked, setPdfClicked}) {
 
     const [paperSize, setPaperSize] = useState("a4")
     const [paperOrientation, setPaperOrientation] = useState("p")
@@ -14,10 +14,10 @@ function PdfForm({pdfString, setPdfString, pdfType, ascii, braille, atkinson}) {
     const [paperCoordinateY, setPaperCoordinateY] = useState(1)
 
 useEffect(() => {
-    handlePdf()
+    handlePdf(false)
 },[paperSize,paperOrientation,paperCoordinateX,paperCoordinateY])
 
-const handlePdf = () => {
+const handlePdf = (save) => {
     const doc = new jsPDF({
         orientation: paperOrientation,
         unit: "mm",
@@ -48,7 +48,9 @@ const handlePdf = () => {
 
       
       setPdfString(doc.output('datauristring'))
-      //doc.save("ascii.pdf")
+      if(save){
+          doc.save("ascii.pdf")
+      }
 }
 
 
@@ -99,8 +101,8 @@ const handlePdf = () => {
                 </section>
             </div> 
             <div id='pdfButtonContainer'>
-                <button className='BackgroundGreen'>Save</button>  
-                <button className='BackgroundRed'>Cancel</button>
+                <button className='BackgroundGreen' onClick={() => {setPdfClicked(!pdfClicked); handlePdf(true)}}>Save</button>  
+                <button className='BackgroundRed' onClick={() => setPdfClicked(!pdfClicked)}>Cancel</button>
             </div>
         </div>
     )
