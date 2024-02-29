@@ -7,6 +7,8 @@ import { IconButton } from '@mui/material';
 import { jsPDF } from 'jspdf';
 import { font } from './BlistaBraille-normal';
 import { font2 } from './MonospaceTypewriter-normal';
+import  PdfForm from './components/pdfForm'
+
 
 function App(){
 	const [selectedFile, setSelectedFile] = useState(false);
@@ -22,6 +24,10 @@ function App(){
 	const [isBrailleSelected , setIsBrailleSelected] = useState(false)
 	const [isAtkinsonSelected , setIsAtkinsonSelected] = useState(false)
 	const [isAsciiSelected, setIsAsciiSelected] = useState(false)
+	const [pdfString, setPdfString] = useState("")
+	const [pdfClicked, setPdfClicked] = useState(false)
+	const [pdfType, setPdfType] = useState("")
+
 	const changeHandler = (event) => {
 		setSelectedFile(event.target.files[0]);
 	};
@@ -99,28 +105,6 @@ function App(){
 		}
 	};
 
-const handlePDF = (type, text) =>{
-	const doc = new jsPDF({
-		orientation: "l",
-		unit: "mm",
-		format: "a4",
-	  });
-
-	  if(type === 'braille'){
-	  doc.addFileToVFS("BlistaBraille.ttf", font)
-	  doc.addFont("BlistaBraille-normal.ttf", "BlistaBraille", "normal")
-	  doc.setFont('BlistaBraille')
-	  }else{
-	  doc.addFileToVFS("MonospaceTypewriter.ttf", font2)
-	  doc.addFont("MonospaceTypewriter-normal.ttf", "MonospaceTypewriter", "normal")
-	  doc.setFont('MonospaceTypewriter')
-	  }
-
-	  doc.setLineHeightFactor(1)
-	  doc.setFontSize(10)
-	  doc.text(text,1,1)
-	  doc.save('ascii.pdf')
-	}
 
   useEffect(() => {
     if(selectedFile === false){
@@ -140,12 +124,11 @@ const handlePDF = (type, text) =>{
    <div className={"Background"}>
 	   <div className={"Blur"}>
 	   <h1 className={"Header"}>ASCII ART GENERATOR</h1>
+	   {pdfClicked && <PdfForm pdfString={pdfString} setPdfString={setPdfString} pdfType={pdfType} ascii={ascii} braille={braille} atkinson={atkinson} pdfClicked={pdfClicked} setPdfClicked={setPdfClicked}/>}
 	   <div className={"Filter"}>
 		   <div className={"UploadToSubmit"}>
 			<div className='OptionsDiv'>
-			<input className='description' type="file" name="file" onChange={changeHandler} />
-			<p className='description'>Invert image colors</p>
-		   
+			<input className='description' type="file" name="file" onChange={changeHandler} />   
 		   </div>
 	   <div className={"OptionsDiv"}>
 		   <p className='description'>Do you want to use Ascii characters or Braille characters?</p>
@@ -165,14 +148,16 @@ const handlePDF = (type, text) =>{
 	   	{isAsciiSelected &&<div className="AsciiString">
 		   <div className='threeButtonsContainer'>
 		   		<IconButton onClick={() => navigator.clipboard.writeText(ascii)}><ContentCopyIcon /></IconButton>
-		   		<IconButton onClick={() => handlePDF('ascii',ascii)}><PictureAsPdfIcon /></IconButton>
+		   		<IconButton onClick={() => {setPdfClicked(!pdfClicked);setPdfType("ascii")}}><PictureAsPdfIcon /></IconButton>
 		   <div className='inverterContainer'>
 					<label for='asciiInverter'>Color inverter</label>
 					<Switch id='asciiInverter' onClick={e => setAsciiInverted(!asciiInverted)}/>
 				</div>
 			</div>
 		   <div className='break'/>
+		
 		   <div className={asciiInverted ? 'stringWrapperInverted' : 'stringWrapper'} >
+				
 		   		{spanCreator(ascii)}
 			</div>
 	   		</div>}
@@ -183,7 +168,7 @@ const handlePDF = (type, text) =>{
 		    onMouseUp={() => {handleSubmissionBraille()}}></input>
 			<div className='threeButtonsContainer'>
 					<IconButton onClick={() => navigator.clipboard.writeText(braille)}><ContentCopyIcon /></IconButton>
-					<IconButton onClick={() => handlePDF('braille',braille)}><PictureAsPdfIcon /></IconButton>
+					<IconButton onClick={() => {setPdfClicked(!pdfClicked);setPdfType("braille")}}><PictureAsPdfIcon /></IconButton>
 				<div className='inverterContainer'>
 					<label for='brailleInverter'>Color inverter</label>
 					<Switch id='brailleInverter' onClick={e => setBrailleInverted(!brailleInverted)}/>
@@ -201,7 +186,7 @@ const handlePDF = (type, text) =>{
 		    onMouseUp={() => {handleSubmissionAtkinson()}}></input>
 			<div className='threeButtonsContainer'>
 				<IconButton onClick={() => navigator.clipboard.writeText(atkinson)}><ContentCopyIcon /></IconButton>
-				<IconButton onClick={() => handlePDF('braille',atkinson)}><PictureAsPdfIcon /></IconButton>
+				<IconButton onClick={() => {setPdfClicked(!pdfClicked);setPdfType("atkinson")}}><PictureAsPdfIcon /></IconButton>
 			<div className='inverterContainer'>
 				<label for='atkinsonInverter'>Color inverter</label>
 				<Switch id='atkinsonInverter' onClick={e => setAtkinsonInverted(!atkinsonInverted)}/>
