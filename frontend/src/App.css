@@ -217,7 +217,6 @@ button:disabled:active{
 }
 
 #PdfHorizontalSlider{
-  transform: rotate(180deg);
   margin-bottom: 5rem;
   margin-left: 15rem;
 }
