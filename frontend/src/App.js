@@ -4,11 +4,8 @@ import Switch from '@mui/material/Switch';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import { IconButton } from '@mui/material';
-import { jsPDF } from 'jspdf';
-import { font } from './BlistaBraille-normal';
-import { font2 } from './MonospaceTypewriter-normal';
 import  PdfForm from './components/pdfForm'
-
+import Tooltip from '@mui/material/Tooltip';
 
 function App(){
 	const [selectedFile, setSelectedFile] = useState(false);
@@ -152,8 +149,9 @@ function App(){
 		   		<IconButton onClick={() => navigator.clipboard.writeText(ascii)}><ContentCopyIcon /></IconButton>
 		   		<IconButton onClick={() => {setPdfClicked(!pdfClicked);setPdfType("ascii")}}><PictureAsPdfIcon /></IconButton>
 		   <div className='inverterContainer'>
-					<label for='asciiInverter'>Color inverter</label>
+					<Tooltip title="Color inverter">
 					<Switch id='asciiInverter' onClick={e => setAsciiInverted(!asciiInverted)}/>
+					</Tooltip>
 				</div>
 			</div>
 		   <div className='break'/>
@@ -169,12 +167,14 @@ function App(){
 		   <input type={"range"} min={"1"} max={"254"} defaultValue={brailleBrightness} id={"Slider"} onChange={e => setBrailleBrightness(e.target.value)}
 		    onMouseUp={() => {handleSubmissionBraille()}}></input>
 			<div className='threeButtonsContainer'>
-					<IconButton onClick={() => navigator.clipboard.writeText(braille)}><ContentCopyIcon /></IconButton>
+					<IconButton className='MuiIconButton-sizeSmall' onClick={() => navigator.clipboard.writeText(braille)}><ContentCopyIcon /></IconButton>
 					<IconButton onClick={() => {setPdfClicked(!pdfClicked);setPdfType("braille")}}><PictureAsPdfIcon /></IconButton>
 				<div className='inverterContainer'>
-					<label for='brailleInverter'>Color inverter</label>
+					<Tooltip title="Color inverter">
 					<Switch id='brailleInverter' onClick={e => setBrailleInverted(!brailleInverted)}/>
+					</Tooltip>
 				</div>
+				
 			</div>
 			<div className='break'/>
 			<div className={brailleInverted ? 'stringWrapperInverted' : 'stringWrapper'} >
@@ -190,8 +190,9 @@ function App(){
 				<IconButton onClick={() => navigator.clipboard.writeText(atkinson)}><ContentCopyIcon /></IconButton>
 				<IconButton onClick={() => {setPdfClicked(!pdfClicked);setPdfType("atkinson")}}><PictureAsPdfIcon /></IconButton>
 			<div className='inverterContainer'>
-				<label for='atkinsonInverter'>Color inverter</label>
+				<Tooltip title="Color inverter">
 				<Switch id='atkinsonInverter' onClick={e => setAtkinsonInverted(!atkinsonInverted)}/>
+				</Tooltip>
 			</div>
 			</div>
 			<div className='break'/>
