@@ -169,7 +169,7 @@ button:disabled:active{
 }
 
 
-.inverterContainer{
+.inverterContainer, .replaceEmptyCharContainer{
   display: flex;
   flex-direction: column;
 }
@@ -281,4 +281,9 @@ button:disabled:active{
 
 .BackgroundRed{
   background-color: rgb(158, 0, 0);
+}
+
+.MuiIconButton-root{
+  width: auto;
+  height: auto;
 }

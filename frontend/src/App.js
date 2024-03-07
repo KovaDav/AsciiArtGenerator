@@ -4,11 +4,8 @@ import Switch from '@mui/material/Switch';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import { IconButton } from '@mui/material';
-import { jsPDF } from 'jspdf';
-import { font } from './BlistaBraille-normal';
-import { font2 } from './MonospaceTypewriter-normal';
 import  PdfForm from './components/pdfForm'
-
+import Tooltip from '@mui/material/Tooltip';
 
 function App(){
 	const [selectedFile, setSelectedFile] = useState(false);
@@ -21,6 +18,8 @@ function App(){
 	const [asciiInverted, setAsciiInverted] = useState(false)
 	const [brailleInverted, setBrailleInverted] = useState(false)
 	const [atkinsonInverted, setAtkinsonInverted] = useState(false)
+	const [brailleReplace, setBrailleReplace] = useState(false)
+	const [atkinsonReplace, setAtkinsonReplace] = useState(false)
 	const [isBrailleSelected , setIsBrailleSelected] = useState(false)
 	const [isAtkinsonSelected , setIsAtkinsonSelected] = useState(false)
 	const [isAsciiSelected, setIsAsciiSelected] = useState(false)
@@ -39,7 +38,7 @@ function App(){
 		const formData = new FormData();
 		formData.append('File', selectedFile);
 		fetch(
-			//`http://localhost:5000/ascii?width=${width}&inverted=${inverted}`
+			//`http://localhost:5000/ascii?width=${width}&inverted=${asciiInverted}`
 			`https://KovaDav.eu.pythonanywhere.com/ascii?width=${width}&inverted=${asciiInverted}`
 			,
 			{
@@ -63,8 +62,8 @@ function App(){
 		const formData = new FormData();
 		formData.append('File', selectedFile);
 		fetch(
-			//`http://localhost:5000/braille?width=${width}&brightness=${brailleBrightness}&inverted=${inverted}`
-			`https://KovaDav.eu.pythonanywhere.com/braille?width=${width}&brightness=${brailleBrightness}&inverted=${brailleInverted}`
+			//`http://localhost:5000/braille?width=${width}&brightness=${brailleBrightness}&inverted=${brailleInverted}&replace=${brailleReplace}`
+			`https://KovaDav.eu.pythonanywhere.com/braille?width=${width}&brightness=${brailleBrightness}&inverted=${brailleInverted}&replace=${brailleReplace}`
 			,
 			{
 				method: 'POST',
@@ -87,8 +86,8 @@ function App(){
 		const formData = new FormData();
 		formData.append('File', selectedFile);
 		fetch(
-			//`http://localhost:5000/atkinson?width=${width}&brightness=${atkinsonBrightness}&inverted=${inverted}`
-			`https://KovaDav.eu.pythonanywhere.com/atkinson?width=${width}&brightness=${atkinsonBrightness}&inverted=${atkinsonInverted}`
+			//`http://localhost:5000/atkinson?width=${width}&brightness=${atkinsonBrightness}&inverted=${atkinsonInverted}&replace=${atkinsonReplace}`
+			`https://KovaDav.eu.pythonanywhere.com/atkinson?width=${width}&brightness=${atkinsonBrightness}&inverted=${atkinsonInverted}&replace=${atkinsonReplace}`
 			,
 			{
 				method: 'POST',
@@ -114,7 +113,7 @@ function App(){
 	  handleSubmissionBraille()
 	  handleSubmissionAtkinson()
     
-  }, [asciiInverted, brailleInverted, atkinsonInverted,isAsciiSelected, isBrailleSelected, isAtkinsonSelected]);
+  }, [brailleReplace, atkinsonReplace,asciiInverted, brailleInverted, atkinsonInverted,isAsciiSelected, isBrailleSelected, isAtkinsonSelected]);
 
 	const spanCreator = (string) => {
 		return string.split('').map(str => str === '\n'? <div className='break'></div>:<span className={"StringSpan"}>{str}</span>);
@@ -133,9 +132,9 @@ function App(){
 	   <div className={"OptionsDiv"}>
 		   <p className='description'>Do you want to use Ascii characters or Braille characters?</p>
 		   <div className={"ButtonContainer"}>
+		   <button onClick={() => setIsAsciiSelected(!isAsciiSelected)}>Ascii</button>
 		   <button onClick={() => setIsBrailleSelected(!isBrailleSelected)}>Braille</button>
 		   <button onClick={() => setIsAtkinsonSelected(!isAtkinsonSelected)}>Atkinson-Braille</button>
-		   <button onClick={() => setIsAsciiSelected(!isAsciiSelected)}>Ascii</button>
 		   </div>
 		   <p className='description'>What do you want the width of the picture to be? (default 50)</p>
 		   <input type={"number"} defaultValue={width} onChange={e => setWidth((e.target.value))}/>
@@ -147,11 +146,16 @@ function App(){
 		   <div className={"StringContainer"}>
 	   	{isAsciiSelected &&<div className="AsciiString">
 		   <div className='threeButtonsContainer'>
+		   		<Tooltip title="Copy to Clipboard">
 		   		<IconButton onClick={() => navigator.clipboard.writeText(ascii)}><ContentCopyIcon /></IconButton>
+				</Tooltip>
+				<Tooltip title="Download as PDF">
 		   		<IconButton onClick={() => {setPdfClicked(!pdfClicked);setPdfType("ascii")}}><PictureAsPdfIcon /></IconButton>
+				</Tooltip>
 		   <div className='inverterContainer'>
-					<label for='asciiInverter'>Color inverter</label>
+					<Tooltip title="Color inverter">
 					<Switch id='asciiInverter' onClick={e => setAsciiInverted(!asciiInverted)}/>
+					</Tooltip>
 				</div>
 			</div>
 		   <div className='break'/>
@@ -167,11 +171,21 @@ function App(){
 		   <input type={"range"} min={"1"} max={"254"} defaultValue={brailleBrightness} id={"Slider"} onChange={e => setBrailleBrightness(e.target.value)}
 		    onMouseUp={() => {handleSubmissionBraille()}}></input>
 			<div className='threeButtonsContainer'>
-					<IconButton onClick={() => navigator.clipboard.writeText(braille)}><ContentCopyIcon /></IconButton>
+					<Tooltip title="Copy to Clipboard">
+					<IconButton className='MuiIconButton-sizeSmall' onClick={() => navigator.clipboard.writeText(braille)}><ContentCopyIcon /></IconButton>
+					</Tooltip>
+					<Tooltip title="Download as PDF">
 					<IconButton onClick={() => {setPdfClicked(!pdfClicked);setPdfType("braille")}}><PictureAsPdfIcon /></IconButton>
+					</Tooltip>
 				<div className='inverterContainer'>
-					<label for='brailleInverter'>Color inverter</label>
+					<Tooltip title="Color inverter">
 					<Switch id='brailleInverter' onClick={e => setBrailleInverted(!brailleInverted)}/>
+					</Tooltip>
+				</div>
+				<div className='replaceEmptyCharContainer'>
+					<Tooltip title="Fixes the misalignment issues when copied into chatrooms.">
+					<Switch id='brailleReplaceEmptyCharInverter' onClick={e => setBrailleReplace(!brailleReplace)}/>
+					</Tooltip>
 				</div>
 			</div>
 			<div className='break'/>
@@ -185,11 +199,21 @@ function App(){
 			<input type={"range"} min={"1"} max={"254"} defaultValue={atkinsonBrightness} id={"Slider"} onChange={e => setAtkinsonBrightness(e.target.value)}
 		    onMouseUp={() => {handleSubmissionAtkinson()}}></input>
 			<div className='threeButtonsContainer'>
+				<Tooltip title="Copy to Clipboard">
 				<IconButton onClick={() => navigator.clipboard.writeText(atkinson)}><ContentCopyIcon /></IconButton>
+				</Tooltip>
+				<Tooltip title="Download as PDF">
 				<IconButton onClick={() => {setPdfClicked(!pdfClicked);setPdfType("atkinson")}}><PictureAsPdfIcon /></IconButton>
+				</Tooltip>
 			<div className='inverterContainer'>
-				<label for='atkinsonInverter'>Color inverter</label>
+				<Tooltip title="Color inverter">
 				<Switch id='atkinsonInverter' onClick={e => setAtkinsonInverted(!atkinsonInverted)}/>
+				</Tooltip>
+			</div>
+			<div className='replaceEmptyCharContainer'>
+				<Tooltip title="Fixes the misalignment issues when copied into chatrooms.">
+				<Switch id='atkinsonReplaceEmptyCharInverter' onClick={e => setAtkinsonReplace(!atkinsonReplace)}/>
+				</Tooltip>
 			</div>
 			</div>
 			<div className='break'/>
