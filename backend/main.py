@@ -25,7 +25,7 @@ def get_braille():
         binary_array = color_inverter(binary_array)
 
     binary_array_container = pixel_array_divider(binary_array)
-    braille_string = braille_string_creator(binary_array_container, len(extended_pixel_array[0]))
+    braille_string = braille_string_creator(binary_array_container, len(extended_pixel_array[0], request.args['replace']))
 
     response = {"braille": braille_string}
     return json.dumps(response)
@@ -45,7 +45,7 @@ def get_atkinson():
         binary_array = color_inverter(binary_array)
 
     binary_array_container = pixel_array_divider(binary_array)
-    braille_string = braille_string_creator(binary_array_container, len(extended_pixel_array[0]))
+    braille_string = braille_string_creator(binary_array_container, len(extended_pixel_array[0], request.args['replace']))
 
     response = {"atkinson": braille_string}
     return json.dumps(response)
@@ -217,13 +217,16 @@ def atkinson_binary_array_creator(pixel_array, brightness):
 
 
 
-def braille_character_printer(binary_array):
+def braille_character_printer(binary_array, replace_empty_char):
 
     html_entity_array = [1, 8, 2, 16, 4, 32, 64, 128]
     html_entity = 10240
     for i in range(0, 8):
-        if binary_array[0][i] == 0:
+        if binary_array[i] == 0:
             html_entity += html_entity_array[i]
+
+    if replace_empty_char & html_entity == 10240:
+        html_entity= 10241
 
     return html.unescape("&#"+str(html_entity))
 
@@ -243,14 +246,14 @@ def pixel_array_divider(pixel_array):
     return binary_array_container
 
 
-def braille_string_creator(binary_array_container, width):
+def braille_string_creator(binary_array_container, width, replace_empty_char):
     braille_string = ""
     counter = 0
     for i in range(0, len(binary_array_container), 8):
         if counter == (width/2):
             braille_string += "\n"
             counter = 0
-        braille_string += braille_character_printer([binary_array_container[i:i + 8]])
+        braille_string += braille_character_printer(binary_array_container[i:i + 8], replace_empty_char)
         counter += 1
     return braille_string
 
