@@ -132,9 +132,9 @@ function App(){
 	   <div className={"OptionsDiv"}>
 		   <p className='description'>Do you want to use Ascii characters or Braille characters?</p>
 		   <div className={"ButtonContainer"}>
+		   <button onClick={() => setIsAsciiSelected(!isAsciiSelected)}>Ascii</button>
 		   <button onClick={() => setIsBrailleSelected(!isBrailleSelected)}>Braille</button>
 		   <button onClick={() => setIsAtkinsonSelected(!isAtkinsonSelected)}>Atkinson-Braille</button>
-		   <button onClick={() => setIsAsciiSelected(!isAsciiSelected)}>Ascii</button>
 		   </div>
 		   <p className='description'>What do you want the width of the picture to be? (default 50)</p>
 		   <input type={"number"} defaultValue={width} onChange={e => setWidth((e.target.value))}/>
@@ -146,8 +146,12 @@ function App(){
 		   <div className={"StringContainer"}>
 	   	{isAsciiSelected &&<div className="AsciiString">
 		   <div className='threeButtonsContainer'>
+		   		<Tooltip title="Copy to Clipboard">
 		   		<IconButton onClick={() => navigator.clipboard.writeText(ascii)}><ContentCopyIcon /></IconButton>
+				</Tooltip>
+				<Tooltip title="Download as PDF">
 		   		<IconButton onClick={() => {setPdfClicked(!pdfClicked);setPdfType("ascii")}}><PictureAsPdfIcon /></IconButton>
+				</Tooltip>
 		   <div className='inverterContainer'>
 					<Tooltip title="Color inverter">
 					<Switch id='asciiInverter' onClick={e => setAsciiInverted(!asciiInverted)}/>
@@ -167,8 +171,12 @@ function App(){
 		   <input type={"range"} min={"1"} max={"254"} defaultValue={brailleBrightness} id={"Slider"} onChange={e => setBrailleBrightness(e.target.value)}
 		    onMouseUp={() => {handleSubmissionBraille()}}></input>
 			<div className='threeButtonsContainer'>
+					<Tooltip title="Copy to Clipboard">
 					<IconButton className='MuiIconButton-sizeSmall' onClick={() => navigator.clipboard.writeText(braille)}><ContentCopyIcon /></IconButton>
+					</Tooltip>
+					<Tooltip title="Download as PDF">
 					<IconButton onClick={() => {setPdfClicked(!pdfClicked);setPdfType("braille")}}><PictureAsPdfIcon /></IconButton>
+					</Tooltip>
 				<div className='inverterContainer'>
 					<Tooltip title="Color inverter">
 					<Switch id='brailleInverter' onClick={e => setBrailleInverted(!brailleInverted)}/>
@@ -191,8 +199,12 @@ function App(){
 			<input type={"range"} min={"1"} max={"254"} defaultValue={atkinsonBrightness} id={"Slider"} onChange={e => setAtkinsonBrightness(e.target.value)}
 		    onMouseUp={() => {handleSubmissionAtkinson()}}></input>
 			<div className='threeButtonsContainer'>
+				<Tooltip title="Copy to Clipboard">
 				<IconButton onClick={() => navigator.clipboard.writeText(atkinson)}><ContentCopyIcon /></IconButton>
+				</Tooltip>
+				<Tooltip title="Download as PDF">
 				<IconButton onClick={() => {setPdfClicked(!pdfClicked);setPdfType("atkinson")}}><PictureAsPdfIcon /></IconButton>
+				</Tooltip>
 			<div className='inverterContainer'>
 				<Tooltip title="Color inverter">
 				<Switch id='atkinsonInverter' onClick={e => setAtkinsonInverted(!atkinsonInverted)}/>
