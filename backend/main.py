@@ -25,7 +25,7 @@ def get_braille():
         binary_array = color_inverter(binary_array)
 
     binary_array_container = pixel_array_divider(binary_array)
-    braille_string = braille_string_creator(binary_array_container, len(extended_pixel_array[0], request.args['replace']))
+    braille_string = braille_string_creator(binary_array_container, len(extended_pixel_array[0]), request.args['replace'])
 
     response = {"braille": braille_string}
     return json.dumps(response)
@@ -45,7 +45,7 @@ def get_atkinson():
         binary_array = color_inverter(binary_array)
 
     binary_array_container = pixel_array_divider(binary_array)
-    braille_string = braille_string_creator(binary_array_container, len(extended_pixel_array[0], request.args['replace']))
+    braille_string = braille_string_creator(binary_array_container, len(extended_pixel_array[0]), request.args['replace'])
 
     response = {"atkinson": braille_string}
     return json.dumps(response)
@@ -225,7 +225,7 @@ def braille_character_printer(binary_array, replace_empty_char):
         if binary_array[i] == 0:
             html_entity += html_entity_array[i]
 
-    if replace_empty_char & html_entity == 10240:
+    if replace_empty_char == 'true' and html_entity == 10240:
         html_entity= 10241
 
     return html.unescape("&#"+str(html_entity))

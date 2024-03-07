@@ -169,7 +169,7 @@ button:disabled:active{
 }
 
 
-.inverterContainer{
+.inverterContainer, .replaceEmptyCharContainer{
   display: flex;
   flex-direction: column;
 }

@@ -113,7 +113,7 @@ function App(){
 	  handleSubmissionBraille()
 	  handleSubmissionAtkinson()
     
-  }, [asciiInverted, brailleInverted, atkinsonInverted,isAsciiSelected, isBrailleSelected, isAtkinsonSelected]);
+  }, [brailleReplace, atkinsonReplace,asciiInverted, brailleInverted, atkinsonInverted,isAsciiSelected, isBrailleSelected, isAtkinsonSelected]);
 
 	const spanCreator = (string) => {
 		return string.split('').map(str => str === '\n'? <div className='break'></div>:<span className={"StringSpan"}>{str}</span>);
@@ -174,7 +174,11 @@ function App(){
 					<Switch id='brailleInverter' onClick={e => setBrailleInverted(!brailleInverted)}/>
 					</Tooltip>
 				</div>
-				
+				<div className='replaceEmptyCharContainer'>
+					<Tooltip title="Fixes the misalignment issues when copied into chatrooms.">
+					<Switch id='brailleReplaceEmptyCharInverter' onClick={e => setBrailleReplace(!brailleReplace)}/>
+					</Tooltip>
+				</div>
 			</div>
 			<div className='break'/>
 			<div className={brailleInverted ? 'stringWrapperInverted' : 'stringWrapper'} >
@@ -192,6 +196,11 @@ function App(){
 			<div className='inverterContainer'>
 				<Tooltip title="Color inverter">
 				<Switch id='atkinsonInverter' onClick={e => setAtkinsonInverted(!atkinsonInverted)}/>
+				</Tooltip>
+			</div>
+			<div className='replaceEmptyCharContainer'>
+				<Tooltip title="Fixes the misalignment issues when copied into chatrooms.">
+				<Switch id='atkinsonReplaceEmptyCharInverter' onClick={e => setAtkinsonReplace(!atkinsonReplace)}/>
 				</Tooltip>
 			</div>
 			</div>
