@@ -4,7 +4,7 @@ import Switch from '@mui/material/Switch';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import { IconButton } from '@mui/material';
-import  PdfForm from './components/pdfForm'
+import  PdfDownloader from './Pages/PdfDownloader'
 import Tooltip from '@mui/material/Tooltip';
 
 function App(){
@@ -113,7 +113,7 @@ function App(){
 	  handleSubmissionBraille()
 	  handleSubmissionAtkinson()
     
-  }, [brailleReplace, atkinsonReplace,asciiInverted, brailleInverted, atkinsonInverted,isAsciiSelected, isBrailleSelected, isAtkinsonSelected]);
+  }, [brailleBrightness,atkinsonBrightness,width,brailleReplace, atkinsonReplace,asciiInverted, brailleInverted, atkinsonInverted,isAsciiSelected, isBrailleSelected, isAtkinsonSelected]);
 
 	const spanCreator = (string) => {
 		return string.split('').map(str => str === '\n'? <div className='break'></div>:<span className={"StringSpan"}>{str}</span>);
@@ -123,7 +123,8 @@ function App(){
    <div className={"Background"}>
 	   <div className={"Blur"}>
 	   <h1 className={"Header"}>ASCII ART GENERATOR</h1>
-	   {pdfClicked && <PdfForm pdfString={pdfString} setPdfString={setPdfString} pdfType={pdfType} ascii={ascii} braille={braille} atkinson={atkinson} pdfClicked={pdfClicked} setPdfClicked={setPdfClicked}/>}
+	   {pdfClicked && 
+	   <PdfDownloader setBrailleBrightness={setBrailleBrightness} setAtkinsonBrightness={setAtkinsonBrightness} width={width} setWidth={setWidth} pdfString={pdfString} setPdfString={setPdfString} pdfType={pdfType} ascii={ascii} braille={braille} atkinson={atkinson} pdfClicked={pdfClicked} setPdfClicked={setPdfClicked}/>}
 	   <div className={"Filter"}>
 		   <div className={"UploadToSubmit"}>
 			<div className='OptionsDiv'>
@@ -168,8 +169,7 @@ function App(){
 	   	{isBrailleSelected &&<div className={"BrailleString"}>
 		   <p className='description'>Image brightness</p>
 		   <div className='break'/>
-		   <input type={"range"} min={"1"} max={"254"} defaultValue={brailleBrightness} id={"Slider"} onChange={e => setBrailleBrightness(e.target.value)}
-		    onMouseUp={() => {handleSubmissionBraille()}}></input>
+		   <input type={"range"} min={"1"} max={"254"} defaultValue={brailleBrightness} id={"Slider"} onChange={e => setBrailleBrightness(e.target.value)}></input>
 			<div className='threeButtonsContainer'>
 					<Tooltip title="Copy to Clipboard">
 					<IconButton className='MuiIconButton-sizeSmall' onClick={() => navigator.clipboard.writeText(braille)}><ContentCopyIcon /></IconButton>
@@ -196,8 +196,7 @@ function App(){
 		{isAtkinsonSelected &&<div className={"BrailleString"}>
 		<p className='description'>Image brightness</p>
 		<div className='break'/>
-			<input type={"range"} min={"1"} max={"254"} defaultValue={atkinsonBrightness} id={"Slider"} onChange={e => setAtkinsonBrightness(e.target.value)}
-		    onMouseUp={() => {handleSubmissionAtkinson()}}></input>
+			<input type={"range"} min={"1"} max={"254"} defaultValue={atkinsonBrightness} id={"Slider"} onChange={e => setAtkinsonBrightness(e.target.value)}></input>
 			<div className='threeButtonsContainer'>
 				<Tooltip title="Copy to Clipboard">
 				<IconButton onClick={() => navigator.clipboard.writeText(atkinson)}><ContentCopyIcon /></IconButton>

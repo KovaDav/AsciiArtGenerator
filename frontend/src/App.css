@@ -227,6 +227,7 @@ button:disabled:active{
 }
 
 #paperSizeContainer, #paperOrientationContainer{
+  width: 30rem;
   display: flex;
   justify-content: space-around;
   
@@ -273,6 +274,18 @@ button:disabled:active{
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+}
+
+.pdfWidthInput{
+  width: 3rem;
+  height: 2rem;
+}
+
+#paperSizeImageWidthContainer, #paperOrientationBrightnessContainer{
+  width: 100%;
+  display: flex;
+  flex: row;
+  justify-content: space-between;
 }
 
 .BackgroundGreen{

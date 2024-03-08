@@ -6,7 +6,7 @@ import { font } from '../BlistaBraille-normal';
 import { font2 } from '../MonospaceTypewriter-normal';
 
 
-function PdfForm({pdfString, setPdfString, pdfType, ascii, braille, atkinson, pdfClicked, setPdfClicked}) {
+function PdfForm({pdfString, setPdfString, pdfType, ascii, braille, atkinson, pdfClicked, setPdfClicked, width, setWidth, setBrailleBrightness, setAtkinsonBrightness}) {
 
     const [paperSize, setPaperSize] = useState("a4")
     const [paperOrientation, setPaperOrientation] = useState("p")
@@ -15,7 +15,7 @@ function PdfForm({pdfString, setPdfString, pdfType, ascii, braille, atkinson, pd
 
 useEffect(() => {
     handlePdf(false)
-},[paperSize,paperOrientation,paperCoordinateX,paperCoordinateY])
+},[ascii,braille,atkinson,paperSize,paperOrientation,paperCoordinateX,paperCoordinateY])
 
 const handlePdf = (save) => {
     const doc = new jsPDF({
@@ -53,13 +53,22 @@ const handlePdf = (save) => {
       }
 }
 
-
+const handleBrightnessChange = (brightness) => {
+    if(pdfType === 'braille'){
+        setBrailleBrightness(brightness)
+    }else if(pdfType === "atkinson"){
+        setAtkinsonBrightness(brightness)
+    }
+}
 
     return(
         <div className='PdfForm'>
-            <h2>PDF downloader options</h2>
-            <h4>Paper size</h4>
+            <h2>PDF downloader</h2>
+            <div id= 'paperSizeImageWidthContainer'>
+            <h4>Image width</h4>
+            <input className="pdfWidthInput" type={"number"} defaultValue={width} onChange={e => setWidth((e.target.value))}/>
             <div id='paperSizeContainer'>
+            <h4>Paper size</h4>
                 <section className='PdfCheckboxLabelContainer'>
                 <label className='PdfCheckboxLabel' for = 'A2Checkbox'>A2</label>
                 <input className='PdfCheckbox' id='A2Checkbox' type='checkbox' checked={paperSize === "a2" ? true : false} onChange={() => {setPaperSize("a2")}}></input>
@@ -81,8 +90,14 @@ const handlePdf = (save) => {
                 <input className='PdfCheckbox' id='A6Checkbox' type='checkbox' checked={paperSize === "a6" ? true : false} onChange={() => {setPaperSize("a6")}}></input>
                 </section>
             </div>
-            <h4>Paper orientation</h4>
+            </div>
+            <div id="paperOrientationBrightnessContainer">
+            {pdfType !== "ascii" && <div id="pdfImageBrightnessContainer">
+            <h4>Image brightness</h4>
+            <input type={"range"} min={"1"} max={"254"} defaultValue={128} id={"Slider"} onChange={e => handleBrightnessChange(e.target.value)}></input>
+            </div>}
             <div id='paperOrientationContainer'>
+            <h4>Paper orientation</h4>
                 <section className='PdfCheckboxLabelContainer'>
                 <img src={Vertical} alt="Vertical" className='PdfOrientationIcon'></img>
                 <input className='PdfCheckbox' id='A3Checkbox' type='checkbox' checked={paperOrientation === "p" ? true : false} onChange={() => {setPaperOrientation("p")}}></input>
@@ -91,6 +106,7 @@ const handlePdf = (save) => {
                 <img src={Horizontal} alt="Horizontal" className='PdfOrientationIcon'></img>
                 <input className='PdfCheckbox' id='A2Checkbox' type='checkbox' checked={paperOrientation === "l" ? true : false} onChange={() => {setPaperOrientation("l")}}></input>
                 </section>
+            </div>
             </div>
             <h4>PDF preview</h4>
             <div id='pdfCoordinateContainer'>
