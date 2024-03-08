@@ -55,21 +55,15 @@ const handlePdf = (save) => {
 
 const handleBrightnessChange = (brightness) => {
     if(pdfType === 'braille'){
-
+        setBrailleBrightness(brightness)
     }else if(pdfType === "atkinson"){
-
-    }else{
-
+        setAtkinsonBrightness(brightness)
     }
-
 }
-
-
 
     return(
         <div className='PdfForm'>
             <h2>PDF downloader</h2>
-            
             <div id= 'paperSizeImageWidthContainer'>
             <h4>Image width</h4>
             <input className="pdfWidthInput" type={"number"} defaultValue={width} onChange={e => setWidth((e.target.value))}/>
@@ -98,8 +92,10 @@ const handleBrightnessChange = (brightness) => {
             </div>
             </div>
             <div id="paperOrientationBrightnessContainer">
-            <input type={"range"} min={"1"} max={"254"} defaultValue={128} id={"Slider"} onChange={e => handleBrightnessChange(e.target.value)}
-		    onMouseUp={() => {handleSubmissionBraille()}}></input>
+            {pdfType !== "ascii" && <div id="pdfImageBrightnessContainer">
+            <h4>Image brightness</h4>
+            <input type={"range"} min={"1"} max={"254"} defaultValue={128} id={"Slider"} onChange={e => handleBrightnessChange(e.target.value)}></input>
+            </div>}
             <div id='paperOrientationContainer'>
             <h4>Paper orientation</h4>
                 <section className='PdfCheckboxLabelContainer'>

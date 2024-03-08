@@ -281,7 +281,7 @@ button:disabled:active{
   height: 2rem;
 }
 
-#paperSizeImageWidthContainer{
+#paperSizeImageWidthContainer, #paperOrientationBrightnessContainer{
   width: 100%;
   display: flex;
   flex: row;
