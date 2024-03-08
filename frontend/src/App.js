@@ -4,7 +4,7 @@ import Switch from '@mui/material/Switch';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import { IconButton } from '@mui/material';
-import  PdfForm from './components/pdfForm'
+import  PdfDownloader from './Pages/PdfDownloader'
 import Tooltip from '@mui/material/Tooltip';
 
 function App(){
@@ -113,7 +113,7 @@ function App(){
 	  handleSubmissionBraille()
 	  handleSubmissionAtkinson()
     
-  }, [brailleReplace, atkinsonReplace,asciiInverted, brailleInverted, atkinsonInverted,isAsciiSelected, isBrailleSelected, isAtkinsonSelected]);
+  }, [width,brailleReplace, atkinsonReplace,asciiInverted, brailleInverted, atkinsonInverted,isAsciiSelected, isBrailleSelected, isAtkinsonSelected]);
 
 	const spanCreator = (string) => {
 		return string.split('').map(str => str === '\n'? <div className='break'></div>:<span className={"StringSpan"}>{str}</span>);
@@ -123,7 +123,7 @@ function App(){
    <div className={"Background"}>
 	   <div className={"Blur"}>
 	   <h1 className={"Header"}>ASCII ART GENERATOR</h1>
-	   {pdfClicked && <PdfForm pdfString={pdfString} setPdfString={setPdfString} pdfType={pdfType} ascii={ascii} braille={braille} atkinson={atkinson} pdfClicked={pdfClicked} setPdfClicked={setPdfClicked}/>}
+	   {pdfClicked && <PdfDownloader width={width} setWidth={setWidth} pdfString={pdfString} setPdfString={setPdfString} pdfType={pdfType} ascii={ascii} braille={braille} atkinson={atkinson} pdfClicked={pdfClicked} setPdfClicked={setPdfClicked}/>}
 	   <div className={"Filter"}>
 		   <div className={"UploadToSubmit"}>
 			<div className='OptionsDiv'>
