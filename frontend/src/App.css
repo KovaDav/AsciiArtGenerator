@@ -201,6 +201,7 @@ button:disabled:active{
   flex-direction: column;
   z-index: 1;
   position: fixed;
+  justify-content: space-between;
   justify-self: center;
   align-self: center;
   border-color: hsl(245, 39%, 5%);
@@ -252,8 +253,8 @@ button:disabled:active{
 }
 
 #PdfPreview{
-  width: 25rem;
-  height: 25rem;
+  width: 20rem;
+  height: 20rem;
 }
 
 #paperOrientationContainer{

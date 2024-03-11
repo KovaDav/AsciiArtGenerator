@@ -7,7 +7,7 @@ import { font2 } from '../MonospaceTypewriter-normal';
 import Switch from '@mui/material/Switch';
 import Tooltip from '@mui/material/Tooltip';
 
-function PdfForm({pdfString, setPdfString, pdfType, ascii, braille, atkinson, pdfClicked, setPdfClicked, width, setWidth, setBrailleBrightness, setAtkinsonBrightness}) {
+function PdfForm({invertColorsPdfDownloader,pdfString, setPdfString, pdfType, ascii, braille, atkinson, pdfClicked, setPdfClicked, width, setWidth, setBrailleBrightness, setAtkinsonBrightness}) {
 
     const [paperSize, setPaperSize] = useState("a4")
     const [paperOrientation, setPaperOrientation] = useState("p")
@@ -16,7 +16,7 @@ function PdfForm({pdfString, setPdfString, pdfType, ascii, braille, atkinson, pd
     const [invertedColors, setInvertedColors] = useState(false)
 useEffect(() => {
     handlePdf(false)
-},[invertedColors,ascii,braille,atkinson,paperSize,paperOrientation,paperCoordinateX,paperCoordinateY])
+},[ascii,braille,atkinson,paperSize,paperOrientation,paperCoordinateX,paperCoordinateY])
 
 const handlePdf = (save) => {
     const doc = new jsPDF({
@@ -31,6 +31,7 @@ const handlePdf = (save) => {
         doc.setLineHeightFactor(1)
         doc.setFontSize(10)
         if(invertedColors){
+        
         doc.rect(0, 0, 150000, 150000, "F");
         doc.setTextColor(255,255,255)
         doc.setFillColor(0,0,0)
@@ -43,6 +44,7 @@ const handlePdf = (save) => {
         doc.setLineHeightFactor(1)
         doc.setFontSize(10)
         if(invertedColors){
+        
         doc.rect(0, 0, 150000, 150000, "F");
         doc.setTextColor(255,255,255)
         doc.setFillColor(0,0,0)
@@ -55,6 +57,7 @@ const handlePdf = (save) => {
         doc.setLineHeightFactor(1)
         doc.setFontSize(10)
         if(invertedColors){
+        
         doc.rect(0, 0, 150000, 150000, "F");
         doc.setTextColor(255,255,255)
         doc.setFillColor(0,0,0)
@@ -127,7 +130,7 @@ const handleBrightnessChange = (brightness) => {
             <h4>PDF preview</h4>
             <div id='pdfCoordinateContainer'>
             <Tooltip title="Color inverter">
-            <Switch id='brailleInverter' onClick={e => setInvertedColors(!invertedColors)}/>
+            <Switch id='brailleInverter' onClick={e => {setInvertedColors(!invertedColors); invertColorsPdfDownloader(pdfType)}}/>
             </Tooltip>
                 <input type={"range"} min={"1"} max={ paperSize === "a2" ? "448" : paperSize === "a3" ? "316" : paperSize === "a4" ? "224" : paperSize === "a5" ? "158" : "112" } id={"PdfHorizontalSlider"} className={"PdfSlider"} defaultValue={'1'} onChange={e => setPaperCoordinateX(e.target.value)}></input>
                 <section id='pdfPreviewContainer'>
