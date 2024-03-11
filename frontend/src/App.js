@@ -104,6 +104,15 @@ function App(){
 		}
 	};
 
+	const invertColorsPdfDownloader = (type) => {
+		if(type === "ascii"){
+			setAsciiInverted(!asciiInverted)
+		}else if(type === "braille"){
+			setBrailleInverted(!brailleInverted)
+		}else if(type === "atkinson"){
+			setAtkinsonInverted(!atkinsonInverted)
+		}
+	}	
 
   useEffect(() => {
     if(selectedFile === false){
@@ -124,7 +133,7 @@ function App(){
 	   <div className={"Blur"}>
 	   <h1 className={"Header"}>ASCII ART GENERATOR</h1>
 	   {pdfClicked && 
-	   <PdfDownloader setBrailleBrightness={setBrailleBrightness} setAtkinsonBrightness={setAtkinsonBrightness} width={width} setWidth={setWidth} pdfString={pdfString} setPdfString={setPdfString} pdfType={pdfType} ascii={ascii} braille={braille} atkinson={atkinson} pdfClicked={pdfClicked} setPdfClicked={setPdfClicked}/>}
+	   <PdfDownloader invertColorsPdfDownloader={invertColorsPdfDownloader} setBrailleBrightness={setBrailleBrightness} setAtkinsonBrightness={setAtkinsonBrightness} width={width} setWidth={setWidth} pdfString={pdfString} setPdfString={setPdfString} pdfType={pdfType} ascii={ascii} braille={braille} atkinson={atkinson} pdfClicked={pdfClicked} setPdfClicked={setPdfClicked}/>}
 	   <div className={"Filter"}>
 		   <div className={"UploadToSubmit"}>
 			<div className='OptionsDiv'>

@@ -201,6 +201,7 @@ button:disabled:active{
   flex-direction: column;
   z-index: 1;
   position: fixed;
+  justify-content: space-between;
   justify-self: center;
   align-self: center;
   border-color: hsl(245, 39%, 5%);
@@ -214,6 +215,7 @@ button:disabled:active{
 #PdfVerticalSlider{
   transform: rotate(-270deg);
   margin-top: 7rem;
+  
 }
 
 #PdfHorizontalSlider{
@@ -251,8 +253,8 @@ button:disabled:active{
 }
 
 #PdfPreview{
-  width: 17rem;
-  height: 17rem;
+  width: 20rem;
+  height: 20rem;
 }
 
 #paperOrientationContainer{

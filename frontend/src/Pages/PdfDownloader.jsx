@@ -4,15 +4,16 @@ import Vertical from '../icons/vertical.png';
 import { jsPDF } from 'jspdf';
 import { font } from '../BlistaBraille-normal';
 import { font2 } from '../MonospaceTypewriter-normal';
+import Switch from '@mui/material/Switch';
+import Tooltip from '@mui/material/Tooltip';
 
-
-function PdfForm({pdfString, setPdfString, pdfType, ascii, braille, atkinson, pdfClicked, setPdfClicked, width, setWidth, setBrailleBrightness, setAtkinsonBrightness}) {
+function PdfForm({invertColorsPdfDownloader,pdfString, setPdfString, pdfType, ascii, braille, atkinson, pdfClicked, setPdfClicked, width, setWidth, setBrailleBrightness, setAtkinsonBrightness}) {
 
     const [paperSize, setPaperSize] = useState("a4")
     const [paperOrientation, setPaperOrientation] = useState("p")
     const [paperCoordinateX, setPaperCoordinateX] = useState(1)
     const [paperCoordinateY, setPaperCoordinateY] = useState(1)
-
+    const [invertedColors, setInvertedColors] = useState(false)
 useEffect(() => {
     handlePdf(false)
 },[ascii,braille,atkinson,paperSize,paperOrientation,paperCoordinateX,paperCoordinateY])
@@ -29,6 +30,12 @@ const handlePdf = (save) => {
         doc.setFont('BlistaBraille')
         doc.setLineHeightFactor(1)
         doc.setFontSize(10)
+        if(invertedColors){
+        
+        doc.rect(0, 0, 150000, 150000, "F");
+        doc.setTextColor(255,255,255)
+        doc.setFillColor(0,0,0)
+        }
         doc.text(braille,paperCoordinateX,paperCoordinateY)
       }else if(pdfType === "atkinson"){
         doc.addFileToVFS("BlistaBraille.ttf", font)
@@ -36,6 +43,12 @@ const handlePdf = (save) => {
         doc.setFont('BlistaBraille')
         doc.setLineHeightFactor(1)
         doc.setFontSize(10)
+        if(invertedColors){
+        
+        doc.rect(0, 0, 150000, 150000, "F");
+        doc.setTextColor(255,255,255)
+        doc.setFillColor(0,0,0)
+        }
         doc.text(atkinson,paperCoordinateX,paperCoordinateY)
       }else{
         doc.addFileToVFS("MonospaceTypewriter.ttf", font2)
@@ -43,9 +56,15 @@ const handlePdf = (save) => {
         doc.setFont('MonospaceTypewriter')
         doc.setLineHeightFactor(1)
         doc.setFontSize(10)
+        if(invertedColors){
+        
+        doc.rect(0, 0, 150000, 150000, "F");
+        doc.setTextColor(255,255,255)
+        doc.setFillColor(0,0,0)
+        }
         doc.text(ascii,paperCoordinateX,paperCoordinateY)
       }
-
+      
       
       setPdfString(doc.output('datauristring'))
       if(save){
@@ -110,10 +129,13 @@ const handleBrightnessChange = (brightness) => {
             </div>
             <h4>PDF preview</h4>
             <div id='pdfCoordinateContainer'>
+            <Tooltip title="Color inverter">
+            <Switch id='brailleInverter' onClick={e => {setInvertedColors(!invertedColors); invertColorsPdfDownloader(pdfType)}}/>
+            </Tooltip>
                 <input type={"range"} min={"1"} max={ paperSize === "a2" ? "448" : paperSize === "a3" ? "316" : paperSize === "a4" ? "224" : paperSize === "a5" ? "158" : "112" } id={"PdfHorizontalSlider"} className={"PdfSlider"} defaultValue={'1'} onChange={e => setPaperCoordinateX(e.target.value)}></input>
                 <section id='pdfPreviewContainer'>
                     <input type={"range"} min={"1"} max={"350"} id={"PdfVerticalSlider"} className={"PdfSlider"} onChange={e => setPaperCoordinateY(e.target.value)}></input>
-                    <iframe id='PdfPreview' title='pdf' src={pdfString} allow='fullscreen'/>
+                    <iframe background="black" id='PdfPreview' title='pdf' src={pdfString} allow='fullscreen'/>
                 </section>
             </div> 
             <div id='pdfButtonContainer'>
