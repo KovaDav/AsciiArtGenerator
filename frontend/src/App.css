@@ -214,6 +214,7 @@ button:disabled:active{
 #PdfVerticalSlider{
   transform: rotate(-270deg);
   margin-top: 7rem;
+  
 }
 
 #PdfHorizontalSlider{
@@ -251,8 +252,8 @@ button:disabled:active{
 }
 
 #PdfPreview{
-  width: 17rem;
-  height: 17rem;
+  width: 25rem;
+  height: 25rem;
 }
 
 #paperOrientationContainer{
