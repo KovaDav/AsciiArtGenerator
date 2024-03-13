@@ -15,6 +15,7 @@ body{
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+  flex-wrap: wrap;
 }
 
 .FlexColumnContainerCentered{
@@ -40,4 +41,14 @@ justify-content: space-evenly;
 
 html {
   scroll-behavior: smooth;
+}
+
+.stringWrapper{
+  padding: 7px;
+}
+
+.stringWrapperInverted{
+  padding-top: 7px;
+  background-color: hsl(245, 39%, 5%);
+  color: hsl(245, 39%, 97%);
 }

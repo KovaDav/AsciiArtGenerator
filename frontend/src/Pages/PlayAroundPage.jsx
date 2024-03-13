@@ -4,8 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import "../index.css"
 import  AsciiSettingsEssential  from "../Components/AsciiSettingsEssential/AsciiSettingsEssential"
 import AsciiSettingsCharType from "../Components/AsciiSettingsCharType/AsciiSettingsCharType"
-import AsciiSettingsOptional from "../Components/AsciiSettingsOptional/AsciiSettingsOptional"
-import AsciiStringPaper from "../Components/AsciiStringPaper/AsciiStringPaper"; 
+import StringPaper from "../Components/StringPaper/StringPaper"; 
 
 const PlayAroundPage = () => {
   const [selectedFile, setSelectedFile] = useState(false)
@@ -117,8 +116,9 @@ const PlayAroundPage = () => {
            isAtkinsonSelected={isAtkinsonSelected} setIsAtkinsonSelected={setIsAtkinsonSelected}/>
         </div>
         <div className="FlexRowContainer">
-<AsciiStringPaper></AsciiStringPaper>
-
+          {isAsciiSelected && <StringPaper colorInverted={asciiInverted} string={ascii}/>}
+          {isBrailleSelected && <StringPaper colorInverted={brailleInverted} string={braille}/>}
+          {isAtkinsonSelected && <StringPaper colorInverted={atkinsonInverted} string={atkinson}/>}
         </div>
       </div>
     )
