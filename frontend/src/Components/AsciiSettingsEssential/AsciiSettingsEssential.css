@@ -1,0 +1,24 @@
+.SettingsPaper{
+    width: 20rem;
+    margin: 1rem;
+    padding: 1rem;
+}
+
+.NoMargin{
+    margin: 0.5rem;
+}
+
+.TitleWrap{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+.BoldText{
+    font-weight: bold;
+}
+
+#WidthField{
+    width: 2rem
+}
+
