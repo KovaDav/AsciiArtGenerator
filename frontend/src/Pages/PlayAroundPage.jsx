@@ -1,12 +1,14 @@
 import { useEffect } from "react";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import "../index.css"
+
 
 const PlayAroundPage = () => {
     return(
-      <div>
-        playaround
-      </div>  
+      <div className="ElementBackground">
+        
+      </div> 
     )
 }
 

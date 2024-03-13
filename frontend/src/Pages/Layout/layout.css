@@ -2,8 +2,9 @@
     background-image: linear-gradient(to right, #0f0c29, #302b63, #24243e);
     min-height: 100vh;
     height: 100%;
-    
+    width: 100%;
     display: grid;
+    grid-template-rows: 2fr 4fr;
 }
 
 .Header{
@@ -18,20 +19,21 @@
 .LayoutPageButton{
     color: hsl(250, 37%, 3%) !important;
     background-color: hsl(245, 39%, 97%) !important;
+    margin: 3rem !important;
   }
   
  #LayoutPageButtonContainer{
-    justify-self: center;
     display: flex;
-    justify-content: space-evenly;
-    width: 100rem;
-    height: 60%;
+    justify-content: flex-end;
+    gap: 10rem;
+    width: 100%;
+    height: 100%;
     align-items: center;
   }
 
   #HeaderAndLayoutPageButtonContainer{
     display: flex;
     justify-content: space-between;
-    width: 90%;
-    height: 20%;
+    width: 100%;
+    height: 60%;
   }
