@@ -13,5 +13,26 @@ body{
 
 .FlexRowContainer{
   display: flex;
+  flex-direction: row;
   justify-content: space-around;
+}
+
+.FlexColumnContainerCentered{
+display: flex;
+flex-direction: column;
+align-items: center;
+}
+
+.NoMargin{
+  margin: 0.5rem;
+}
+
+.BoldText{
+  font-weight: bold;
+}
+
+.TitleWrap{
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
 }

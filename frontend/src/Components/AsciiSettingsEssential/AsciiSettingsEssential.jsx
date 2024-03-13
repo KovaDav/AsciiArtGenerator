@@ -18,13 +18,13 @@ const AsciiSettings = () => {
     return(
     <Paper className="SettingsPaper" elevation={6}>
         <section className="TitleWrap">
-        <h3 className="NoMargin">Essential options</h3>
+        <h2 className="NoMargin">Essential options</h2>
         </section>
-            <input className='description' type="file" name="file" onChange={changeHandler} />
-             <div className={"OptionsDiv"}>     
-             <p className="NoMargin BoldText">Width of string (in characters)</p>
-		    <TextField id="WidthField" type={"number"} defaultValue={width} onChange={e => setWidth((e.target.value))}/>
-	   </div>
+        <section className="FlexColumnContainerCentered">
+            <input className='description' type="file" name="file" onChange={changeHandler} />    
+            <p className="BoldText">Width of string (in characters)</p>
+		    <TextField id="WidthField" type={"number"} defaultValue={width} onChange={e => setWidth((e.target.value))}/>  
+        </section>
     </Paper>
     );
 

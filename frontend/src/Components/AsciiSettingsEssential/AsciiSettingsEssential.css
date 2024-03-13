@@ -4,21 +4,9 @@
     padding: 1rem;
 }
 
-.NoMargin{
-    margin: 0.5rem;
-}
-
-.TitleWrap{
-    display: flex;
-    justify-content: center;
-    margin-bottom: 1rem;
-}
-
-.BoldText{
-    font-weight: bold;
-}
 
 #WidthField{
-    width: 2rem
+    width: 2rem;
+    height: 0.2rem;
 }
 
