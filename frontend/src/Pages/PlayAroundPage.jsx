@@ -117,8 +117,10 @@ const PlayAroundPage = () => {
         </div>
         <div className="FlexRowContainer">
           {isAsciiSelected && <StringPaper colorInverted={asciiInverted} string={ascii} setColorInverted={setAsciiInverted} className="asciiString"/>}
-          {isBrailleSelected && <StringPaper colorInverted={brailleInverted} string={braille} setColorInverted={setBrailleInverted} className="brailleString"/>}
-          {isAtkinsonSelected && <StringPaper colorInverted={atkinsonInverted} string={atkinson} setColorInverted={setAtkinsonInverted} className="brailleString"/>}
+          {isBrailleSelected && <StringPaper colorInverted={brailleInverted} string={braille}
+           setColorInverted={setBrailleInverted} setReplace={setBrailleReplace} replace={brailleReplace} className="brailleString"/>}
+          {isAtkinsonSelected && <StringPaper colorInverted={atkinsonInverted} string={atkinson}
+           setColorInverted={setAtkinsonInverted} setReplace={setAtkinsonReplace} replace={atkinsonReplace} className="brailleString"/>}
         </div>
       </div>
     )

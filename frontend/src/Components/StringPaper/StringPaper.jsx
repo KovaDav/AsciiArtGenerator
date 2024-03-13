@@ -3,7 +3,7 @@ import Paper from '@mui/material/Paper';
 import Switch from '@mui/material/Switch';
 import Optional from "../AsciiSettingsOptional/AsciiSettingsOptional"
 
-const StringPaper = ({colorInverted,setColorInverted, string, type}) => {
+const StringPaper = ({colorInverted,setColorInverted, string, setReplace, replace }) => {
 
     const spanCreator = (string) => {
 		return string.split('').map(str => str === '\n'? <div className='break'></div>:<span className={"StringSpan"}>{str}</span>);
@@ -11,7 +11,7 @@ const StringPaper = ({colorInverted,setColorInverted, string, type}) => {
 
     return(
         <Paper>
-        <Optional  setColorInverted={setColorInverted} colorInverted={colorInverted}/>
+        <Optional  setColorInverted={setColorInverted} colorInverted={colorInverted} setReplace={setReplace} replace={replace}/>
             <div className={colorInverted ? 'stringWrapperInverted' : 'stringWrapper' } >
 				{spanCreator(string)}
 			</div>
