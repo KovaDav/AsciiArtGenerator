@@ -2,15 +2,12 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
-const landingPage = () => {
-
-
-
+const PlayAroundPage = () => {
     return(
-        <div>
-            
-        </div>
+      <div>
+        playaround
+      </div>  
     )
 }
 
-export default landingPage;
+export default PlayAroundPage;

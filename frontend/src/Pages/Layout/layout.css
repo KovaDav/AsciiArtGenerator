@@ -2,6 +2,7 @@
     background-image: linear-gradient(to right, #0f0c29, #302b63, #24243e);
     min-height: 100vh;
     height: 100%;
+    
     display: grid;
 }
 
@@ -10,19 +11,27 @@
     font-weight: 400;
     font-size: 4rem;
     margin: 1rem;
-    justify-self: center;
+    justify-self: flex-start;
+    width: 20rem;
 }
 
-.LandingPageButton{
-    color: hsl(245, 39%, 97%) !important;
-    border-color: hsl(245, 39%, 97%) !important;
-    border-width: 0.2rem !important;
-}
-
-#LandingPageButtonContainer{
+.LayoutPageButton{
+    color: hsl(250, 37%, 3%) !important;
+    background-color: hsl(245, 39%, 97%) !important;
+  }
+  
+ #LayoutPageButtonContainer{
     justify-self: center;
     display: flex;
     justify-content: space-evenly;
     width: 100rem;
-    height: 5rem;
-}
+    height: 60%;
+    align-items: center;
+  }
+
+  #HeaderAndLayoutPageButtonContainer{
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    height: 20%;
+  }

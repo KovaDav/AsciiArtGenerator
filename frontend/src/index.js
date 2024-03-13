@@ -5,7 +5,9 @@ import reportWebVitals from './reportWebVitals';
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import Layout from "./Pages/Layout";
-import LandingPage from "./Pages/LandingPage"
+import PdfDownloaderPage from "./Pages/PdfDownloaderPage"
+import PlayAroundPage from "./Pages/PlayAroundPage"
+
 
 const router = createBrowserRouter([
   {
@@ -13,9 +15,14 @@ const router = createBrowserRouter([
     element: <Layout />,
     children: [
       {
-        path: "/",
-        element: <LandingPage />,
-      }]
+        path: "/pdf",
+        element: <PdfDownloaderPage />,
+      },
+      {
+        path: "/playaround",
+        element: <PlayAroundPage />,
+      }
+  ]
       },
     ],
 );

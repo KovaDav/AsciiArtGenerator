@@ -1,23 +1,27 @@
 import { Outlet, Link } from "react-router-dom";
 import "./layout.css"
+import React, {useEffect, useState} from 'react';
 import Button from '@mui/material-next/Button';
 
 const Layout = () => (
+
     <div className="Background">
-        <h1 className={"Header"}>ASCII ART GENERATOR</h1>
-        <div id="LandingPageButtonContainer">
-            <Button
-            className="LandingPageButton"
-            size="large"
-            variant="outlined">Download Ascii Art as PDF</Button>
+       <div id="HeaderAndLayoutPageButtonContainer">
+       <h1 className={"Header"}>ASCII ART GENERATOR</h1>
+       <div id="LayoutPageButtonContainer">
+        <Link to="/pdf">
+       <Button className="LayoutPageButton" size="large" variant="filledTonal">Download Ascii Art as PDF</Button>
+       </Link>
 
-            <Button
-            className="LandingPageButton"
-            size="large"
-            variant="outlined">Just play around with Ascii Art</Button>
-        </div>  
-
+       <Link to="playaround">
+       <Button className="LayoutPageButton" size="large" variant="filledTonal">Play around with Ascii Art </Button>
+       </Link>
+       </div>
+       </div>
+       <Outlet />
     </div>
-  );
+    )
+
+;
   
   export default Layout;
