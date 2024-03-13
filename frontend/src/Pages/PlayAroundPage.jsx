@@ -100,7 +100,7 @@ const PlayAroundPage = () => {
     if(selectedFile === false){
 		return
 	}
-      handleSubmissionAscii()
+    handleSubmissionAscii()
 	  handleSubmissionBraille()
 	  handleSubmissionAtkinson()
     
@@ -116,9 +116,9 @@ const PlayAroundPage = () => {
            isAtkinsonSelected={isAtkinsonSelected} setIsAtkinsonSelected={setIsAtkinsonSelected}/>
         </div>
         <div className="FlexRowContainer">
-          {isAsciiSelected && <StringPaper colorInverted={asciiInverted} string={ascii}/>}
-          {isBrailleSelected && <StringPaper colorInverted={brailleInverted} string={braille}/>}
-          {isAtkinsonSelected && <StringPaper colorInverted={atkinsonInverted} string={atkinson}/>}
+          {isAsciiSelected && <StringPaper colorInverted={asciiInverted} string={ascii} setColorInverted={setAsciiInverted} className="asciiString"/>}
+          {isBrailleSelected && <StringPaper colorInverted={brailleInverted} string={braille} setColorInverted={setBrailleInverted} className="brailleString"/>}
+          {isAtkinsonSelected && <StringPaper colorInverted={atkinsonInverted} string={atkinson} setColorInverted={setAtkinsonInverted} className="brailleString"/>}
         </div>
       </div>
     )

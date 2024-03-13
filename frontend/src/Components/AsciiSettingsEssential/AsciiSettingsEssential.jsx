@@ -19,7 +19,7 @@ const AsciiSettings = ({setSelectedFile, setWidth}) => {
         <section className="FlexColumnContainerCentered">
             <input className='description' type="file" name="file" onChange={changeHandler} />    
             <p className="BoldText">Width of string (in characters)</p>
-		    <TextField id="WidthField" type={"number"} defaultValue={50} onChange={e => setWidth((e.target.value))}/>  
+		    <TextField id="WidthField" type={"number"} defaultValue={50} onChange={e => setTimeout(()=>{setWidth((e.target.value))},1000)}/>  
         </section>
     </Paper>
     );

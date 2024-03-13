@@ -4,11 +4,10 @@ import Paper from '@mui/material/Paper';
 import TextField from '@mui/material/TextField';
 import Switch from '@mui/material/Switch';
 
-const AsciiSettings = () => {
+const AsciiSettings = ({setColorInverted, colorInverted}) => {
 
     
 
-   
 
     return(
     <Paper className="SettingsPaper" elevation={6}>
@@ -17,7 +16,7 @@ const AsciiSettings = () => {
         </section>
         <div className="AsciiOptionalSettingsContainer">
         <p className="NoMargin BoldText">Color inverter</p>
-        <Switch id='brailleInverter' />
+        <Switch id='ColorInverter' onClick={e => setColorInverted(!colorInverted)}/>
         <p className="NoMargin BoldText">Chat-compatible version</p>
         <Switch id='brailleReplaceEmptyCharInverter'/>
         </div>
