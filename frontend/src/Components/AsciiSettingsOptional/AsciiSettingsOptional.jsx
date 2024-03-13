@@ -4,7 +4,7 @@ import Paper from '@mui/material/Paper';
 import TextField from '@mui/material/TextField';
 import Switch from '@mui/material/Switch';
 
-const AsciiSettings = ({setColorInverted, colorInverted, setReplace, replace, type}) => {
+const AsciiSettings = ({setColorInverted, colorInverted, setReplace, replace, type, setBrightness, brightness}) => {
 
     
 
@@ -19,6 +19,7 @@ const AsciiSettings = ({setColorInverted, colorInverted, setReplace, replace, ty
         <Switch id='ColorInverter' onClick={e => setColorInverted(!colorInverted)}/>
         {type !== "ascii" &&<> <p className="NoMargin BoldText">Chat-compatible version</p>
         <Switch id='brailleReplaceEmptyCharInverter' onClick={e => setReplace(!replace)}/>
+        <input type={"range"} min={"1"} max={"254"} defaultValue={brightness} id={"Slider"} onChange={e => setBrightness(e.target.value)}></input>
         </>}
         </div>
     </Paper>
