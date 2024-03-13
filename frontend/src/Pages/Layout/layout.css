@@ -1,5 +1,6 @@
 .Background{
     background-image: repeating-linear-gradient(to right, #0f0c29, #302b63, #24243e);
+    min-height: 100vh;
     height: 100%;
     width: 100%;
     display: flex;

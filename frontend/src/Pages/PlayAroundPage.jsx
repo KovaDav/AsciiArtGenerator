@@ -104,7 +104,7 @@ const PlayAroundPage = () => {
 	  handleSubmissionBraille()
 	  handleSubmissionAtkinson()
     
-  }, [brailleBrightness,atkinsonBrightness,width,brailleReplace, atkinsonReplace,asciiInverted, brailleInverted, atkinsonInverted,isAsciiSelected, isBrailleSelected, isAtkinsonSelected]);
+  }, [selectedFile,brailleBrightness,atkinsonBrightness,width,brailleReplace, atkinsonReplace,asciiInverted, brailleInverted, atkinsonInverted,isAsciiSelected, isBrailleSelected, isAtkinsonSelected]);
 
   
     return(
