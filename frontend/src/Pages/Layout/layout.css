@@ -1,0 +1,28 @@
+.Background{
+    background-image: linear-gradient(to right, #0f0c29, #302b63, #24243e);
+    min-height: 100vh;
+    height: 100%;
+    display: grid;
+}
+
+.Header{
+    color: hsl(245, 39%, 97%);
+    font-weight: 400;
+    font-size: 4rem;
+    margin: 1rem;
+    justify-self: center;
+}
+
+.LandingPageButton{
+    color: hsl(245, 39%, 97%) !important;
+    border-color: hsl(245, 39%, 97%) !important;
+    border-width: 0.2rem !important;
+}
+
+#LandingPageButtonContainer{
+    justify-self: center;
+    display: flex;
+    justify-content: space-evenly;
+    width: 100rem;
+    height: 5rem;
+}
