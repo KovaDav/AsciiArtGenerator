@@ -9,10 +9,14 @@ const StringPaper = ({colorInverted,setColorInverted, string, setReplace, replac
 		return string.split('').map(str => str === '\n'? <div className='break'></div>:<span className={"StringSpan"}>{str}</span>);
 	}
 
+    const copyToCLipboard = () =>{
+        navigator.clipboard.writeText(string)
+    }
+
     return(
         <Paper>
         <Optional  setColorInverted={setColorInverted} colorInverted={colorInverted} setReplace={setReplace} replace={replace}
-         type={type} setBrightness={setBrightness} brightness={brightness}/>
+         type={type} setBrightness={setBrightness} brightness={brightness} copyToCLipboard={copyToCLipboard()}/>
             <div className={colorInverted ? 'stringWrapperInverted' : 'stringWrapper' } >
 				{spanCreator(string)}
 			</div>

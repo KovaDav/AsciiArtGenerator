@@ -1,5 +1,15 @@
 .AsciiOptionalSettingsContainer{
     display: grid;
     grid-template-columns: 2fr 1fr;
-    grid-template-rows: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    justify-items: stretch;
+}
+
+#Slider{
+    grid-column: 1 / 3;
+    grid-row: third-line / 4;
+}
+.BrightnessLabel{
+    grid-column: 1 / 3;
+    grid-row: 3 / 3;
 }
