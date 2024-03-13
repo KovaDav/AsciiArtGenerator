@@ -4,9 +4,8 @@ import Paper from '@mui/material/Paper';
 import Button from '@mui/material-next/Button';
 
 
-const AsciiSettings = () => {
+const AsciiSettings = ( {isAsciiSelected, setIsAsciiSelected, isBrailleSelected, setIsBrailleSelected, isAtkinsonSelected, setIsAtkinsonSelected}) => {
 
-    
 
    
 
@@ -16,9 +15,9 @@ const AsciiSettings = () => {
         <h2 className="NoMargin">Character Type</h2>
         </section>
         <div className="FlexColumnContainerCentered">
-        <Button className="AsciiSettingsOptionalButton" size="large" variant="filled">Ascii</Button>
-        <Button className="AsciiSettingsOptionalButton" size="large" variant="filled">Braille</Button>
-        <Button className="AsciiSettingsOptionalButton" size="large" variant="filled">Braille-Atkinson</Button>
+        <Button className={isAsciiSelected ? "AsciiSettingsOptionalButton ButtonActive" : "AsciiSettingsOptionalButton"} size="large" variant="filled" onClick={e => setIsAsciiSelected(!isAsciiSelected)}>Ascii</Button>
+        <Button className={isBrailleSelected ? "AsciiSettingsOptionalButton ButtonActive" : "AsciiSettingsOptionalButton"} size="large" variant="filled" onClick={e => setIsBrailleSelected(!isBrailleSelected)}>Braille</Button>
+        <Button className={isAtkinsonSelected ? "AsciiSettingsOptionalButton ButtonActive" : "AsciiSettingsOptionalButton"} size="large" variant="filled" onClick={e => setIsAtkinsonSelected(!isAtkinsonSelected)}>Braille-Atkinson</Button>
         </div>
     </Paper>
     );

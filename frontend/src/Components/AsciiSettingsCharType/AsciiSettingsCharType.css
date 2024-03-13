@@ -1,4 +1,8 @@
 .AsciiSettingsOptionalButton{
-    margin: 0.5rem;
+    margin: 0.3rem !important;
     width: 12rem;
+}
+
+.ButtonActive{
+    background-color:  #a081f5 !important;
 }
