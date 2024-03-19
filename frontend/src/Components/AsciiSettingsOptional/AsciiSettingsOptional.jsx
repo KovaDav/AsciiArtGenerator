@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+
 import "./AsciiSettingsOptional.css"
 import Paper from '@mui/material/Paper';
 import Switch from '@mui/material/Switch';

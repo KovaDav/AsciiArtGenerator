@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+
 import "./AsciiSettingsCharType.css"
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material-next/Button';

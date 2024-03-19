@@ -6,13 +6,17 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Layout from "./Pages/Layout";
 import PdfDownloaderPage from "./Pages/PdfDownloaderPage"
 import PlayAroundPage from "./Pages/PlayAroundPage"
-
+import LandingPage from "./Pages/LandingPage"
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Layout />,
     children: [
+      {
+        path: "/",
+        element: <LandingPage />,
+      },
       {
         path: "/pdf",
         element: <PdfDownloaderPage />,
