@@ -5,6 +5,7 @@ import "../index.css"
 import AsciiSettingsEssential from "../Components/AsciiSettingsEssential/AsciiSettingsEssential"
 import AsciiSettingsCharType from "../Components/AsciiSettingsCharType/AsciiSettingsCharType"
 import StringPaper from "../Components/StringPaper/StringPaper";
+import PdfPaper from "../Components/PdfPaper/PdfPaper"
 
 const PdfDownloaderPage = () => {
   const [selectedFile, setSelectedFile] = useState(false)
@@ -110,13 +111,7 @@ const PdfDownloaderPage = () => {
           <AsciiSettingsEssential setSelectedFile={setSelectedFile} setWidth={setWidth} isPdf={true}/>
         </div>
         <div className="FlexRowContainer">
-          {isAsciiSelected && <StringPaper colorInverted={asciiInverted} string={ascii} setColorInverted={setAsciiInverted} type={"ascii"}/>}
-          {isBrailleSelected && <StringPaper colorInverted={brailleInverted} string={braille}
-           setColorInverted={setBrailleInverted} setReplace={setBrailleReplace} replace={brailleReplace}
-            type={"braille"} brightness={brailleBrightness} setBrightness={setBrailleBrightness}/>}
-          {isAtkinsonSelected && <StringPaper colorInverted={atkinsonInverted} string={atkinson}
-           setColorInverted={setAtkinsonInverted} setReplace={setAtkinsonReplace} replace={atkinsonReplace}
-            type={"atkinson"} brightness={atkinsonBrightness} setBrightness={setAtkinsonBrightness}/>}
+          <PdfPaper></PdfPaper>
         </div>
       </div>  
     )

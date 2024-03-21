@@ -39,6 +39,8 @@ const AsciiSettings = ({setSelectedFile, setWidth, isPdf}) => {
             </Select>
             </>}
         </section>
+
+        
     </Paper>
     );
 
