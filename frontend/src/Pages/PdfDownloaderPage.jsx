@@ -23,7 +23,6 @@ const PdfDownloaderPage = () => {
 	const [brailleReplace, setBrailleReplace] = useState(false)
 	const [atkinsonReplace, setAtkinsonReplace] = useState(false)
 
-
   const handleSubmissionAscii = () => {
 		if(isAsciiSelected){    
 
@@ -108,10 +107,7 @@ const PdfDownloaderPage = () => {
     return(
       <div className="ElementBackground">
         <div className="FlexRowContainer">
-          <AsciiSettingsEssential setSelectedFile={setSelectedFile} setWidth={setWidth} />
-          <AsciiSettingsCharType isAsciiSelected={isAsciiSelected} setIsAsciiSelected={setIsAsciiSelected}
-           isBrailleSelected={isBrailleSelected} setIsBrailleSelected={setIsBrailleSelected} 
-           isAtkinsonSelected={isAtkinsonSelected} setIsAtkinsonSelected={setIsAtkinsonSelected}/>
+          <AsciiSettingsEssential setSelectedFile={setSelectedFile} setWidth={setWidth} isPdf={true}/>
         </div>
         <div className="FlexRowContainer">
           {isAsciiSelected && <StringPaper colorInverted={asciiInverted} string={ascii} setColorInverted={setAsciiInverted} type={"ascii"}/>}
