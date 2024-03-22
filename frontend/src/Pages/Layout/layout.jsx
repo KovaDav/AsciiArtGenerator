@@ -5,7 +5,7 @@ import Button from '@mui/material-next/Button';
 
 const Layout = () => (
     <div className="Background">
-       <div id="HeaderAndLayoutPageButtonContainer">
+       <div id="HeaderAndLayoutPageButtonContainer" className="headerDisappear">
        <h1 className={"Header"}>ASCII ART GENERATOR</h1>
         <div id="LayoutPageButtonContainer">
             <Link to="playaround">

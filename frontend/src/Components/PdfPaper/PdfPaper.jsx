@@ -15,6 +15,9 @@ const PdfPaper = ({colorInverted, setColorInverted, string, setReplace, replace,
     const [dropDownValue, setDropDownValue] = useState("")
     const [paperOrientation, setPaperOrientation] = useState("p")
     const [paperSize, setPaperSize] = useState("a4")
+    const [paperCoordinateX, setPaperCoordinateX] = useState(1)
+    const [paperCoordinateY, setPaperCoordinateY] = useState(1)
+    const [pdfString, setPdfString] = useState("")
 
     const changeHandler = (event) => {
         setSelectedFile(event.target.files[0]);
@@ -36,16 +39,16 @@ const PdfPaper = ({colorInverted, setColorInverted, string, setReplace, replace,
             </div>
 
             <div className='FlexColumnContainerCentered pdfDownloaderSettingsContainer'>
-            <input className='description' type="file" name="file" onChange={changeHandler} />  
-            <p className="BoldText">Width of string (in characters)</p>
-            <TextField id="WidthField" type={"number"} defaultValue={50} onChange={e => setTimeout(()=>{setWidth((e.target.value))},1000)}/>  
+                <input className='description' type="file" name="file" onChange={changeHandler} />  
+                <p className="BoldText">Width of string (in characters)</p>
+                <TextField id="WidthField" type={"number"} defaultValue={50} onChange={e => setTimeout(()=>{setWidth((e.target.value))},1000)}/>  
             </div>
 
             <div className='FlexColumnContainerCentered pdfDownloaderSettingsContainer'>
-            <p className="NoMargin BoldText BrightnessLabel">Brightness</p>
-            <input type={"range"} min={"1"} max={"254"} defaultValue={brightness} id={"Slider"} onChange={e => setBrightness(e.target.value)}></input>
-            <p className="NoMargin BoldText">Color inverter</p>
-            <Switch id='ColorInverter' onClick={e => setColorInverted(!colorInverted)}/>
+                <p className="NoMargin BoldText BrightnessLabel">Brightness</p>
+                <input type={"range"} min={"1"} max={"254"} defaultValue={brightness} id={"Slider"} onChange={e => setBrightness(e.target.value)}></input>
+                <p className="NoMargin BoldText">Color inverter</p>
+                <Switch id='ColorInverter' onClick={e => setColorInverted(!colorInverted)}/>
             </div>
 
             <div className='FlexColumnContainerCentered pdfDownloaderSettingsContainer'>
@@ -84,6 +87,16 @@ const PdfPaper = ({colorInverted, setColorInverted, string, setReplace, replace,
                 <input className='PdfCheckbox' id='A6Checkbox' type='checkbox' checked={paperSize === "a6" ? true : false} onChange={() => {setPaperSize("a6")}}></input>
                 </section>
             </div>
+            <section className='pdfDownloaderHorizontalSliderContainer FlexColumnContainerCentered'>
+            <p className="BoldText">Horizontal(X) position on paper</p>
+            <input id="pdfDownloaderHorizontalSlider" type={"range"} min={"1"} max={ paperSize === "a2" ? "448" : paperSize === "a3" ? "316" : paperSize === "a4" ? "224" : paperSize === "a5" ? "158" : "112" } className={"PdfSlider"} defaultValue={'1'} onChange={e => setPaperCoordinateX(e.target.value)}></input>    
+            </section>
+            <section className='pdfDownloaderVerticalSliderContainer'>
+            <p id="pdfDownloaderVerticalDescription" className="BoldText">Vertical(Y) position on paper</p>
+            <input id="pdfDownloaderVerticalSlider" type={"range"} min={"1"} max={"350"} className={"PdfSlider"} onChange={e => setPaperCoordinateY(e.target.value)}></input>
+            </section>
+            <iframe id="pdfDownloaderPreview" background="black" title='pdf' src={pdfString} allow='fullscreen'/>
+                
             
         </Paper>
     )

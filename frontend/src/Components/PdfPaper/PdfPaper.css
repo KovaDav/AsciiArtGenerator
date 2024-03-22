@@ -10,10 +10,15 @@
 
 #pdfDownloaderPaper{
     width: 90%;
-    min-height: 100%;
+    height: 100%;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    grid-template-rows: 1fr 3fr;
+    grid-template-rows: 1fr 0.5fr 2fr;
+    justify-items: center;
+    grid-template-areas: 
+    ". . . . ."
+    "vertical horizontal horizontal horizontal horizontal"
+    "vertical preview preview preview preview";
 }
 
 .pdfDownloaderSettingsContainer{
@@ -49,4 +54,40 @@
 
 #PaperSizeHeader{
     grid-area: header;
+}
+
+#pdfDownloaderHorizontalSlider{
+    width: 70%;
+}
+
+#pdfDownloaderVerticalSlider{
+    appearance: slider-vertical;
+    transform: rotate(180deg);
+    height: 25rem;
+}
+
+#pdfDownloaderPreview{
+    grid-area: preview;
+    width: 70%;
+    height: 95%;
+}
+
+.pdfDownloaderHorizontalSliderContainer{
+    grid-area: horizontal;
+    width: 100%;
+}
+
+.pdfDownloaderVerticalSliderContainer{
+    grid-area: vertical;
+    width: 10rem;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#pdfDownloaderVerticalDescription{
+    transform: rotate(180deg);
+    writing-mode: vertical-rl;
+    width: 20rem;
 }
