@@ -106,14 +106,10 @@ const PdfDownloaderPage = () => {
     
   }, [selectedFile,brailleBrightness,atkinsonBrightness,width,brailleReplace, atkinsonReplace,asciiInverted, brailleInverted, atkinsonInverted,isAsciiSelected, isBrailleSelected, isAtkinsonSelected]);
     return(
-      <div className="ElementBackground">
-        <div className="FlexRowContainer">
-          <AsciiSettingsEssential setSelectedFile={setSelectedFile} setWidth={setWidth} isPdf={true}/>
+     
+        <div id="pdfDownloaderPaperContainer" className="FlexColumnContainerCentered">
+		<PdfPaper></PdfPaper>
         </div>
-        <div className="FlexRowContainer">
-          <PdfPaper></PdfPaper>
-        </div>
-      </div>  
     )
 }
 
