@@ -1,0 +1,94 @@
+#demo-simple-select{
+    padding: 0.2rem;
+    height: 2.5rem;
+    width: 10rem;
+}
+
+#pdfDownloaderPaper{
+    width: 90%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 0.5fr 2fr;
+    justify-items: center;
+    grid-template-areas: 
+    ". . . . ."
+    "vertical horizontal horizontal horizontal horizontal"
+    "vertical preview preview preview preview";
+}
+
+.pdfDownloaderSettingsContainer{
+    height: 100%;
+    width: 100%;
+    border-bottom: 0.15rem solid #0f0c29;
+    border-right: 0.15rem solid #0f0c29;
+    border-bottom-right-radius: 0.5rem;
+    border-bottom-left-radius: 0.5rem;
+}
+
+.PdfOrientationIcon{
+    width: 2rem;
+    height: 2rem;
+}
+
+#pdfDownloaderSettingsPaperSizeContainer{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-areas: 
+    "header header header"
+    "size size size"
+    "size size size";
+    justify-items: center;
+}
+
+.PdfCheckbox, .PdfCheckboxLabel{
+    width: 1rem;
+    height: 1rem;
+    grid-area: size;
+}
+
+#PaperSizeHeader{
+    grid-area: header;
+}
+
+#pdfDownloaderHorizontalSlider{
+    width: 70%;
+}
+
+#pdfDownloaderVerticalSlider{
+    writing-mode: vertical-lr;
+    transform: rotate(180deg);
+    height: 25rem;
+}
+
+#pdfDownloaderPreview{
+    grid-area: preview;
+    width: 70%;
+    height: 95%;
+}
+
+.pdfDownloaderHorizontalSliderContainer{
+    grid-area: horizontal;
+    width: 100%;
+}
+
+.pdfDownloaderVerticalSliderContainer{
+    grid-area: vertical;
+    width: 10rem;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#pdfDownloaderVerticalDescription{
+    transform: rotate(180deg);
+    writing-mode: vertical-rl;
+    width: 20rem;
+}
+
+#WidthField{
+    width: 3rem; 
+    text-align: center;
+}
