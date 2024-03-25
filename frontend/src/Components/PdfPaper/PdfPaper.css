@@ -91,3 +91,8 @@
     writing-mode: vertical-rl;
     width: 20rem;
 }
+
+#WidthField{
+    width: 3rem; 
+    text-align: center;
+}
