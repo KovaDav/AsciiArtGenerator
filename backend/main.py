@@ -13,7 +13,7 @@ CORS(app)
 @app.post('/braille')
 def get_braille():
     image = PIL.Image.open(request.files['File'])
-    image = resize(image, int(request.args['width']))
+    image = resize(image, int(request.args['width'])*2)
     image = to_greyscale(image)
     
     pixels = image.getdata()
@@ -33,7 +33,7 @@ def get_braille():
 @app.post('/atkinson')
 def get_atkinson():
     image = PIL.Image.open(request.files['File'])
-    image = resize(image, int(request.args['width']))
+    image = resize(image, int(request.args['width'])*2)
     image = to_greyscale(image)
     
     pixels = image.getdata()
@@ -133,13 +133,9 @@ def pixel_array_row_creator(pixel_array, pixel_value):
 
 
 def pixel_array_extender(pixel_array, inverted):
-    print(inverted == 'true')
-
     if inverted == 'true':
-        print("asd")
         pixel_value = 0
     else:
-        print("asd2")
         pixel_value = 255
 
     for i in range(0, (4-(len(pixel_array) % 4))):
