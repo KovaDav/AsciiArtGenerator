@@ -1,12 +1,102 @@
-body {
+body{
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto Mono', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif, monospace, monospace;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  min-width: 100%;
+  min-height: 100%;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace, monospace;
+html {
+  scroll-behavior: smooth;
+  height: 100%;
+  width: 100%;
 }
+
+.ElementBackground{
+  width: 95%;
+  max-height: 100%;
+  min-height: 75vh;
+  border-radius: 0.3rem;
+  background-color: aliceblue;
+  justify-self: center;
+  align-self: center;
+}
+
+.FlexRowContainer{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.FlexColumnContainerCentered{
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: space-evenly;
+
+}
+
+.NoMargin{
+  margin: 0.5rem;
+}
+
+.BoldText{
+  font-weight: bold;
+}
+
+.TitleWrap{
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.stringWrapper{
+  padding: 7px;
+}
+
+.stringWrapperInverted{
+  padding-top: 7px;
+  background-color: hsl(245, 39%, 5%);
+  color: hsl(245, 39%, 97%);
+}
+.StringSpan{
+  font-family: "Lucida Console", monospace;
+  display: inline-block;
+  font-size: 1rem;
+  font-weight: bold;
+  margin-right: -4px;
+  margin-bottom: -4px;
+  width: 1rem;
+  height: 1rem;
+}
+.MuiIconButton-root{
+  width: 1rem !important;
+  height: 1rem !important;
+  margin-left: 3rem !important;
+}
+
+.LandingPageArt{
+  font-style: "Lucida Console", monospace;
+  width: 100%;
+  height: 100%;
+}
+
+.LandingPageArtParagraph{
+  color: aliceblue;
+  font-family: "Lucida Console", monospace;
+  line-height: 1px;
+  font-size: 0.32rem;
+}
+
+.flexContainer{
+  min-height: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+#pdfDownloaderPaperContainer{
+  width: 100%;
+  min-height: 75vh;
+  height: 90vh;
+}
+

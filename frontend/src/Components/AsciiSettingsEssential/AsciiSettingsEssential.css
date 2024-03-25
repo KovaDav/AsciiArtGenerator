@@ -1,0 +1,11 @@
+.SettingsPaper{
+    width: 20rem;
+    margin: 1rem;
+    padding: 1rem;
+}
+
+
+#WidthField{
+    width: 2rem;
+    height: 0.2rem;
+}
