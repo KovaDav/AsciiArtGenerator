@@ -7,6 +7,7 @@ import Layout from "./Pages/Layout";
 import PdfDownloaderPage from "./Pages/PdfDownloaderPage"
 import PlayAroundPage from "./Pages/PlayAroundPage"
 import LandingPage from "./Pages/LandingPage"
+import {KindeProvider} from "@kinde-oss/kinde-auth-react";
 
 const router = createBrowserRouter([
   {
@@ -34,7 +35,14 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
+    <KindeProvider
+		clientId="af96ab8101f64fff9bb6951112211899"
+		domain="https://ascii.kinde.com"
+		redirectUri="http://localhost:3000"
+		logoutUri="http://localhost:3000"
+	>
     <RouterProvider router={router} />
+    </KindeProvider>
   </React.StrictMode>
 );
 
