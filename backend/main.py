@@ -9,6 +9,11 @@ import json
 app = Flask(__name__)
 CORS(app)
 
+@app.post('/userdata')
+def get_user_data():
+    print(request.headers["UserId"])
+    return "ok"
+
 
 @app.post('/braille')
 def get_braille():
