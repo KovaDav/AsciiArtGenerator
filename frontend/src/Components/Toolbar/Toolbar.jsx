@@ -1,19 +1,26 @@
-
-import Paper from '@mui/material/Paper';
+import {useKindeAuth} from "@kinde-oss/kinde-auth-react";
 import "./Toolbar.css"
-import Optional from "../AsciiSettingsOptional/AsciiSettingsOptional"
+import { Link } from "react-router-dom";
 
-const Toolbar = (isAuthenticated) => {
+
+const Toolbar = () => {
+    const { login, register, logout, isAuthenticated, isLoading, user } = useKindeAuth();
 
 
     return(
         <section id='Toolbar'>
-        <>
-            <button className='toolbarButton' >Home</button>
-            {!isAuthenticated &&<> <button className='toolbarButton' >Login</button> <button className='toolbarButton' >Register</button></>}
-            <button className='toolbarButton' >Leaderboard</button>
-            {isAuthenticated && <button className='toolbarButton' >Logout</button>}
-        </>
+            {!isAuthenticated &&<> 
+            <button className='toolbarButton' onClick={login}>Login</button> 
+            <button className='toolbarButton' onClick={register}>Register</button>
+            </>}
+                <Link to="/playaround">
+                    <button className='toolbarButton'>Play around with Ascii Art</button>
+                </Link>
+                <Link to="/pdf">
+                    <button className='toolbarButton'>Download Ascii Art as PDF</button>
+                </Link>
+            {isAuthenticated && 
+            <button className='toolbarButton' onClick={logout}>Logout</button>}
         </section>
     )
 }

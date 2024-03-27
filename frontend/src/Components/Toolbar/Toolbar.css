@@ -16,7 +16,7 @@
     font-size: 1rem;
     border-radius: 40rem;
     height: 2rem;
-    width: 7rem;
+    min-width: 7rem;
     border-color: white;
     color: white;
     justify-content: center;
