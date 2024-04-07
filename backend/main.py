@@ -3,15 +3,25 @@ import PIL.Image
 import html
 from flask import Flask, request
 from flask_cors import CORS
+import os
+from dotenv import load_dotenv
+from flask_pymongo import PyMongo, MongoClient
 import json
 
 
 app = Flask(__name__)
 CORS(app)
 
+load_dotenv()
+
+client = MongoClient(f"mongodb+srv://{os.getenv("DBUSER")}:{os.getenv("DBPASSWORD")}@cluster0.kqamisi.mongodb.net/")
+
+
+
 @app.post('/userdata')
 def get_user_data():
     print(request.headers["UserId"])
+    print(client.AsciiArtGenerator.list_collection_names())
     return "ok"
 
 
