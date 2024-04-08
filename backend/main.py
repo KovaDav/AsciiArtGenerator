@@ -8,7 +8,6 @@ from dotenv import load_dotenv
 from flask_pymongo import PyMongo, MongoClient
 import json
 
-
 app = Flask(__name__)
 CORS(app)
 
@@ -18,15 +17,12 @@ client = MongoClient(f"mongodb+srv://{os.getenv("DBUSER")}:{os.getenv("DBPASSWOR
 
 
 
-@app.post('/userdata')
-def get_user_data():
-    print(request.headers["UserId"])
-    
-    data = {
-        "name": "Dávid",
-        "userId": request.headers["UserId"]
-    }
-    client.AsciiArtGenerator.Users.insert_one(data)
+@app.post('/register')
+def register_user():
+    client.AsciiArtGenerator.Users.insert_one({
+        "UserId": request.headers["UserId"], 
+        "UserName": request.headers["UserName"]
+        })
     return "ok"
 
 
