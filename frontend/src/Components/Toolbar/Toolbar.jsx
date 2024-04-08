@@ -25,7 +25,7 @@ const Toolbar = () => {
                     console.error('Error:', error);
                 });
         }
-    },[])
+    })
 
 
     return(

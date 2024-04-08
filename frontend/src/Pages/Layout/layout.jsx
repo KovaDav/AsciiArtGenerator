@@ -6,9 +6,6 @@ import {useKindeAuth} from "@kinde-oss/kinde-auth-react";
 import Toolbar from "../../Components/Toolbar/Toolbar";
 
 const Layout = () => {
- 
-
-
     
 return(
     <div className="Background">
