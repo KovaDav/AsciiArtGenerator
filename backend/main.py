@@ -1,4 +1,3 @@
-import copy
 import PIL.Image
 import html
 from flask import Flask, request
@@ -19,13 +18,12 @@ client = MongoClient(f"mongodb+srv://{os.getenv("DBUSER")}:{os.getenv("DBPASSWOR
 
 @app.post('/register')
 def register_user():
-    
     if client.AsciiArtGenerator.Users.find_one({"UserId" : request.headers["UserId"]}) == None :
         client.AsciiArtGenerator.Users.insert_one({
         "UserId": request.headers["UserId"], 
         "UserName": request.headers["UserName"]
-            })
-    return "ok"
+        })
+    return json.dumps({"response": "ok"})
 
 
 @app.post('/braille')

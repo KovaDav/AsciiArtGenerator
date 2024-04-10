@@ -1,0 +1,12 @@
+#StringSaveButton{
+    background-color: green;
+    color: aliceblue;
+    margin-bottom: 1rem;
+    width: 6rem;
+}
+
+#StringPaper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
