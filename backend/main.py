@@ -27,16 +27,16 @@ def register_user():
 
 @app.post('/save/string')
 def save_string():
+    
     try:
         client.AsciiArtGenerator.Uploads.insert_one({
-            "UserId": request.headers["UserId"], 
-            "StringType": request.headers["StringType"],
-            "String": request.headers["String"],
+            "UserId": request.get_json()["UserId"], 
+            "StringType": request.get_json()["StringType"],
+            "String": request.get_json()["String"],
+            "ColorInverted": request.get_json()["ColorInverted"]
         })
-    except PyMongo.errors.writeError:
-        return json.dumps({"response": "write error"})
-    except PyMongo.errors.writeConcernError:
-        return json.dumps({"response": "write concern error"})
+    except:
+        return json.dumps({"response": "error"})
     return json.dumps({"response": "ok"})
 
 @app.post('/braille')
