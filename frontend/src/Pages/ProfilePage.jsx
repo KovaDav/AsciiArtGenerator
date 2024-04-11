@@ -15,11 +15,14 @@ const ProfilePage = () =>{
             {
             method: 'POST',
             headers: {
-            "UserID" :   user.id,
+            "UserID" :  user.id,
             }
             })
-            .then((response) => console.log(response.json())
+            .then((response) => response.json()
             )
+            .then((result) => {	
+				console.log(result)
+			})
             .catch((error) => {
             console.error('Error:', error);
         });

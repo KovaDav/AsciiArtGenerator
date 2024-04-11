@@ -25,6 +25,15 @@ def register_user():
         })
     return json.dumps({"response": "ok"})
 
+@app.post('/profile/list')
+def get_user_arts():
+    data = client.AsciiArtGenerator.Uploads.find({ "UserId": request.headers["UserId"]})
+    response = {}
+    for art in data:
+        response.update({art["ArtName"] : art["String"]})
+
+    return json.dumps(response)
+
 @app.post('/save/string')
 def save_string():
     
