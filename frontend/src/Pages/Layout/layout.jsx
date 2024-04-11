@@ -1,19 +1,18 @@
 import { Outlet, Link } from "react-router-dom";
 import "./layout.css"
 import React, {useEffect, useState, useRef} from 'react';
-import Button from '@mui/material-next/Button';
 import {useKindeAuth} from "@kinde-oss/kinde-auth-react";
 import Toolbar from "../../Components/Toolbar/Toolbar";
 
 const Layout = () => {
 
-  const { login, register, logout, isAuthenticated, isLoading, user } = useKindeAuth();
+  const { isAuthenticated, user } = useKindeAuth();
 
   useEffect(() => {
       if(isAuthenticated){
           fetch(
               `http://localhost:5000/register`
-              //`https://KovaDav.eu.pythonanywhere.com/ascii?width=${width}&inverted=${asciiInverted}`
+              //`https://KovaDav.eu.pythonanywhere.com/register`
               ,
               {
                   method: 'POST',

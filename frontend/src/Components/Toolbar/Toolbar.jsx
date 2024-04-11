@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import React, {useEffect, useState, useRef} from 'react';
 
 const Toolbar = () => {
-    const { login, register, logout, isAuthenticated, isLoading, user } = useKindeAuth();
+    const { login, register, logout, isAuthenticated, } = useKindeAuth();
 
 
     return(
