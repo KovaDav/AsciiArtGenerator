@@ -6,7 +6,7 @@ const ProfilePage = () =>{
 
 
     return(
-        <p>Profile</p>
+        <h1>Profile</h1>
     )
 }
 export default ProfilePage;

@@ -34,6 +34,10 @@ const Toolbar = () => {
             <button className='toolbarButton' onClick={login}>Login</button> 
             <button className='toolbarButton' onClick={register}>Register</button>
             </>}
+            {isAuthenticated && 
+            <Link to="/profile">
+            <button className='toolbarButton'>Profile</button>
+            </Link>}
                 <Link to="/playaround">
                     <button className='toolbarButton'>Play around with Ascii Art</button>
                 </Link>
