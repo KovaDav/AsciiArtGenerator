@@ -47,7 +47,7 @@ const StringPaper = ({colorInverted,setColorInverted, string, setReplace, replac
             <div className={colorInverted ? 'stringWrapperInverted' : 'stringWrapper' } >
 				{spanCreator(string)}
 			</div>
-            <Button id="StringSaveButton" onClick={() => saveString()}>Save</Button>
+            {isAuthenticated && <Button id="StringSaveButton" onClick={() => saveString()}>Save</Button>}
         </Paper>
     )
 }

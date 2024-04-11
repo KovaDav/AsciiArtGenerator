@@ -30,7 +30,8 @@ def save_string():
     
     try:
         client.AsciiArtGenerator.Uploads.insert_one({
-            "UserId": request.get_json()["UserId"], 
+            "UserId": request.get_json()["UserId"],
+            "ArtName": "", 
             "StringType": request.get_json()["StringType"],
             "String": request.get_json()["String"],
             "ColorInverted": request.get_json()["ColorInverted"]
