@@ -6,7 +6,7 @@ import {useKindeAuth} from "@kinde-oss/kinde-auth-react";
 
 const ProfilePage = () =>{
     const { user } = useKindeAuth();
-
+    const [artList, setArtList] = useState(null)
     useEffect(() => {
         fetch(
             `http://localhost:5000/profile/list`
@@ -21,17 +21,17 @@ const ProfilePage = () =>{
             .then((response) => response.json()
             )
             .then((result) => {	
-				console.log(result)
+				setArtList(result)
 			})
             .catch((error) => {
             console.error('Error:', error);
         });
         
-    })
+    }, [])
 
     return(
         <div className="ElementBackground">
-        <ProfilePageMozaique></ProfilePageMozaique>
+        <ProfilePageMozaique artList={artList}></ProfilePageMozaique>
         </div>
     )
 }
