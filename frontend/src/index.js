@@ -7,6 +7,7 @@ import Layout from "./Pages/Layout";
 import PdfDownloaderPage from "./Pages/PdfDownloaderPage"
 import PlayAroundPage from "./Pages/PlayAroundPage"
 import LandingPage from "./Pages/LandingPage"
+import ProfilePage from "./Pages/ProfilePage"
 import {KindeProvider} from "@kinde-oss/kinde-auth-react";
 
 const router = createBrowserRouter([
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
       {
         path: "/playaround",
         element: <PlayAroundPage />,
+      },
+      {
+        path: "/profile",
+        element: <ProfilePage />,
       }
   ]
       },
