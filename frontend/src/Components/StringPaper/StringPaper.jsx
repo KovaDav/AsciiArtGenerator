@@ -4,9 +4,11 @@ import Optional from "../AsciiSettingsOptional/AsciiSettingsOptional"
 import Button from '@mui/material-next/Button';
 import "./StringPaper.css"
 import PopUpWindow from "../PopUpWindow/PopUpWindow";
+import React, { useState, useEffect } from 'react';
 
 const StringPaper = ({colorInverted,setColorInverted, string, setReplace, replace, type, setBrightness, brightness }) => {
-
+    const [popUp, setPopUp] = useState(false)
+    const [name, setName] = useState("")
     const { login, register, logout, isAuthenticated, isLoading, user } = useKindeAuth();
 
     const spanCreator = (string) => {
@@ -29,6 +31,7 @@ const StringPaper = ({colorInverted,setColorInverted, string, setReplace, replac
                 },
                 body: JSON.stringify({
                     "UserId" :   user.id,
+                    "ArtName" : name,
                     "StringType" : type,
                     "String" : [string],
                     "ColorInverted" : colorInverted
@@ -48,8 +51,8 @@ const StringPaper = ({colorInverted,setColorInverted, string, setReplace, replac
             <div className={colorInverted ? 'stringWrapperInverted' : 'stringWrapper' } >
 				{spanCreator(string)}
 			</div>
-            <PopUpWindow text={("give name")}></PopUpWindow>
-            {isAuthenticated && <Button id="StringSaveButton" onClick={() => saveString()}>Save</Button>}
+            {popUp && <PopUpWindow text={("give name")} handleOk={() => {saveString(); setPopUp(!popUp)}} handleCancel={() => setPopUp(!popUp)} setName={setName}></PopUpWindow>}
+            {isAuthenticated && <Button id="StringSaveButton" onClick={() => setPopUp(!popUp)}>Save</Button>}
         </Paper>
     )
 }
