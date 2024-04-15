@@ -3,6 +3,7 @@ import Paper from '@mui/material/Paper';
 import Optional from "../AsciiSettingsOptional/AsciiSettingsOptional"
 import Button from '@mui/material-next/Button';
 import "./StringPaper.css"
+import PopUpWindow from "../PopUpWindow/PopUpWindow";
 
 const StringPaper = ({colorInverted,setColorInverted, string, setReplace, replace, type, setBrightness, brightness }) => {
 
@@ -47,6 +48,7 @@ const StringPaper = ({colorInverted,setColorInverted, string, setReplace, replac
             <div className={colorInverted ? 'stringWrapperInverted' : 'stringWrapper' } >
 				{spanCreator(string)}
 			</div>
+            <PopUpWindow text={("give name")}></PopUpWindow>
             {isAuthenticated && <Button id="StringSaveButton" onClick={() => saveString()}>Save</Button>}
         </Paper>
     )
