@@ -7,6 +7,7 @@ from dotenv import load_dotenv
 from flask_pymongo import PyMongo, MongoClient
 import json
 
+from datetime import datetime
 app = Flask(__name__)
 CORS(app)
 
@@ -21,7 +22,8 @@ def register_user():
     if client.AsciiArtGenerator.Users.find_one({"UserId" : request.headers["UserId"]}) == None :
         client.AsciiArtGenerator.Users.insert_one({
         "UserId": request.headers["UserId"], 
-        "UserName": request.headers["UserName"]
+        "UserName": request.headers["UserName"],
+        "RegistrationDate":  datetime.utcnow()
         })
     return json.dumps({"response": "ok"})
 
@@ -31,7 +33,6 @@ def get_user_arts():
     response = []
     for art in data:
         response.append([art["ArtName"], art["String"]])
-
     return response
 
 @app.post('/save/string')
@@ -43,7 +44,8 @@ def save_string():
             "ArtName": request.get_json()["ArtName"], 
             "StringType": request.get_json()["StringType"],
             "String": request.get_json()["String"],
-            "ColorInverted": request.get_json()["ColorInverted"]
+            "ColorInverted": request.get_json()["ColorInverted"],
+            "SaveDate": datetime.utcnow()
         })
     except:
         return json.dumps({"response": "error"})
