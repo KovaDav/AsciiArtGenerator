@@ -32,7 +32,7 @@ def get_user_arts():
     data = client.AsciiArtGenerator.Uploads.find({ "UserId": request.headers["UserId"]})
     response = []
     for art in data:
-        response.append([art["ArtName"], art["String"]])
+        response.append([art["ArtName"], art["String"], art["ColorInverted"], art["StringType"]])
     return response
 
 @app.post('/save/string')

@@ -5,4 +5,13 @@
     justify-items: center;
     align-items: center;
     height: 80vh;
+    position: fixed;
+    z-index: 0;
 }
+
+#ArtInspector{
+    position: fixed;
+    z-index: 1;
+    width: 80%;
+}
+

@@ -6,7 +6,7 @@ import "./StringPaper.css"
 import PopUpWindow from "../PopUpWindow/PopUpWindow";
 import React, { useState, useEffect } from 'react';
 
-const StringPaper = ({colorInverted,setColorInverted, string, setReplace, replace, type, setBrightness, brightness }) => {
+const StringPaper = ({colorInverted,setColorInverted, string, setReplace, replace, type, setBrightness, brightness}) => {
     const [popUp, setPopUp] = useState(false)
     const [name, setName] = useState("")
     const { login, register, logout, isAuthenticated, isLoading, user } = useKindeAuth();
