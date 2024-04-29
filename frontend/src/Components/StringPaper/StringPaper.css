@@ -1,8 +1,8 @@
 #StringSaveButton{
-    background-color: green;
     color: aliceblue;
     margin-bottom: 1rem;
     width: 6rem;
+    background-color: green;
 }
 
 #StringPaper{

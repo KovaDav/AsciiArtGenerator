@@ -9,9 +9,9 @@
     z-index: 0;
 }
 
-#ArtInspector{
+#ArtInspectorContainer{
     position: fixed;
     z-index: 1;
-    width: 80%;
+    height: 80vh;
 }
 

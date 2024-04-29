@@ -6,7 +6,7 @@ import "./StringPaper.css"
 import PopUpWindow from "../PopUpWindow/PopUpWindow";
 import React, { useState, useEffect } from 'react';
 
-const StringPaper = ({colorInverted,setColorInverted, string, setReplace, replace, type, setBrightness, brightness}) => {
+const StringPaper = ({colorInverted,setColorInverted, string, setReplace, replace, type, setBrightness, brightness, setShowArt, showArt}) => {
     const [popUp, setPopUp] = useState(false)
     const [name, setName] = useState("")
     const { login, register, logout, isAuthenticated, isLoading, user } = useKindeAuth();
@@ -16,7 +16,10 @@ const StringPaper = ({colorInverted,setColorInverted, string, setReplace, replac
 	}
 
     const copyToCLipboard = () =>{
-        navigator.clipboard.writeText(string)
+        if(string !== null){
+
+            navigator.clipboard.writeText(string)
+        }
     }
 
     const saveString = () =>{
@@ -47,12 +50,12 @@ const StringPaper = ({colorInverted,setColorInverted, string, setReplace, replac
     return(
         <Paper id="StringPaper">
         <Optional  setColorInverted={setColorInverted} colorInverted={colorInverted} setReplace={setReplace} replace={replace}
-         type={type} setBrightness={setBrightness} brightness={brightness} copyToCLipboard={copyToCLipboard()}/>
+         type={type} setBrightness={setBrightness} brightness={brightness} copyToCLipboard={copyToCLipboard()} showArt={showArt}/>
             <div className={colorInverted ? 'stringWrapperInverted' : 'stringWrapper' } >
 				{spanCreator(string)}
 			</div>
             {popUp && <PopUpWindow text={("give name")} handleOk={() => {saveString(); setPopUp(!popUp)}} handleCancel={() => setPopUp(!popUp)} setName={setName}></PopUpWindow>}
-            {isAuthenticated && <Button id="StringSaveButton" onClick={() => setPopUp(!popUp)}>Save</Button>}
+            {isAuthenticated && <Button id="StringSaveButton" onClick={() => {setPopUp(!popUp)}}>Save</Button>}
         </Paper>
     )
 }

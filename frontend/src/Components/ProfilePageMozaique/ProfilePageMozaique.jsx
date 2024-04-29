@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import "./ProfilePageMozaique.css"
-import StringPaper from "../StringPaper/StringPaper";
+import ArtInspector from "../ArtInspector/ArtInspector";
 
 const ProfilePageMozaique = (artList) =>{
     const [inspectedArtData, setInspectedArtData] = useState([])
@@ -18,10 +18,11 @@ const ProfilePageMozaique = (artList) =>{
 
     return(
         <>
-            {showArt && <StringPaper id="ArtInspector" colorInverted={inspectedArtData[2]} string={inspectedArtData[1].toString()} setColorInverted={inspectedArtData[2]} type={inspectedArtData[3]}/>}
+        {showArt ? <ArtInspector id="ArtInspectorContainer" colorInverted={inspectedArtData[2]} string={inspectedArtData[1].toString()} type={inspectedArtData[3]} setShowArt={setShowArt} showArt={showArt}/> :
         <div id="MozaiqueContainer">
             {printMozaqiue()}
         </div>
+}
         </>
     )
 }
