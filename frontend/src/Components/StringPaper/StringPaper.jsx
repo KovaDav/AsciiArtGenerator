@@ -24,8 +24,8 @@ const StringPaper = ({colorInverted,setColorInverted, string, setReplace, replac
 
     const saveString = () =>{
         fetch(
-            `http://localhost:5000/save/string`
-            //`https://KovaDav.eu.pythonanywhere.com/ascii?width=${width}&inverted=${asciiInverted}`
+            //`http://localhost:5000/save/string`
+            `https://KovaDav.eu.pythonanywhere.com/save/string`
             ,
             {
                 method: 'POST',
