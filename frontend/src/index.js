@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import reportWebVitals from './reportWebVitals';
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+
 import Layout from "./Pages/Layout";
 import PdfDownloaderPage from "./Pages/PdfDownloaderPage"
 import PlayAroundPage from "./Pages/PlayAroundPage"
@@ -40,10 +41,9 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <KindeProvider
-		clientId={process.env.REACT_APP_KINDE_CLIENT_ID}
-		domain={process.env.REACT_APP_KINDE_ISSUER_URL}
-		redirectUri={process.env.REACT_APP_KINDE_POST_CALLBACK_URL}
-		logoutUri={process.env.REACT_APP_KINDE_POST_LOGOUT_REDIRECT_URL}
+		domain="https://ascii.kinde.com"
+		redirectUri="https://ascii-art-generator-eight.vercel.app"
+		logoutUri="https://ascii-art-generator-eight.vercel.app"
 	>
     <RouterProvider router={router} />
     </KindeProvider>
