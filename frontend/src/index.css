@@ -54,7 +54,7 @@ justify-content: space-evenly;
 }
 
 .stringWrapperInverted{
-  padding: 7px;
+  padding-top: 7px;
   background-color: hsl(245, 39%, 5%);
   color: hsl(245, 39%, 97%);
 }
