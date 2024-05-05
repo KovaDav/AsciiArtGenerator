@@ -11,8 +11,8 @@ const Layout = () => {
   useEffect(() => {
       if(isAuthenticated){
           fetch(
-              //`http://localhost:5000/register`
-              `https://KovaDav.eu.pythonanywhere.com/register`
+              `http://localhost:5000/register`
+              //`https://KovaDav.eu.pythonanywhere.com/register`
               ,
               {
                   method: 'POST',
