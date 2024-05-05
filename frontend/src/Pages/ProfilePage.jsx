@@ -9,8 +9,8 @@ const ProfilePage = () =>{
     const [artList, setArtList] = useState(null)
     useEffect(() => {
         fetch(
-            //`http://localhost:5000/profile/list`
-            `https://KovaDav.eu.pythonanywhere.com/profile/list`
+            `http://localhost:5000/profile/list`
+            //`https://KovaDav.eu.pythonanywhere.com/profile/list`
             ,
             {
             method: 'POST',
