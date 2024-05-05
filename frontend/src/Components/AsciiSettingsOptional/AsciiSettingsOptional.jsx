@@ -28,9 +28,9 @@ const AsciiSettings = ({setColorInverted, colorInverted, setReplace, replace, ty
         <Tooltip title="Copy to Clipboard">
 			<IconButton onClick={() => copyToClipboard()}><ContentCopyIcon /></IconButton>
 		</Tooltip>
-		<Tooltip title="Download as PDF">
+		{/*<Tooltip title="Download as PDF">
 			<IconButton onClick={() => console.log("not yet implemented") }><PictureAsPdfIcon /></IconButton>
-		</Tooltip>
+    </Tooltip>*/}
         </div>
     </Paper>
     );
