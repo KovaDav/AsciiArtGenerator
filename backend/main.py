@@ -51,6 +51,21 @@ def save_string():
         return json.dumps({"response": "error"})
     return json.dumps({"response": "ok"})
 
+@app.post('/save/pdf')
+def save_string():
+    
+    try:
+        client.AsciiArtGenerator.Uploads.insert_one({
+            "UserId": request.get_json()["UserId"],
+            "ArtName": request.get_json()["ArtName"], 
+            "StringType": request.get_json()["StringType"],
+            "PdfString": request.get_json()["String"],
+            "SaveDate": datetime.utcnow()
+        })
+    except:
+        return json.dumps({"response": "error"})
+    return json.dumps({"response": "ok"})
+
 @app.post('/braille')
 def get_braille():
     image = PIL.Image.open(request.files['File'])
