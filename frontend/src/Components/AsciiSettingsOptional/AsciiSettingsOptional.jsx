@@ -7,7 +7,7 @@ import Tooltip from '@mui/material/Tooltip';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 
-const AsciiSettings = ({setColorInverted, colorInverted, setReplace, replace, type, setBrightness, brightness, copyToClipboard, showArt}) => {
+const AsciiSettings = ({setColorInverted, colorInverted, setReplace, replace, type, setBrightness, brightness, copyToClipboard}) => {
 
     
 
@@ -26,11 +26,11 @@ const AsciiSettings = ({setColorInverted, colorInverted, setReplace, replace, ty
         <input type={"range"} min={"1"} max={"254"} defaultValue={brightness} id={"Slider"} onChange={e => setBrightness(e.target.value)}></input>
         </>}
         <Tooltip title="Copy to Clipboard">
-			<IconButton onClick={() => copyToClipboard()}><ContentCopyIcon /></IconButton>
+			<IconButton onClick={() => copyToClipboard}><ContentCopyIcon /></IconButton>
 		</Tooltip>
-		{/*<Tooltip title="Download as PDF">
+		<Tooltip title="Download as PDF">
 			<IconButton onClick={() => console.log("not yet implemented") }><PictureAsPdfIcon /></IconButton>
-    </Tooltip>*/}
+		</Tooltip>
         </div>
     </Paper>
     );

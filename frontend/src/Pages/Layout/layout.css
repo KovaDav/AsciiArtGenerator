@@ -11,11 +11,11 @@
 
 .Header{
     color: hsl(245, 39%, 97%);
-    margin-top: 4rem;
     font-weight: 400;
     font-size: 4rem;
+    margin: 1rem;
     justify-self: flex-start;
-    
+    width: 20rem;
 }
 
 .LayoutPageButton{

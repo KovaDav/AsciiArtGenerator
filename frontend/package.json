@@ -6,7 +6,6 @@
   "dependencies": {
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
-    "@kinde-oss/kinde-auth-react": "^3.0.28",
     "@mui/icons-material": "^5.15.10",
     "@mui/material": "^5.15.10",
     "@mui/material-next": "^6.0.0-alpha.125",

@@ -1,7 +1,9 @@
 
 import Paper from '@mui/material/Paper';
 import Select from '@mui/material/Select';
+import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
+import Optional from "../AsciiSettingsOptional/AsciiSettingsOptional"
 import { useEffect, useState } from "react";
 import Switch from '@mui/material/Switch';
 import TextField from '@mui/material/TextField';
