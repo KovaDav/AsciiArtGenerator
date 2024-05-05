@@ -42,8 +42,8 @@ root.render(
   <React.StrictMode>
     <KindeProvider
 		domain="https://ascii.kinde.com"
-		redirectUri="https://ascii-art-generator-eight.vercel.app"
-		logoutUri="https://ascii-art-generator-eight.vercel.app"
+		redirectUri="https://ascii-art-generator-eight.vercel.app/"
+		logoutUri="https://ascii-art-generator-eight.vercel.app/"
 	>
     <RouterProvider router={router} />
     </KindeProvider>
