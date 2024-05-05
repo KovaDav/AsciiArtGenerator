@@ -41,7 +41,6 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <KindeProvider
-		clientId="af96ab8101f64fff9bb6951112211899"
 		domain="https://ascii.kinde.com"
 		redirectUri="https://ascii-art-generator-eight.vercel.app/"
 		logoutUri="https://ascii-art-generator-eight.vercel.app/"
