@@ -1,14 +1,70 @@
-import copy
 import PIL.Image
 import html
 from flask import Flask, request
 from flask_cors import CORS
+import os
+from dotenv import load_dotenv
+from flask_pymongo import PyMongo, MongoClient
 import json
 
-
+from datetime import datetime
 app = Flask(__name__)
 CORS(app)
 
+load_dotenv()
+
+client = MongoClient(f"mongodb+srv://{os.getenv("DBUSER")}:{os.getenv("DBPASSWORD")}@cluster0.kqamisi.mongodb.net/")
+
+
+
+@app.post('/register')
+def register_user():
+    if client.AsciiArtGenerator.Users.find_one({"UserId" : request.headers["UserId"]}) == None :
+        client.AsciiArtGenerator.Users.insert_one({
+        "UserId": request.headers["UserId"], 
+        "UserName": request.headers["UserName"],
+        "RegistrationDate":  datetime.utcnow()
+        })
+    return json.dumps({"response": "ok"})
+
+@app.post('/profile/list')
+def get_user_arts():
+    data = client.AsciiArtGenerator.Uploads.find({ "UserId": request.headers["UserId"]})
+    response = []
+    for art in data:
+        response.append([art["ArtName"], art["String"], art["ColorInverted"], art["StringType"]])
+    return response
+
+@app.post('/save/string')
+def save_string():
+    
+    try:
+        client.AsciiArtGenerator.Uploads.insert_one({
+            "UserId": request.get_json()["UserId"],
+            "ArtName": request.get_json()["ArtName"], 
+            "StringType": request.get_json()["StringType"],
+            "String": request.get_json()["String"],
+            "ColorInverted": request.get_json()["ColorInverted"],
+            "SaveDate": datetime.utcnow()
+        })
+    except:
+        return json.dumps({"response": "error"})
+    return json.dumps({"response": "ok"})
+
+@app.post('/save/pdf')
+def save_string():
+    
+    try:
+        client.AsciiArtGenerator.Uploads.insert_one({
+            "UserId": request.get_json()["UserId"],
+            "ArtName": request.get_json()["ArtName"], 
+            "StringType": request.get_json()["StringType"],
+            "PdfString": request.get_json()["String"],
+            "SaveDate": datetime.utcnow()
+        })
+    except:
+        return json.dumps({"response": "error"})
+    return json.dumps({"response": "ok"})
 
 @app.post('/braille')
 def get_braille():
