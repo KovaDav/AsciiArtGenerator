@@ -21,7 +21,7 @@ const PdfPaper = ({brightness, setWidth, setSelectedFile, ascii, braille, atkins
     const [paperSize, setPaperSize] = useState("a4")
     const [paperCoordinateX, setPaperCoordinateX] = useState(1)
     const [paperCoordinateY, setPaperCoordinateY] = useState(1)
-    const [pdfString, setPdfString] = useState("test")
+    const [pdfString, setPdfString] = useState("")
     const [colorInverted, setColorInverted] = useState(false)
 
 
@@ -61,7 +61,7 @@ const PdfPaper = ({brightness, setWidth, setSelectedFile, ascii, braille, atkins
             doc.setFillColor(0,0,0)
             }
             doc.text(atkinson,paperCoordinateX,paperCoordinateY)
-          }else{
+          }else if(pdfType === 'ascii'){
             doc.addFileToVFS("MonospaceTypewriter.ttf", font2)
             doc.addFont("MonospaceTypewriter-normal.ttf", "MonospaceTypewriter", "normal")
             doc.setFont('MonospaceTypewriter')
@@ -75,6 +75,8 @@ const PdfPaper = ({brightness, setWidth, setSelectedFile, ascii, braille, atkins
             }
             doc.setProperties({title: "title"})
             doc.text(ascii,paperCoordinateX,paperCoordinateY)
+          }else{
+            doc.text("nothing to see here")
           }
           
           
