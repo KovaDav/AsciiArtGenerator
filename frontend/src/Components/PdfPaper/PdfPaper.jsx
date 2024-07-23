@@ -73,6 +73,7 @@ const PdfPaper = ({brightness, setWidth, setSelectedFile, ascii, braille, atkins
             doc.setTextColor(255,255,255)
             doc.setFillColor(0,0,0)
             }
+            doc.setProperties({title: "title.pdf"})
             doc.text(ascii,paperCoordinateX,paperCoordinateY)
           }
           
