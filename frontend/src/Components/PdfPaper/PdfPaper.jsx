@@ -61,7 +61,7 @@ const PdfPaper = ({brightness, setWidth, setSelectedFile, ascii, braille, atkins
             doc.setFillColor(0,0,0)
             }
             doc.text(atkinson,paperCoordinateX,paperCoordinateY)
-          }else{
+          }else if(pdfType === 'ascii'){
             doc.addFileToVFS("MonospaceTypewriter.ttf", font2)
             doc.addFont("MonospaceTypewriter-normal.ttf", "MonospaceTypewriter", "normal")
             doc.setFont('MonospaceTypewriter')
@@ -75,6 +75,8 @@ const PdfPaper = ({brightness, setWidth, setSelectedFile, ascii, braille, atkins
             }
             doc.setProperties({title: "title"})
             doc.text(ascii,paperCoordinateX,paperCoordinateY)
+          }else{
+            doc.text('nothing', 10, 10)
           }
           
           
@@ -169,9 +171,10 @@ const PdfPaper = ({brightness, setWidth, setSelectedFile, ascii, braille, atkins
             <p id="pdfDownloaderVerticalDescription" className="BoldText">Vertical(Y) position on paper</p>
             <input id="pdfDownloaderVerticalSlider" type={"range"} min={"1"} max={"350"} className={"PdfSlider"} defaultValue={"1"} onChange={e => setPaperCoordinateY(e.target.value)}></input>
             </section>
-            <iframe id="pdfDownloaderPreview" background="black" title='pdf' src={pdfString} allow='fullscreen'/>
+            {//<iframe id="pdfDownloaderPreview" background="black" title='pdf' src={pdfString} allow='fullscreen'/>
+            }
                 
-            
+            <button onClick={e => handlePdf(true)}>save</button>
         </Paper>
     )
 }
