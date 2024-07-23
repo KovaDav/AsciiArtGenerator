@@ -99,7 +99,7 @@ const PdfPaper = ({brightness, setWidth, setSelectedFile, ascii, braille, atkins
 
     return(
         <Paper  id="pdfDownloaderPaper">
-
+            <button onClick={e => handlePdf(true)}>save</button>
             <div className='FlexColumnContainerCentered pdfDownloaderSettingsContainer'>
             <p className='NoMargin BoldText'>Character type</p>
              <Select
