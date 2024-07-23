@@ -61,7 +61,7 @@ const PdfPaper = ({brightness, setWidth, setSelectedFile, ascii, braille, atkins
             doc.setFillColor(0,0,0)
             }
             doc.text(atkinson,paperCoordinateX,paperCoordinateY)
-          }else if(pdfType === 'ascii'){
+          }else{
             doc.addFileToVFS("MonospaceTypewriter.ttf", font2)
             doc.addFont("MonospaceTypewriter-normal.ttf", "MonospaceTypewriter", "normal")
             doc.setFont('MonospaceTypewriter')
@@ -75,8 +75,6 @@ const PdfPaper = ({brightness, setWidth, setSelectedFile, ascii, braille, atkins
             }
             doc.setProperties({title: "title"})
             doc.text(ascii,paperCoordinateX,paperCoordinateY)
-          }else{
-            doc.text("nothing to see here")
           }
           
           
@@ -101,7 +99,6 @@ const PdfPaper = ({brightness, setWidth, setSelectedFile, ascii, braille, atkins
 
     return(
         <Paper  id="pdfDownloaderPaper">
-            <button onClick={e => handlePdf(true)}>save</button>
             <div className='FlexColumnContainerCentered pdfDownloaderSettingsContainer'>
             <p className='NoMargin BoldText'>Character type</p>
              <Select
