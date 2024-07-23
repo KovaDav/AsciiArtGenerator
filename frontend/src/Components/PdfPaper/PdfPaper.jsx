@@ -171,7 +171,10 @@ const PdfPaper = ({brightness, setWidth, setSelectedFile, ascii, braille, atkins
             <p id="pdfDownloaderVerticalDescription" className="BoldText">Vertical(Y) position on paper</p>
             <input id="pdfDownloaderVerticalSlider" type={"range"} min={"1"} max={"350"} className={"PdfSlider"} defaultValue={"1"} onChange={e => setPaperCoordinateY(e.target.value)}></input>
             </section>
-            {//<iframe id="pdfDownloaderPreview" background="black" title='pdf' src={pdfString} allow='fullscreen'/>
+            {if (typeof window.Android !== 'undefined' && window.Android !== null) {
+            {<iframe id="pdfDownloaderPreview" background="black" title='pdf' src={pdfString} allow='fullscreen'/>}
+
+            }
             }
                 
             <button onClick={e => handlePdf(true)}>save</button>
