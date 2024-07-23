@@ -21,7 +21,7 @@ const PdfPaper = ({brightness, setWidth, setSelectedFile, ascii, braille, atkins
     const [paperSize, setPaperSize] = useState("a4")
     const [paperCoordinateX, setPaperCoordinateX] = useState(1)
     const [paperCoordinateY, setPaperCoordinateY] = useState(1)
-    const [pdfString, setPdfString] = useState("")
+    const [pdfString, setPdfString] = useState("test")
     const [colorInverted, setColorInverted] = useState(false)
 
 
